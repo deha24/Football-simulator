@@ -12,4 +12,10 @@ export class FootballersList {
 
   @Input() footballers: Footballer[] = [];
 
+  constructor() {}
+
+  ngOnInit() {
+    console.log(this.footballers)
+  }
+
 }

@@ -1,8 +1,8 @@
 <div class="container">
   <h1 class="text-center mt-5">{{ title() }}</h1>
-   <footballer-add (addFootballer)="items.push($event)"></footballer-add>
+  <footballer-add (addFootballer)="items.push($event)"></footballer-add>
   <footballers-list [footballers]="items">
   </footballers-list>
-
+  <router-outlet></router-outlet>
 </div>
 

@@ -1,5 +1,5 @@
 <ul class="list-group mt-3">
-    @if (footballers.length > 0) {
+  @if (footballers.length > 0) {
       @for (footballer of footballers; track footballer) {
         <footballers-list-item [footballer]="footballer"></footballers-list-item>
       }

@@ -15,7 +15,15 @@ export class FootballersService {
     return this.http.get('assets/footballers.json');
   }
 
+  getFootballerById(id: number) {
+    return this.http.get(`assets/footballers.json?id=${id}`);
+  }
+
   addFootballer(footballer: Footballer) {
     return this.http.post('assets/footballers.json', footballer);
+  }
+
+  deleteFootballer(id: number) {
+    return this.http.delete(`assets/footballers.json?id=${id}`);
   }
 }

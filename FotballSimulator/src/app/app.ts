@@ -36,11 +36,4 @@ export class App implements OnInit {
   }
 
   protected readonly title = signal('FotballSimulator');
-
-  addNewFootballer() {
-      if (this.newFootballerName) {
-      this.items.push(new Footballer(this.newFootballerName, ''));
-      this.newFootballerName = '';
-    }
-  }
 }
