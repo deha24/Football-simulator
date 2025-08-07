@@ -4,7 +4,7 @@ import { Footballer } from '../shared/models/footballer';
 import { FormsModule } from '@angular/forms';
 import { FootballersList } from "./footballers-list/footballers-list";
 import { FootballersListItem } from './footballers-list-item/footballers-list-item';
-import eventService  from '../shared/services/EventServices';
+import { EventService }  from '../shared/services/EventServices';
 
 
 
@@ -26,8 +26,8 @@ export class App {
     new Footballer('Kevin', 'De Bruyne')
   ]
 
-  constructor() {
-    eventService.getEvent('removeFootballer', (footballer: Footballer) => {
+  constructor(private eventService: EventService) {
+    this.eventService.getEvent('removeFootballer', (footballer: Footballer) => {
       this.items = this.items.filter(item => item !== footballer);
     });
   }

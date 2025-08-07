@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
 import { Footballer } from '../../shared/models/footballer';
-import eventService from '../../shared/services/EventServices';
+import { EventService } from '../../shared/services/EventServices';
 
 
 @Component({
@@ -13,7 +13,9 @@ export class FootballersListItem {
 
   @Input() footballer!: Footballer;
 
+  constructor(private eventService: EventService) {}
+
   removeFootballer() {
-    eventService.emitEvent('removeFootballer', this.footballer);
+    this.eventService.emitEvent('removeFootballer', this.footballer);
   }
 }
