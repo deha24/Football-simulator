@@ -1,14 +1,16 @@
+import { Footballer } from './../shared/models/footballer';
 import { Component, OnInit, Output, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Footballer } from '../shared/models/footballer';
 import { FormsModule } from '@angular/forms';
-import { FootballersList } from "./footballers-list/footballers-list";import { FootballersListItem } from './footballers-list-item/footballers-list-item';
+import { FootballersList } from "./editor/footballer/footballers-list/footballers-list";import { FootballersListItem } from './editor/footballer/footballers-list-item/footballers-list-item';
 import { EventService }  from '../shared/services/EventServices';
-import { FootballersService } from './footballersService';
+import { FootballersService } from './editor/footballer/footballersService';
+import { HttpClient } from '@angular/common/http';
+import { FootballerAdd } from "./editor/footballer/footballer-add/footballer-add";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule, FootballersList],
+  imports: [RouterOutlet, FormsModule, FootballersList, FootballerAdd],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -28,11 +30,9 @@ export class App implements OnInit {
   }
 
   ngOnInit(): void {
-    this.footballersService.getFootballers().subscribe({
-      next: (data: any) => {
-        this.items = data;
-      },
-    });
+    this.footballersService.getFootballers().subscribe((data : any) => {
+      this.items = data;
+    })
   }
 
   protected readonly title = signal('FotballSimulator');

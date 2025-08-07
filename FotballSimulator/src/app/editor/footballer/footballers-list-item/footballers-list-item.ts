@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
-import { Footballer } from '../../shared/models/footballer';
-import { EventService } from '../../shared/services/EventServices';
+import { Footballer } from '../../../../shared/models/footballer';
+import { EventService } from '../../../../shared/services/EventServices';
 
 
 @Component({
