@@ -1,0 +1,18 @@
+<div class="container">
+  <h1 class="text-center mt-5">{{ title() }}</h1>
+   <form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center">
+    <div class="col-sm-6">
+      <label class="visually-hidden" for="specificSizeInputName">Footballer</label>
+      <input type="text" name="new-footballer-text" class="form-control" [(ngModel)]="newFootballerName" placeholder="Enter footballer name" />
+    </div>
+    <div class="col-auto">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="$event.preventDefault(); addNewFootballer()"
+      >Add Footballer</button>
+    </div>
+  </form>
+  <footballers-list [footballers]="items">
+  </footballers-list>
+</div>
