@@ -21,7 +21,6 @@ export class FootballerDetails {
     this.footballersService.getFootballerById(parseInt(id)).subscribe((data: any) => {
       this.footballer = data[parseInt(id)-1];
       this.cdr.detectChanges();
-
     });
   }
 }

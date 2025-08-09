@@ -1,0 +1,9 @@
+@if (clubs && clubs.length > 0) {
+  <ul>
+    @for (club of clubs; track club) {
+      <club-list-item [club]="club"></club-list-item>
+    }
+  </ul>
+} @else {
+  <p>No clubs found.</p>
+}

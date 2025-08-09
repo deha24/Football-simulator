@@ -3,10 +3,14 @@ import { FootballersList } from './editor/footballer/footballers-list/footballer
 import { FootballerAdd } from './editor/footballer/footballer-add/footballer-add';
 import { NotFound } from './not-found/not-found';
 import { FootballerDetails } from './editor/footballer/footballers-list-item/footballer-details/footballer-details';
+import { ClubsList } from './editor/club/clubs-list/clubs-list';
+import { ClubDetails } from './editor/club/clubs-list/club-list-item/club-details/club-details';
 
 export const routes: Routes = [
   { path: 'editor/footballers', component: FootballersList },
   { path: 'editor/addfootballer', component: FootballerAdd },
   { path : 'editor/footballers/details/:id', component:  FootballerDetails}, // Example route for editing a footballer
+  { path: 'editor/clubs', component: ClubsList },
+  { path : 'editor/clubs/details/:id', component:  ClubDetails},
   { path: '**', component: NotFound } // Fallback route
 ];

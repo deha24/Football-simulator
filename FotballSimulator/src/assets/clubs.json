@@ -1,0 +1,11 @@
+[
+    {"id": 1, "name": "Barcelona", "country": "Spain", "founded": 1899, "stadium": "Camp Nou", "capacity": 99354, "players": ["player1", "player2"]},
+    {"id": 2, "name": "Real Madrid", "country": "Spain", "founded": 1902, "stadium": "Santiago Bernabéu", "capacity": 81044, "players": ["player3", "player4"]},
+    {"id": 3, "name": "Manchester United", "country": "England", "founded": 1878, "stadium": "Old Trafford", "capacity": 74879, "players": ["player5", "player6"]},
+    {"id": 4, "name": "Bayern Munich", "country": "Germany", "founded": 1900, "stadium": "Allianz Arena", "capacity": 75000, "players": ["player7", "player8"]},
+    {"id": 5, "name": "Juventus", "country": "Italy", "founded": 1897, "stadium": "Allianz Stadium", "capacity": 41507, "players": ["player9", "player10"]},
+    {"id": 6, "name": "Paris Saint-Germain", "country": "France", "founded": 1970, "stadium": "Parc des Princes", "capacity": 47929, "players": ["player11", "player12"]},
+    {"id": 7, "name": "Liverpool", "country": "England", "founded": 1892, "stadium": "Anfield", "capacity": 53394, "players": ["player13", "player14"]},
+    {"id": 8, "name": "AC Milan", "country": "Italy", "founded": 1899, "stadium": "San Siro", "capacity": 75038, "players": ["player15", "player16"]},
+    {"id": 9, "name": "Arsenal", "country": "England", "founded": 1886, "stadium": "Emirates Stadium", "capacity": 60260, "players": ["player19", "player18"]}
+]
