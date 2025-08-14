@@ -1,0 +1,51 @@
+from fastapi import APIRouter
+import psycopg2
+from ..models.club import Club
+
+router = APIRouter(
+    prefix="/clubs",
+    tags=["clubs"],
+)
+
+DB_NAME = "FootballSimulator"
+DB_USER = "postgres"
+DB_PASS = "Jajca123"
+DB_HOST = "localhost"
+DB_PORT = "5432"
+
+try:
+    conn = psycopg2.connect(
+        host=DB_HOST,
+        dbname=DB_NAME,
+        user=DB_USER,
+        password=DB_PASS,
+        port=DB_PORT
+    )
+except Exception as e:
+    pass
+
+@router.get("/getclubs")
+def get_clubs() -> list[Club]:
+    with conn.cursor() as cur:
+        cur.execute("SELECT * FROM clubs")
+        rows = cur.fetchall()
+    return [Club(id=row[0], name=row[1], players_id=row[2] if row[2] is not None else []) for row in rows]
+
+@router.post("/addclub")
+async def addclub(club: Club):
+    cur = conn.cursor()
+    cur.execute("INSERT INTO clubs (name, players_id) VALUES (%s, %s)", (club.name, club.players_id))
+    conn.commit()
+
+@router.get("/details/{club_id}")
+async def get_club_by_id(club_id: int) -> Club:
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM clubs WHERE id = %s", (club_id,))
+    row = cur.fetchone()
+    if row:
+        return Club(
+            id=row[0],
+            name=row[1],
+            players_id=row[2] if row[2] is not None else []
+        )
+    return None
