@@ -6,6 +6,7 @@ import { Observable, of } from "rxjs";
 import { League } from '../../../shared/models/league';
 
 export function multipleFirstLeagueLevel(leagueService: LeagueService, EventService: EventService): AsyncValidatorFn  {
+
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     const country = control.get('newLeagueLocation')?.value;
     const level = control.get('newLeagueLevel')?.value;
@@ -13,11 +14,14 @@ export function multipleFirstLeagueLevel(leagueService: LeagueService, EventServ
     if (!country || !level) {
       return of(null);
     }
-    console.log('Checking for multiple leagues at level:', level, 'in country:', country);
+
     return leagueService.getLeaguesByCountryByLevel(country, level).pipe(
+
       map(leagues => {
+
         if (leagues.length > 0 && level === 1) {
-          return { multipleLeaguesLevel: true };
+          console.log('Multiple first-level leagues found in', country);
+          return true ? { 'multipleFirstLeagueLevel': true } : null;
         }
         return null;
       })

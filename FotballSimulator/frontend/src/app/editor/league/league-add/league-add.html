@@ -19,6 +19,9 @@
     @if (multipleLowerLeaguesLevel) {
       <small class="text-danger">There are multiple lower leagues at this level.</small>
     }
+    @if (addLeagueForm.errors?.['multipleFirstLeagueLevel']) {
+      <small class="text-danger">There is already a first league.</small>
+    }
   </div>
   <div class="col-auto">
     <button

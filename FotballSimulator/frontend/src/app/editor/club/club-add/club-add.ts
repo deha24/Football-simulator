@@ -1,7 +1,7 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClubService } from '../clubService';
-import { Club } from '../../../../shared/models/club';
+import { Club, } from '../../../../shared/models/club';
 import { League } from '../../../../shared/models/league';
 import { LeagueService } from '../../league/leagueService';
 
@@ -36,7 +36,7 @@ export class ClubAdd implements OnInit {
     const clubLeague = this.addclubform.value.newClubLeague;
 
     if (this.addclubform.valid) {
-      const newClub = new Club(12, clubName!, clubLocation!, 1888, "Some Stadium", 60000, []);
+      const newClub = new Club(clubName!, clubLocation!, 1888, "Some Stadium", 60000, [], undefined);
       this.clubService.addClub(newClub).subscribe({
         next: () => {
           this.addclubform.reset();

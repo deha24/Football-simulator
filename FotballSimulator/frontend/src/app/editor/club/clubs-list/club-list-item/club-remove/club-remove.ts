@@ -19,7 +19,7 @@ export class ClubRemove {
 
   removeClub() {
     if (this.club) {
-      this.clubsService.removeClub(this.club.id).subscribe(() => {
+      this.clubsService.removeClub(this.club.id!).subscribe(() => {
       });
       this.eventService.emitEvent('removeClub', this.club);
     }

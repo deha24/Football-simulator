@@ -1,16 +1,16 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Club } from '../../../../shared/models/club';
 import { ClubService } from '../clubService';
-import { ClubListItem } from './club-list-item/club-list-item';
+import { ClubsItem } from './club-list-item/clubs-item';
 import { EventService } from '../../../../shared/services/EventServices';
 
 @Component({
-  selector: 'clubs-list',
-  imports: [ClubListItem],
-  templateUrl: './clubs-list.html',
-  styleUrl: './clubs-list.css'
+  selector: 'clubs',
+  imports: [ClubsItem],
+  templateUrl: './clubs.html',
+  styleUrl: './clubs.css'
 })
-export class ClubsList {
+export class Clubs {
 
   clubs: Club[] = [];
 

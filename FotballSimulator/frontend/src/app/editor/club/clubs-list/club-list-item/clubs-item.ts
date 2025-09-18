@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { ClubRemove } from './club-remove/club-remove';
 
 @Component({
-  selector: 'club-list-item',
+  selector: 'clubs-item',
   imports: [ClubRemove],
-  templateUrl: './club-list-item.html',
-  styleUrl: './club-list-item.css'
+  templateUrl: './clubs-item.html',
+  styleUrl: './clubs-item.css'
 })
-export class ClubListItem {
+export class ClubsItem {
 
   @Input() club!: Club;
 

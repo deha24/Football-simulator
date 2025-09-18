@@ -26,6 +26,9 @@ export class LeagueAdd {
       if (leagues.length > 0 && level > 1) {
         this.multipleLowerLeaguesLevel = true;
         this.cdr.markForCheck();
+      }else {
+        this.multipleLowerLeaguesLevel = false;
+        this.cdr.markForCheck();
       }
     });
   }
@@ -33,20 +36,23 @@ export class LeagueAdd {
   addLeagueForm!: FormGroup;
 
   ngOnInit() {
-    this.addLeagueForm = new FormGroup({
-    newLeagueName: new FormControl('', Validators.required),
-    newLeagueLocation: new FormControl('', Validators.required),
-    newLeagueLevel: new FormControl(null, Validators.required)
-  }, { asyncValidators: [ multipleFirstLeagueLevel(this.leagueService, this.eventService)] });
-}
 
+    this.addLeagueForm = new FormGroup({
+      newLeagueName: new FormControl('', Validators.required),
+      newLeagueLocation: new FormControl('', Validators.required),
+      newLeagueLevel: new FormControl(null, Validators.required,)
+    },
+    { asyncValidators: [ multipleFirstLeagueLevel(this.leagueService, this.eventService)] });
+}
 
   addNewLeague() {
     const newLeagueName = this.addLeagueForm.get('newLeagueName')?.value;
     const newLeagueLocation = this.addLeagueForm.get('newLeagueLocation')?.value;
     const newLeagueLevel = this.addLeagueForm.get('newLeagueLevel')?.value;
+
     if (this.addLeagueForm.valid) {
       const newLeague = new League(4, newLeagueName!, newLeagueLocation!, newLeagueLevel!, []);
+
       this.leagueService.addLeague(newLeague).subscribe(() => {
         this.addLeagueForm.reset();
       });

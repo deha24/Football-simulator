@@ -1,16 +1,16 @@
-import { FootballersListItem } from '../footballers-list-item/footballers-list-item';
+import { FootballersItem, } from '../footballers-list-item/footballers-item';
 import { Component, Input } from '@angular/core';
 import { Footballer } from '../../../../shared/models/footballer';
 import { ChangeDetectorRef } from '@angular/core';
 import { FootballersService } from '../footballersService';
 import { EventService } from '../../../../shared/services/EventServices';
 @Component({
-  selector: 'footballers-list',
-  imports: [FootballersListItem],
-  templateUrl: './footballers-list.html',
-  styleUrl: './footballers-list.css'
+  selector: 'footballers',
+  imports: [FootballersItem],
+  templateUrl: './footballers.html',
+  styleUrl: './footballers.css'
 })
-export class FootballersList {
+export class Footballers {
 
   footballers: Footballer[] = [];
 

@@ -2,13 +2,13 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LeagueService } from '../leagueService';
 import { League } from '../../../../shared/models/league';
 import { EventService } from '../../../../shared/services/EventServices';
-import { LeagueListItem } from "./league-list-item/league-list-item";
+import { LeaguesItem } from "./league-list-item/leagues-item";
 
 @Component({
-  selector: 'league-list',
-  imports: [LeagueListItem],
-  templateUrl: './league-list.html',
-  styleUrl: './league-list.css'
+  selector: 'leagues',
+  imports: [LeaguesItem],
+  templateUrl: './leagues.html',
+  styleUrl: './leagues.css'
 })
 export class LeagueList implements OnInit {
 

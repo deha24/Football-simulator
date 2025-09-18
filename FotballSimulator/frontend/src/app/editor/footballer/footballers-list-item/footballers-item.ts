@@ -5,12 +5,12 @@ import { FootballerRemove } from './footballer-remove/footballer-remove';
 
 
 @Component({
-  selector: 'footballers-list-item',
+  selector: 'footballers-item',
   imports: [FootballerRemove],
-  templateUrl: './footballers-list-item.html',
-  styleUrl: './footballers-list-item.css'
+  templateUrl: './footballers-item.html',
+  styleUrl: './footballers-item.css'
 })
-export class FootballersListItem {
+export class FootballersItem {
 
   @Input() footballer!: Footballer;
 

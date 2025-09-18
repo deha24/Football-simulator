@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { LeagueRemove } from "./league-remove/league-remove";
 
 @Component({
-  selector: 'league-list-item',
+  selector: 'leagues-item',
   imports: [LeagueRemove],
-  templateUrl: './league-list-item.html',
-  styleUrl: './league-list-item.css'
+  templateUrl: './leagues-item.html',
+  styleUrl: './leagues-item.css'
 })
-export class LeagueListItem {
+export class LeaguesItem {
 
   @Input() leagues!: League[];
 
