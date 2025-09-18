@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import {ReactiveFormsModule, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, ChangeDetectorRef, input, Input } from '@angular/core';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators, AsyncValidatorFn } from '@angular/forms';
 import { LeagueService } from '../leagueService';
 import { League } from '../../../../shared/models/league';
-import { multipleLeaguesLevel } from '../league-form-validators';
+import { multipleFirstLeagueLevel } from '../league-form-validators';
+import { EventService } from '../../../../shared/services/EventServices';
 
 @Component({
   selector: 'app-league-add',
@@ -12,16 +13,33 @@ import { multipleLeaguesLevel } from '../league-form-validators';
 })
 export class LeagueAdd {
 
-  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef) { }
+  multipleLowerLeaguesLevel: boolean = false;
 
-  firstdivisionexists: boolean = false;
-  lowerdivisionexists: boolean = false;
+  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private eventService: EventService) {
+  }
 
-  addLeagueForm = new FormGroup({
+  checkForMultipleLowerLeaguesLevel() {
+    const level = this.addLeagueForm.get('newLeagueLevel')?.value;
+    const country = this.addLeagueForm.get('newLeagueLocation')?.value;
+
+    this.leagueService.getLeaguesByCountryByLevel(country, level).subscribe(leagues => {
+      if (leagues.length > 0 && level > 1) {
+        this.multipleLowerLeaguesLevel = true;
+        this.cdr.markForCheck();
+      }
+    });
+  }
+
+  addLeagueForm!: FormGroup;
+
+  ngOnInit() {
+    this.addLeagueForm = new FormGroup({
     newLeagueName: new FormControl('', Validators.required),
     newLeagueLocation: new FormControl('', Validators.required),
-    newLeagueLevel: new FormControl(null, [Validators.required,])
-  });
+    newLeagueLevel: new FormControl(null, Validators.required)
+  }, { asyncValidators: [ multipleFirstLeagueLevel(this.leagueService, this.eventService)] });
+}
+
 
   addNewLeague() {
     const newLeagueName = this.addLeagueForm.get('newLeagueName')?.value;
@@ -34,5 +52,4 @@ export class LeagueAdd {
       });
     }
   }
-
 }

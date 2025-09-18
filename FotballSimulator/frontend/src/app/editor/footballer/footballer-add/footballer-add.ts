@@ -32,7 +32,7 @@ export class FootballerAdd  implements OnInit {
   addfootballerform = new FormGroup({
     newFootballerFirstName: new FormControl('', { validators: [Validators.required] }),
     newFootballerLastname: new FormControl('', { validators: [Validators.required] }),
-    newFootballerLeague: new FormControl('', { validators: [Validators.required,  Validators.minLength(1)] }),
+    newFootballerLeague: new FormControl('', { validators: [Validators.required] }),
   });
 
   addNewFootballer() {

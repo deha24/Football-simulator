@@ -18,7 +18,7 @@ export class LeagueService {
   }
 
   getLeaguesByCountryByLevel(country: string, level: number) {
-    return this.http.get<League[]>(`assets/leagues.json?country=${country}&level=${level}`);
+    return this.http.get<League[]>(`http://127.0.0.1:8000/leagues/getleaguesbycountrybylevel?country=${country}&level=${level}`);
   }
 
   addLeague(league: League) {
