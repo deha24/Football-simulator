@@ -36,7 +36,7 @@ export class ClubAdd implements OnInit {
     const clubLeague = this.addclubform.value.newClubLeague;
 
     if (this.addclubform.valid) {
-      const newClub = new Club(clubName!, clubLocation!, 1888, "Some Stadium", 60000, [], undefined);
+      const newClub = new Club(4, clubName!, clubLocation!, 1888, "Some Stadium", 60000, []);
       this.clubService.addClub(newClub).subscribe({
         next: () => {
           this.addclubform.reset();
