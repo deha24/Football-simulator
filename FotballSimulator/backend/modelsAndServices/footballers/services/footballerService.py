@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.footballer import Footballer
+from ..models.footballer import Footballer, CreateFootballerDTO
 
 router = APIRouter(
     prefix="/footballers",
@@ -32,11 +32,8 @@ async def getfootballers() -> list[Footballer]:
     return [Footballer(id=row[0], first_name=row[1], last_name=row[2]) for row in rows]
 
 @router.post("/addfootballer")
-async def addfootballer(footballer: Footballer):
+async def addfootballer(footballer: CreateFootballerDTO):
     cur = conn.cursor()
-    print("--------------------------------")
-    print(footballer)
-    print("-------------------------------")
     cur.execute("INSERT INTO footballers (first_name, last_name) VALUES (%s, %s)", (footballer.first_name, footballer.last_name))
     conn.commit()
     return {"message": "Footballer added successfully"}
@@ -53,3 +50,10 @@ async def get_footballer_by_id(footballer_id: int) -> Footballer:
             last_name=row[2]
         )
     return None
+
+@router.delete("/delete/{footballer_id}")
+async def delete_footballer(footballer_id: int):
+    cur = conn.cursor()
+    cur.execute("DELETE FROM footballers WHERE id = %s", (footballer_id,))
+    conn.commit()
+    return {"message": "Footballer deleted successfully"}

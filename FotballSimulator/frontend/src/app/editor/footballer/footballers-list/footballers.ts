@@ -14,18 +14,21 @@ export class Footballers {
 
   footballers: Footballer[] = [];
 
+  loadFootballers(): void {
+    this.footballersService.getFootballers().subscribe((data: Footballer[]) => {
+      this.footballers = data;
+      this.cdr.detectChanges();
+    });
+  }
+
   constructor(private cdr: ChangeDetectorRef, private footballersService: FootballersService, private eventService: EventService) {
-    this.eventService.getEvent('removeFootballer', (footballer: Footballer) => {
-      this.footballers = this.footballers.filter(item => item !== footballer);
+    this.eventService.getEvent('removedFootballer', () => {
+      this.loadFootballers();
     });
   }
 
   ngOnInit() {
-    this.footballersService.getFootballers().subscribe((data: any) => {
-      this.footballers = data
-      this.cdr.detectChanges();
-      console.log('Footballers loaded:', this.footballers);
-    });
+    this.loadFootballers();
   }
 
 }

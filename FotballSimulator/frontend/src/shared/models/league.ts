@@ -9,3 +9,11 @@ export class League {
     public clubs: Club[]
   ) {}
 }
+
+export class CreateLeagueDTO {
+  constructor(
+    public name: string,
+    public country: string,
+    public level: number
+  ) {}
+}

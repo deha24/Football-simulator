@@ -1,11 +1,11 @@
 import { Component, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Footballer } from '../../../../shared/models/footballer';
+import { CreateFootballerDTO, Footballer } from '../../../../shared/models/footballer';
 import { FootballersService } from '../footballersService';
 import { ClubService } from '../../club/clubService';
 import { LeagueService } from '../../league/leagueService';
 import { League } from '../../../../shared/models/league';
-import { Club } from '../../../../shared/models/club';
+import { Club, CreateClubDTO } from '../../../../shared/models/club';
 
 @Component({
   selector: 'footballer-add',
@@ -32,7 +32,6 @@ export class FootballerAdd  implements OnInit {
   addfootballerform = new FormGroup({
     newFootballerFirstName: new FormControl('', { validators: [Validators.required] }),
     newFootballerLastname: new FormControl('', { validators: [Validators.required] }),
-    newFootballerLeague: new FormControl('', { validators: [Validators.required] }),
   });
 
   addNewFootballer() {
@@ -40,9 +39,8 @@ export class FootballerAdd  implements OnInit {
     const lastName = this.addfootballerform.value.newFootballerLastname;
 
     if (this.addfootballerform.valid) {
-      const newFootballer = new Footballer(6,firstName!, lastName!, "cam");
+      const newFootballer = new CreateFootballerDTO(firstName!, lastName!);
       this.footballersService.addFootballer(newFootballer).subscribe(() => {
-      this.addFootballer.emit(newFootballer);
       this.addfootballerform.reset();
       });
     } else {

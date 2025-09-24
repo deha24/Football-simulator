@@ -10,22 +10,26 @@ import { EventService } from '../../../../shared/services/EventServices';
   templateUrl: './clubs.html',
   styleUrl: './clubs.css'
 })
+
 export class Clubs {
 
   clubs: Club[] = [];
 
+  loadClubs() {
+    this.clubService.getClubs().subscribe((data) => {
+      this.clubs = data;
+      this.cdr.detectChanges();
+    });
+  }
+
   constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private eventService: EventService) {
-    this.eventService.getEvent('removeClub', (club: Club) => {
-        this.clubs = this.clubs.filter(item => item !== club);
+    this.eventService.getEvent('removedClub', () => {
+        this.loadClubs();
     });
 
   }
 
   ngOnInit() {
-    this.clubService.getClubs().subscribe((data) => {
-      this.clubs = data;
-      this.cdr.detectChanges();
-    });
-
+    this.loadClubs();
   }
 }

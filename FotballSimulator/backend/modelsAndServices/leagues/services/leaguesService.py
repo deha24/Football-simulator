@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.league import League
+from ..models.league import League, CreateLeagueDTO
 
 router = APIRouter(
     prefix="/leagues",
@@ -32,12 +32,9 @@ async def getleagues() -> list[League]:
     return [League(id=row[0], name=row[1], country=row[2], level=row[3], clubs_id=row[4] if row[4] else []) for row in rows]
 
 @router.post("/addleague")
-async def addleague(league: League):
+async def addleague(league: CreateLeagueDTO):
     cur = conn.cursor()
-    print("--------------------------------")
-    print(league)
-    print("-------------------------------")
-    cur.execute("INSERT INTO leagues (name, Country, level, clubs_id) VALUES (%s, %s, %s, %s)", (league.name, league.country, league.level, league.clubs_id))
+    cur.execute("INSERT INTO leagues (name, Country, level) VALUES (%s, %s, %s)", (league.name, league.country, league.level))
     conn.commit()
     return {"message": "League added successfully"}
 
@@ -63,3 +60,10 @@ async def get_leagues_by_country_and_level(country: str, level: int) -> list[Lea
     cur.execute("SELECT * FROM leagues WHERE Country = %s AND level = %s", (country, level))
     rows = cur.fetchall()
     return [League(id=row[0], name=row[1], country=row[2], level=row[3], clubs_id=row[4] if row[4] else []) for row in rows]
+
+@router.delete("/delete/{league_id}")
+async def delete_league(league_id: int):
+    cur = conn.cursor()
+    cur.execute("DELETE FROM leagues WHERE id = %s", (league_id,))
+    conn.commit()
+    return {"message": "League deleted successfully"}

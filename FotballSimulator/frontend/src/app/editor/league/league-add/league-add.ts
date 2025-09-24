@@ -1,7 +1,7 @@
-import { Component, ChangeDetectorRef, input, Input } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators, AsyncValidatorFn } from '@angular/forms';
 import { LeagueService } from '../leagueService';
-import { League } from '../../../../shared/models/league';
+import { CreateLeagueDTO } from '../../../../shared/models/league';
 import { multipleFirstLeagueLevel } from '../league-form-validators';
 import { EventService } from '../../../../shared/services/EventServices';
 
@@ -51,7 +51,7 @@ export class LeagueAdd {
     const newLeagueLevel = this.addLeagueForm.get('newLeagueLevel')?.value;
 
     if (this.addLeagueForm.valid) {
-      const newLeague = new League(4, newLeagueName!, newLeagueLocation!, newLeagueLevel!, []);
+      const newLeague = new CreateLeagueDTO(newLeagueName!, newLeagueLocation!, newLeagueLevel!);
 
       this.leagueService.addLeague(newLeague).subscribe(() => {
         this.addLeagueForm.reset();

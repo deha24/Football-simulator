@@ -10,21 +10,25 @@ import { LeaguesItem } from "./league-list-item/leagues-item";
   templateUrl: './leagues.html',
   styleUrl: './leagues.css'
 })
-export class LeagueList implements OnInit {
+export class Leagues implements OnInit {
 
-  leagues: League[] = [];
-
-  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private eventservice: EventService) {
-    this.eventservice.getEvent('removeLeague', (league: League) => {
-      this.leagues = this.leagues.filter(item => item !== league);
-    });
-  }
-
-  ngOnInit() {
+  loadLeagues(): void {
     this.leagueService.getLeagues().subscribe((data: League[]) => {
       this.leagues = data;
       this.cdr.detectChanges();
     });
+  }
+
+  leagues: League[] = [];
+
+  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private eventservice: EventService) {
+    this.eventservice.getEvent('removedLeague', () => {
+      this.loadLeagues();
+    });
+  }
+
+  ngOnInit() {
+    this.loadLeagues();
   }
 
 }

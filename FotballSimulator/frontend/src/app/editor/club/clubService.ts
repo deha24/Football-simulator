@@ -17,11 +17,12 @@ export class ClubService {
   }
 
   addClub(club: CreateClubDTO) {
+    console.log(club);
     return this.http.post<CreateClubDTO>('http://127.0.0.1:8000/clubs/addclub', club);
   }
 
   removeClub(clubId: number) {
-    return this.http.delete(`assets/clubs.json?id=${clubId}`);
+    return this.http.delete(`http://127.0.0.1:8000/clubs/remove/${clubId}`);
   }
 
   getClubById(clubId: number) {

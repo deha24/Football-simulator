@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { League } from '../../../shared/models/league';
+import { CreateLeagueDTO, League } from '../../../shared/models/league';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,11 @@ export class LeagueService {
     return this.http.get<League[]>(`http://127.0.0.1:8000/leagues/getleaguesbycountrybylevel?country=${country}&level=${level}`);
   }
 
-  addLeague(league: League) {
-    return this.http.post('http://127.0.0.1:8000/leagues/addleague', league);
+  addLeague(league: CreateLeagueDTO) {
+    return this.http.post<CreateLeagueDTO>('http://127.0.0.1:8000/leagues/addleague', league);
   }
 
   removeLeague(id: number) {
-    return this.http.delete(`assets/leagues.json?id=${id}`);
+    return this.http.delete(`http://127.0.0.1:8000/leagues/delete/${id}`);
   }
-
 }

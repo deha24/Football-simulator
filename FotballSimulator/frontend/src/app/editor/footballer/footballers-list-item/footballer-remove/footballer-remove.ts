@@ -16,8 +16,14 @@ export class FootballerRemove {
   constructor(private eventService: EventService, private footballersService: FootballersService) {}
 
   removeFootballer() {
-    this.eventService.emitEvent('removeFootballer', this.footballer);
-    this.footballersService.deleteFootballer(this.footballer.id).subscribe();
+    this.footballersService.deleteFootballer(this.footballer.id).subscribe({
+      next: () => {
+        this.eventService.emitEvent('removedFootballer')
+      },
+      error: (err: any) => {
+        console.error('Error removing footballer:', err);
+      }
+    });
   }
 
 }

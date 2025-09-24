@@ -11,18 +11,21 @@ import { EventService } from '../../../../../../shared/services/EventServices';
 })
 export class ClubRemove {
 
-  @Input() club!: Club;
+  @Input() clubId!: number;
 
   constructor(private clubsService: ClubService, private eventService: EventService) {
 
   }
 
   removeClub() {
-    if (this.club) {
-      this.clubsService.removeClub(this.club.id!).subscribe(() => {
-      });
-      this.eventService.emitEvent('removeClub', this.club);
-    }
+    this.clubsService.removeClub(this.clubId).subscribe({
+      next: () => {
+        this.eventService.emitEvent('removedClub');
+      },
+      error: (err) => {
+        console.error('Error removing club:', err);
+      }
+    });
   }
 
 }

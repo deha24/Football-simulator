@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.club import Club
+from ..models.club import Club, CreateClubDTO
 
 router = APIRouter(
     prefix="/clubs",
@@ -32,7 +32,7 @@ def get_clubs() -> list[Club]:
     return [Club(id=row[0], name=row[1], players_id=row[2] if row[2] is not None else []) for row in rows]
 
 @router.post("/addclub")
-async def addclub(club: Club):
+async def addclub(club: CreateClubDTO):
     cur = conn.cursor()
     cur.execute("INSERT INTO clubs (name, players_id) VALUES (%s, %s)", (club.name, club.players_id))
     conn.commit()
@@ -49,3 +49,10 @@ async def get_club_by_id(club_id: int) -> Club:
             players_id=row[2] if row[2] is not None else []
         )
     return None
+
+@router.delete("/remove/{club_id}")
+async def remove_club(club_id: int):
+    cur = conn.cursor()
+    cur.execute("DELETE FROM clubs WHERE id = %s", (club_id,))
+    conn.commit()
+    return {"message": "Club removed successfully"}
