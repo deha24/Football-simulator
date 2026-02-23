@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Premier League",
+    "country": "England",
+    "level": 1,
+    "clubs": []
+  },
+  {
+    "id": 2,
+    "name": "La Liga",
+    "country": "Spain",
+    "level": 1,
+    "clubs": []
+  },
+  {
+    "id": 3,
+    "name": "Serie A",
+    "country": "Italy",
+    "level": 1,
+    "clubs": []
+  }
+]
