@@ -29,7 +29,7 @@ async def getleagues() -> list[League]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM leagues")
     rows = cur.fetchall()
-    return [League(id=row[0], name=row[1], country=row[2], level=row[3], clubs_id=row[4] if row[4] else []) for row in rows]
+    return [League(id=row[0], name=row[1], country=row[2], level=row[3]) for row in rows]
 
 @router.post("/addleague")
 async def addleague(league: CreateLeagueDTO):
@@ -49,7 +49,6 @@ async def get_league_by_id(league_id: int) -> League:
             name=row[1],
             country=row[2],
             level=row[3],
-            clubs_id=row[4] if row[4] else []
         )
     return None
 
@@ -59,7 +58,7 @@ async def get_leagues_by_country_and_level(country: str, level: int) -> list[Lea
     cur = conn.cursor()
     cur.execute("SELECT * FROM leagues WHERE Country = %s AND level = %s", (country, level))
     rows = cur.fetchall()
-    return [League(id=row[0], name=row[1], country=row[2], level=row[3], clubs_id=row[4] if row[4] else []) for row in rows]
+    return [League(id=row[0], name=row[1], country=row[2], level=row[3]) for row in rows]
 
 @router.delete("/delete/{league_id}")
 async def delete_league(league_id: int):
