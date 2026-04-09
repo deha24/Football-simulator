@@ -1,17 +1,50 @@
 <form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center" [formGroup]="addfootballerform" (ngSubmit)="$event.preventDefault(); addNewFootballer()">
-  <div class="col-sm-3">
-    <input type="text" name="new-footballer-text" class="form-control" formControlName="newFootballerFirstName" placeholder="Enter footballer first name" />
+  <div class="col-sm-4">
+    <p-inputgroup>
+        <p-inputgroup-addon>
+            <i class="pi pi-user"></i>
+        </p-inputgroup-addon>
+      <input pInputText placeholder="First Name" class="form-control" formControlName="newFootballerFirstName" />
+      
+      <input pInputText placeholder="Last Name" class="form-control" formControlName="newFootballerLastname" />
+      
+    </p-inputgroup>
     @if (addfootballerform.get('newFootballerFirstName')?.invalid && addfootballerform.get('newFootballerFirstName')?.touched) {
       <small class="text-danger">First name is required.</small>
     }
-  </div>
-  <div class="col-sm-3">
-    <input type="text" name="new-footballer-lastname" class="form-control" formControlName="newFootballerLastname" placeholder="Enter footballer last name" />
     @if (addfootballerform.get('newFootballerLastname')?.invalid && addfootballerform.get('newFootballerLastname')?.touched) {
       <small class="text-danger">Last name is required.</small>
     }
+    <p-inputgroup>
+    <p-inputgroup-addon>
+        <i class="pi pi-calendar"></i>
+    </p-inputgroup-addon>
+      <p-datepicker placeholder="Birth Date" dateFormat="dd.mm.yy" class="form-control" formControlName="newFootballerBirthDate"/>
+    </p-inputgroup>
+    <p-inputgroup>
+        <p-inputgroup-addon>
+            <i class="pi pi-flag"></i>
+        </p-inputgroup-addon>
+      <input pInputText placeholder="Nationality" class="form-control" formControlName="newFootballerNationality" />
+    </p-inputgroup>
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-4">
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <i class="pi pi-calendar"></i>
+      </p-inputgroup-addon>
+      <input pInputText placeholder="Position" class="form-control" formControlName="newFootballerPosition" />
+    </p-inputgroup>
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <i class="pi pi-calendar"></i>
+      </p-inputgroup-addon>
+      <input pInputText type="number" placeholder="defece" inputId="integeronly" class="form-control" formControlName="newFootballerDefence" />
+      <input pInputText type="number" placeholder="midfield" inputId="integeronly" class="form-control" formControlName="newFootballerMidfield" />
+      <input pInputText type="number" placeholder="atack" inputId="integeronly" class="form-control" formControlName="newFootballerAttack" />
+    </p-inputgroup>
+  </div>
+  <!-- <div class="col-sm-4">
     <select class="form-select" aria-label="Default select example" formControlName="newFootballerLeague">
       <option value="" disabled selected>Select league</option>
       @for (league of leagues; track league) {
@@ -21,7 +54,7 @@
         <small class="text-danger">League selection is required.</small>
       }
     </select>
-  </div>
+  </div> This is the end of the row -->
   <div class="col-auto">
     <button
       type="submit"
@@ -29,3 +62,4 @@
     >Add Footballer</button>
   </div>
 </form>
+<span class="pi pi-user"></span>

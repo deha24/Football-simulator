@@ -4,10 +4,11 @@ import { LeagueService } from '../leagueService';
 import { CreateLeagueDTO } from '../../../../shared/models/league';
 import { multipleFirstLeagueLevel } from '../league-form-validators';
 import { EventService } from '../../../../shared/services/EventServices';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-league-add',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ButtonModule],
   templateUrl: './league-add.html',
   styleUrl: './league-add.css'
 })
