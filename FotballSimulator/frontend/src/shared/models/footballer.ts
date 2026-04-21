@@ -3,7 +3,7 @@ export class Footballer {
         public id: number,
         public first_name: string,
         public last_name: string,
-        public birt_date: string,
+        public birth_date: string,
         public nationality: string,
         public position: string,
         public defence: number,

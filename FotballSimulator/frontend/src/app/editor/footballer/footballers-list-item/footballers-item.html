@@ -1,9 +1,115 @@
-<li class="d-flex justify-content-between list-group-item">
-  <div class="d-flex align-items-center">
-    <span class="me-2">{{ footballer.first_name }}</span>
-    <span class="me-2">{{ footballer.last_name }}</span>
-  </div>
-  <button class="btn btn-secondary" aria-label="search" (click)="$event.preventDefault(); detailsFootballer(footballer.id)">Edit</button>
-  <footballer-remove [footballer]="footballer"></footballer-remove>
+<ng-template #body let-ri="rowIndex" let-editing="editing">
+  <tr [pEditableRow]="footballer">
+      <td>
+          <p-cellEditor>
+              <ng-template #input>
+                  <input pInputText/>
+              </ng-template>
+              <ng-template #output>
+                  {{ footballer.first_name }}
+              </ng-template>
+          </p-cellEditor>
+      </td>
+      <td>
+          <p-cellEditor>
+              <ng-template #input>
+                  <input pInputText />
+              </ng-template>
+              <ng-template #output>
+                  {{ footballer.last_name }}
+              </ng-template>
+          </p-cellEditor>
+      </td>
+      <td>
+          <p-cellEditor>
+              <ng-template #input>
+                  <input pInputText />
+              </ng-template>
+              <ng-template #output>
+                  {{ footballer.birth_date }}
+              </ng-template>
+          </p-cellEditor>
+      </td>
+      <td>
+          <p-cellEditor>
+              <ng-template #input>
+                  <input pInputText />
+              </ng-template>
+              <ng-template #output>
+                  {{ footballer.nationality }}
+              </ng-template>
+          </p-cellEditor>
+      </td>
+      <td>
+          <p-cellEditor>
+              <ng-template #input>
+                  <input pInputText />
+              </ng-template>
+              <ng-template #output>
+                  {{ footballer.position }}
+              </ng-template>
+          </p-cellEditor>
+      </td>
+      <td>
+          <p-cellEditor>
+              <ng-template #input>
+                  <input pInputText />
+              </ng-template>
+              <ng-template #output>
+                  {{ footballer.defence }}
+              </ng-template>
+          </p-cellEditor>
+      </td>
+      <td>
+          <p-cellEditor>
+              <ng-template #input>
+                  <input pInputText />
+              </ng-template>
+              <ng-template #output>
+                  {{ footballer.midfield }}
+              </ng-template>
+          </p-cellEditor>
+      </td>
+      <td>
+          <div class="flex items-center justify-center gap-2">
+              <button
+                  *ngIf="!editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pInitEditableRow
+                  icon="pi pi-pencil"
+                  (click)="onRowEditInit(footballer)"
+                  text
+                  rounded
+                  severity="secondary"
+              ></button>
+              <button
+                  *ngIf="editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pSaveEditableRow
+                  icon="pi pi-check"
+                  (click)="onRowEditSave(footballer)"
+                  text
+                  rounded
+                  severity="secondary"
+              ></button>
+              <button
+                  *ngIf="editing"
+                  pButton
+                  pRipple
+                  type="button"
+                  pCancelEditableRow
+                  icon="pi pi-times"
+                  (click)="onRowEditCancel(footballer, ri)"
+                  text
+                  rounded
+                  severity="secondary"
+              ></button>
+          </div>
+      </td>
+  </tr>
+</ng-template>
 
-</li>

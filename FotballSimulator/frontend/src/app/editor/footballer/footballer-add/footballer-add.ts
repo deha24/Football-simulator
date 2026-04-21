@@ -7,6 +7,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 import { CreateFootballerDTO, Footballer } from '../../../../shared/models/footballer';
 import { FootballersService } from '../footballersService';
 import { ClubService } from '../../club/clubService';
@@ -16,7 +18,7 @@ import { Club, CreateClubDTO } from '../../../../shared/models/club';
 
 @Component({
   selector: 'footballer-add',
-  imports: [ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule, InputGroupAddonModule, DatePickerModule],
+  imports: [ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule, InputGroupAddonModule, DatePickerModule, CardModule, ButtonModule],
   templateUrl: './footballer-add.html',
   styleUrl: './footballer-add.css'
 })
@@ -41,10 +43,10 @@ export class FootballerAdd  implements OnInit {
     newFootballerLastname: new FormControl('', { validators: [Validators.required] }),
     newFootballerBirthDate: new FormControl('', { validators: [Validators.required] }),
     newFootballerNationality: new FormControl('', { validators: [Validators.required] }),
-    newFootballerPosition: new FormControl('', { validators: [Validators.required] }),
-    newFootballerDefence: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(100)] }),
-    newFootballerMidfield: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(100)] }),
-    newFootballerAttack: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(100)] }),
+    newFootballerPosition: new FormControl('', { validators: [Validators.required, Validators.maxLength(3)] }),
+    newFootballerDefence: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
+    newFootballerMidfield: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
+    newFootballerAttack: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
   });
 
   addNewFootballer() {
@@ -68,7 +70,7 @@ export class FootballerAdd  implements OnInit {
       console.error('Form is invalid');
       Object.keys(this.addfootballerform.controls).forEach(key => {
         const control = this.addfootballerform.get(key);
-        // Jeśli pole jest niepoprawne, wypisz jego błędy
+        // if the control is invalid, log the errors
         if (control?.invalid) {
           console.log(`Pole o nazwie "${key}" ma błędy:`, control.errors);
         }

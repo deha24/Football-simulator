@@ -14,5 +14,5 @@ export class App implements OnInit {
 
   ngOnInit() { }
 
-  protected readonly title = signal('FotballSimulator');
+  protected readonly title = signal('FootballSimulator');
 }
