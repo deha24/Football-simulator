@@ -9,11 +9,11 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
   selector: '[footballers-item]',
-  imports: [FootballerRemove, TableModule, SelectModule, InputNumberModule, TagModule, ButtonModule, InputTextModule, FormsModule],
+  imports: [FootballerRemove, TableModule, SelectModule, InputNumberModule, TagModule, ButtonModule, InputTextModule, FormsModule, DatePickerModule],
   templateUrl: './footballers-item.html',
   styleUrl: './footballers-item.css'
 })
@@ -23,6 +23,8 @@ export class FootballersItem {
   @Input() editing!: boolean;
   @Input() rowIndex!: number;
 
+  clonedFootballers: { [id: number]: Footballer } = {};
+
   constructor(private router: Router) {}
 
   detailsFootballer(id: number) {
@@ -30,19 +32,19 @@ export class FootballersItem {
   }
 
   onRowEditInit(footballer: Footballer) {
-        //this.clonedFootballers[footballer.id as string] = { ...footballer };
+        this.clonedFootballers[footballer.id] = { ...footballer };
     }
 
     onRowEditSave(footballer: Footballer) {
-        //if (footballer.price > 0) {
-        //    delete this.clonedFootballers[footballer.id as string];
-        //} else {
-        //    
-        //}
+        if (footballer.attack > 0) {
+            delete this.clonedFootballers[footballer.id];
+        } else {
+            
+        }
     }
 
     onRowEditCancel(footballer: Footballer, index: number) {
-        //this.footballers[index] = this.clonedFootballers[footballer.id as string];
-        //delete this.clonedFootballers[footballer.id as string];
+        this.footballer = this.clonedFootballers[footballer.id];
+        delete this.clonedFootballers[footballer.id];
     }
 }

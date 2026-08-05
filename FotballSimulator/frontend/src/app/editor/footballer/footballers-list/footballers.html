@@ -1,53 +1,58 @@
-<p-table #dt [value]="footballers" dataKey="id" dataKey="id" editMode="row" (sortFunction)="customSort($event)" [customSort]="true">
+<p-table #dt [value]="footballers" showGridlines [resizableColumns]="true" dataKey="id" dataKey="id" editMode="row" (sortFunction)="customSort($event)" [customSort]="true">
 
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="first_name">
+            <th pSortableColumn="first_name" pResizableColumn>
                 <div class="flex items-center gap-2">
                     first name
                     <p-sortIcon field="first_name" />
                 </div>
             </th>
-            <th pSortableColumn="last_name">
+            <th pSortableColumn="last_name" pResizableColumn>
                 <div class="flex items-center gap-2">
                     Last name
                     <p-sortIcon field="last_name" />
                 </div>
             </th>
-            <th pSortableColumn="birth_date">
+            <th pSortableColumn="birth_date" pResizableColumn>
                 <div class="flex items-center gap-2">
                     Birth Date
                     <p-sortIcon field="birth_date" />
                 </div>
             </th>
-            <th pSortableColumn="nationality">
+            <th pSortableColumn="nationality" pResizableColumn>
                 <div class="flex items-center gap-2">
                     Nationality
                     <p-sortIcon field="nationality" />
                 </div>
             </th>
-            <th pSortableColumn="position">
+            <th pSortableColumn="position" pResizableColumn>
                 <div class="flex items-center gap-2">
                     Position
                     <p-sortIcon field="position" />
                 </div>
             </th>
-            <th pSortableColumn="defence">
+            <th pSortableColumn="defence" pResizableColumn>
                 <div class="flex items-center gap-2">
                     Defence
                     <p-sortIcon field="defence" />
                 </div>
             </th>
-            <th pSortableColumn="midfield">
+            <th pSortableColumn="midfield" pResizableColumn>
                 <div class="flex items-center gap-2">
                     Midfield
                     <p-sortIcon field="midfield" />
                 </div>
             </th>
-            <th pSortableColumn="attack">
+            <th pSortableColumn="attack" pResizableColumn>
                 <div class="flex items-center gap-2">
                     Attack
                     <p-sortIcon field="attack" />
+                </div>
+            </th>
+            <th pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Actions
                 </div>
             </th>
         </tr>

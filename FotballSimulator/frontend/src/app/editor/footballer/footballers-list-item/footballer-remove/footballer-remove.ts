@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { EventService } from '../../../../../shared/services/EventServices';
 import { FootballersService } from '../../footballersService';
 import { Footballer } from '../../../../../shared/models/footballer';
+import {ButtonModule} from "primeng/button";
 
 @Component({
   selector: 'footballer-remove',
-  imports: [],
+  imports: [ButtonModule],
   templateUrl: './footballer-remove.html',
   styleUrl: './footballer-remove.css'
 })
