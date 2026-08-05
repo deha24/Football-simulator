@@ -1,5 +1,5 @@
 import { FootballersItem, } from '../footballers-list-item/footballers-item';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Output, ViewChild } from '@angular/core';
 import { Footballer } from '../../../../shared/models/footballer';
 import { ChangeDetectorRef } from '@angular/core';
 import { FootballersService } from '../footballersService';
@@ -19,6 +19,8 @@ export class Footballers {
   footballers: Footballer[] = [];
   initialValue: Footballer[] = [];
   isSorted: boolean | null = null;
+
+  @Output() footballer!: Footballer;
 
   loadFootballers(): void {
     this.footballersService.getFootballers().subscribe((data: Footballer[]) => {
