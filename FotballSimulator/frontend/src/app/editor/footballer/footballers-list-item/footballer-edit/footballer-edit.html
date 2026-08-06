@@ -1,0 +1,135 @@
+<form [formGroup]="updateFootballerForm" (ngSubmit)="$event.preventDefault(); updateFootballer()">
+
+  <p-card>
+    
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+
+      <div class="col-sm-9">
+        <h5 #title> Update Footballer </h5>
+      </div>
+
+      <div class="col-sm-3 d-flex justify-content-end">
+        <p-button label="Update Footballer" type="submit" variant="outlined" [raised]="true" severity="success" />
+      </div>
+
+    </div>
+
+    <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Personal Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+          <input pInputText placeholder="{{ footballer.first_name }}" formControlName="newFootballerFirstName" />
+          <input pInputText placeholder="{{ footballer.last_name }}" formControlName="newFootballerLastname" />
+          </p-inputgroup>
+          @if (updateFootballerForm.get('newFootballerFirstName')?.invalid && updateFootballerForm.get('newFootballerFirstName')?.touched) {
+            <small class="text-danger">First name is required.</small>
+            <br />
+          }
+          @if (updateFootballerForm.get('newFootballerLastname')?.invalid && updateFootballerForm.get('newFootballerLastname')?.touched) {
+            <small class="text-danger">Last name is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+          <p-inputgroup-addon>
+              <i class="pi pi-calendar"></i>
+          </p-inputgroup-addon>
+            <p-datepicker placeholder="{{ footballer.birth_date }}" dateFormat="dd.mm.yy" formControlName="newFootballerBirthDate" fluid/>
+          </p-inputgroup>
+          @if(updateFootballerForm.get('newFootballerBirthDate')?.invalid && updateFootballerForm.get('newFootballerBirthDate')?.touched) {
+            <small class="text-danger">Birth date is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+              <p-inputgroup-addon>
+                  <i class="pi pi-flag"></i>
+              </p-inputgroup-addon>
+            <input pInputText placeholder="{{ footballer.nationality }}" formControlName="newFootballerNationality" />
+          </p-inputgroup>
+          @if(updateFootballerForm.get('newFootballerNationality')?.invalid && updateFootballerForm.get('newFootballerNationality')?.touched) {
+            <small class="text-danger">Nationality is required.</small>
+          }
+        </p-card>
+      </div>
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Footballer Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-circle"></i>
+            </p-inputgroup-addon>
+            <input pInputText placeholder="{{ footballer.position }}" formControlName="newFootballerPosition" />
+          </p-inputgroup>
+          @if(updateFootballerForm.get('newFootballerPosition')?.invalid && updateFootballerForm.get('newFootballerPosition')?.touched) {
+            @if(updateFootballerForm.get('newFootballerPosition')?.errors?.['required']) {
+              <small class="text-danger">Position is required.</small>
+            }
+            @if(updateFootballerForm.get('newFootballerPosition')?.errors?.['maxlength']) {
+              <small class="text-danger">Position cannot be longer than 3 characters.</small>
+            }
+          }
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-star"></i>
+            </p-inputgroup-addon>
+            <input pInputText type="number" placeholder="{{ footballer.defence }}" inputId="integeronly" formControlName="newFootballerDefence" />
+            <input pInputText type="number" placeholder="{{ footballer.midfield }}" inputId="integeronly" formControlName="newFootballerMidfield" />
+            <input pInputText type="number" placeholder="{{ footballer.attack }}" inputId="integeronly" formControlName="newFootballerAttack" />
+          </p-inputgroup>
+          @if(updateFootballerForm.get('newFootballerDefence')?.invalid && updateFootballerForm.get('newFootballerDefence')?.touched) {
+            @if(updateFootballerForm.get('newFootballerDefence')?.errors?.['required']) {
+              <small class="text-danger">Defence rating is required.</small>
+              
+            }
+            @if(updateFootballerForm.get('newFootballerDefence')?.errors?.['min'] || updateFootballerForm.get('newFootballerDefence')?.errors?.['max']) {
+              <small class="text-danger">Defence rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(updateFootballerForm.get('newFootballerMidfield')?.invalid && updateFootballerForm.get('newFootballerMidfield')?.touched) {
+            @if(updateFootballerForm.get('newFootballerMidfield')?.errors?.['required']) {
+              <small class="text-danger">Midfield rating is required.</small>
+            }
+            @if(updateFootballerForm.get('newFootballerMidfield')?.errors?.['min'] || updateFootballerForm.get('newFootballerMidfield')?.errors?.['max']) {
+              <small class="text-danger">Midfield rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(updateFootballerForm.get('newFootballerAttack')?.invalid && updateFootballerForm.get('newFootballerAttack')?.touched) {
+            @if(updateFootballerForm.get('newFootballerAttack')?.errors?.['required']) {
+              <small class="text-danger">Attack rating is required.</small>
+            }
+            @if(updateFootballerForm.get('newFootballerAttack')?.errors?.['min'] || updateFootballerForm.get('newFootballerAttack')?.errors?.['max']) {
+              <small class="text-danger">Attack rating must be between 1 and 99.</small>
+            }
+          }
+        </p-card>
+      </div>
+
+      <!-- <div class="col-sm-4">
+        <select class="form-select" aria-label="Default select example" formControlName="newFootballerLeague">
+          <option value="" disabled selected>Select league</option>
+          @for (league of leagues; track league) {
+            <option [value]="league.id">{{ league.name }}</option>
+          }
+          @if (addfootballerform.get('newFootballerLeague')?.invalid && addfootballerform.get('newFootballerLeague')?.dirty) {
+            <small class="text-danger">League selection is required.</small>
+          }
+        </select>
+      </div> This is the end of the row -->
+
+    </div>
+
+    <!--<ng-template #footer>
+        <div class="flex gap-4 mt-1">
+            <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+            <p-button label="Save" class="w-full" styleClass="w-full" />
+        </div>
+    </ng-template>-->
+  </p-card>
+
+</form>

@@ -1,4 +1,4 @@
-<p-table #dt [value]="footballers" showGridlines [resizableColumns]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [scrollable]="true" sortMode="multiple" removableSort dataKey="id" dataKey="id" editMode="row" (sortFunction)="customSort($event)">
+<p-table #dt [value]="footballers" showGridlines [resizableColumns]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [scrollable]="true" sortMode="multiple" removableSort dataKey="id" dataKey="id" editMode="row" (sortFunction)="customSort($event)" [tableStyle]="{ 'min-width': '75rem' }">
 
     <ng-template pTemplate="header">
         <tr>
@@ -58,7 +58,7 @@
                     <p-column-filter type="numeric" field="attack" display="menu" />
                 </div>
             </th>
-            <th pResizableColumn style="min-width: 190px">
+            <th pResizableColumn style="min-width: 140px">
                 <div class="flex items-center gap-2">
                     Actions
                 </div>
@@ -66,7 +66,7 @@
         </tr>
     </ng-template>
     
-    <ng-template pTemplate="body" let-footballer let-editing="editing" let-ri="rowIndex">
-        <tr footballers-item [footballer]="footballer" [pEditableRow]="footballer" [editing]="editing" [rowIndex]="ri"></tr>
+    <ng-template pTemplate="body" let-footballer let-ri="rowIndex">
+        <tr footballers-item [footballer]="footballer"[rowIndex]="ri"></tr>
     </ng-template>
 </p-table>

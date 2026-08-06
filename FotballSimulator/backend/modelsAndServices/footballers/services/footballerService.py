@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.footballer import Footballer, CreateFootballerDTO
+from ..models.footballer import Footballer, CreateFootballerDTO, UpdateFootballerDTO
 
 router = APIRouter(
     prefix="/footballers",
@@ -57,6 +57,27 @@ async def get_footballer_by_id(footballer_id: int) -> Footballer:
             attack=row[8]
         )
     return None
+
+@router.patch("/update/{footballer_id}")
+async def update_footballer(footballer_id: int, footballer: UpdateFootballerDTO):
+
+    updatedData = footballer.model_dump(exclude_unset=True)
+    set_clauses = []
+    values = []
+
+    for key, value in updatedData.items():
+        set_clauses.append(f"{key} = %s")
+        values.append(value)
+    
+    set_query = ", ".join(set_clauses)
+    values.append(footballer_id) 
+    
+    cur = conn.cursor()
+    query = f"UPDATE footballers SET {set_query} WHERE id = %s"
+    cur.execute(query, tuple(values))
+    conn.commit()
+    return {"message": "Footballer updated successfully"}
+
 
 @router.delete("/delete/{footballer_id}")
 async def delete_footballer(footballer_id: int):

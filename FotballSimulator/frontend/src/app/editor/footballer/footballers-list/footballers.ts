@@ -34,6 +34,9 @@ export class Footballers {
     this.eventService.getEvent('removedFootballer', () => {
       this.loadFootballers();
     });
+    this.eventService.getEvent('updatedFootballer', () => {
+      this.loadFootballers();
+    });
   }
 
   ngOnInit() {
@@ -73,20 +76,5 @@ export class Footballers {
         });
     }
 
-    onRowEditInit(footballer: Footballer) {
-        //this.clonedFootballers[footballer.id as string] = { ...footballer };
-    }
-
-    onRowEditSave(footballer: Footballer) {
-        //if (footballer.price > 0) {
-        //    delete this.clonedFootballers[footballer.id as string];
-        //} else {
-        //    
-        //}
-    }
-
-    onRowEditCancel(footballer: Footballer, index: number) {
-        //this.footballers[index] = this.clonedFootballers[footballer.id as string];
-        //delete this.clonedFootballers[footballer.id as string];
-    }
+    
 }

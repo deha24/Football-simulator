@@ -23,6 +23,10 @@ export class FootballersService {
     return this.http.post('http://127.0.0.1:8000/footballers/addfootballer', footballer);
   }
 
+  updateFootballer(footballer: Footballer, id: number) {
+    return this.http.patch(`http://127.0.0.1:8000/footballers/update/${id}`, footballer);
+  }
+
   deleteFootballer(id: number) {
     return this.http.delete(`http://127.0.0.1:8000/footballers/delete/${id}`);
   }

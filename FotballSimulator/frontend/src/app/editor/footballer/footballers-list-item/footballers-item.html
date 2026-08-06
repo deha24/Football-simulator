@@ -1,112 +1,43 @@
 <td>
-  <p-cellEditor> 
-    <ng-template #input>
-        <input pInputText type="text" [(ngModel)]="footballer.first_name" fluid />
-    </ng-template>
-    <ng-template #output>
-        <p-tag value="{{footballer.first_name}}" severity="secondary" />
-    </ng-template>
-  </p-cellEditor>
+  {{footballer.first_name}}
 </td>
 <td>
-  <p-cellEditor> 
-    <ng-template #input>
-        <input pInputText type="text" [(ngModel)]="footballer.last_name" fluid />
-    </ng-template>
-    <ng-template #output>
-        <p-tag value="{{footballer.last_name}}" severity="secondary" />
-    </ng-template>
-  </p-cellEditor>
+  {{footballer.last_name}}
 </td>
 <td>
-  <p-cellEditor> 
-    <ng-template #input>
-        <p-datepicker dateFormat="dd.mm.yy" [(ngModel)]="footballer.birth_date" panelStyleClass="flex flex-col gap-2" fluid/>
-    </ng-template>
-    <ng-template #output>
-        <p-tag value="{{footballer.birth_date}}" severity="secondary" />
-    </ng-template>
-  </p-cellEditor>
+  {{footballer.birth_date}}
 </td>
 <td>
-  <p-cellEditor> 
-    <ng-template #input>
-        <input pInputText type="text" [(ngModel)]="footballer.nationality" fluid />
-    </ng-template>
-    <ng-template #output>
-        <p-tag value="{{footballer.nationality}}" severity="secondary" />
-    </ng-template>
-  </p-cellEditor>
+  {{footballer.nationality}}
 </td>
 <td>
-  <p-cellEditor> 
-    <ng-template #input>
-        <input pInputText type="text" [(ngModel)]="footballer.position" fluid />
-    </ng-template>
-    <ng-template #output>
-        <p-tag value="{{footballer.position}}" severity="secondary" />
-    </ng-template>
-  </p-cellEditor>
+  {{footballer.position}}
 </td>
 <td>
-  <p-cellEditor> 
-    <ng-template #input>
-        <input pInputText type="number" [(ngModel)]="footballer.defence" fluid />
-    </ng-template>
-    <ng-template #output>
-        <p-tag value="{{footballer.defence}}" severity="secondary" />
-    </ng-template>
-  </p-cellEditor>
+  {{footballer.defence}}
 </td>
 <td>  
-  <p-cellEditor> 
-    <ng-template #input>
-        <input pInputText type="number" [(ngModel)]="footballer.midfield" fluid />
-    </ng-template>
-    <ng-template #output>
-        <p-tag value="{{footballer.midfield}}" severity="secondary" />
-    </ng-template>
-  </p-cellEditor>
+  {{footballer.midfield}}
 </td>
 <td>
-  <p-cellEditor> 
-    <ng-template #input>
-        <input pInputText type="number" [(ngModel)]="footballer.attack" fluid />
-    </ng-template>
-    <ng-template #output>
-        <p-tag value="{{footballer.attack}}" severity="secondary" />
-    </ng-template>
-  </p-cellEditor>
+  {{footballer.attack}}
 </td>
 <td>
   <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-left">
-    <div class="col-sm-6">
-      @if (!editing) {
-          <button pButton type="button" pInitEditableRow (click)="onRowEditInit(footballer)" severity="secondary">
-              <i class="pi pi-pencil"></i>
-          </button>
-      }
-      @if (editing) {
-        <div class="row align-items-top justify-content-center">
-          <div class="col-6">
-          <button pButton type="button" size="small" pSaveEditableRow (click)="onRowEditSave(footballer)" severity="secondary">
-              <i class="pi pi-check"></i>
-          </button>
-          </div>
-          <div class="col-6">
-          <button pButton type="button" size="small" pCancelEditableRow (click)="onRowEditCancel(footballer, rowIndex)" severity="secondary">
-              <i class="pi pi-times"></i>
-          </button>
-          </div>
-        </div>
-      }
+    <div class="col-sm-4">
+      <button pButton type="button" (click)="openEditDialog()" severity="secondary">
+        <i class="pi pi-pencil"></i>
+      </button>
+      <p-dialog header="Edytuj piłkarza" [(visible)]="displayEditDialog" [modal]="true">
+        <footballer-edit [footballer]="footballer"></footballer-edit>
+      </p-dialog>
     </div>
-    <div class="col-sm-3">
-      <button pButton type="button" aria-label="search" (click)="$event.preventDefault(); detailsFootballer(footballer.id)" severity="secondary">
+    <div class="col-sm-4">
+      <button pButton type="button" (click)="detailsFootballer(footballer.id)" severity="secondary">
         <i class="pi pi-search"></i>
       </button>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
       <footballer-remove [footballer]="footballer"></footballer-remove>
     </div>
   </div>
