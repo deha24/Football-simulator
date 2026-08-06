@@ -1,31 +1,107 @@
-<form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center" [formGroup]="addclubform" (ngSubmit)="$event.preventDefault(); addNewClub()">
-  <div class="col-sm-3">
-    <input type="text" name="new-footballer-text" class="form-control" formControlName="newClubName" placeholder="Enter club name" />
-    @if (addclubform.get('newClubName')?.invalid && addclubform.get('newClubName')?.touched) {
-      <small class="text-danger">Club name is required.</small>
-    }
-  </div>
-  <div class="col-sm-3">
-    <input type="text" name="new-footballer-lastname" class="form-control" formControlName="newClubLocation" placeholder="Enter club location" />
-    @if (addclubform.get('newClubLocation')?.invalid && addclubform.get('newClubLocation')?.touched) {
-      <small class="text-danger">Location is required.</small>
-    }
-  </div>
-  <div class="col-sm-3">
-    <select class="form-select" aria-label="Default select example" formControlName="newClubLeague">
-      <option value="" disabled selected>Select league</option>
-      @for (league of leagues; track league) {
-        <option [value]="league.id">{{ league.name }}</option>
-      }
-      @if (addclubform.get('newClubLeague')?.invalid && addclubform.get('newClubLeague')?.touched) {
-        <small class="text-danger">League selection is required.</small>
-      }
-    </select>
-  </div>
-  <div class="col-auto">
-    <button
-      type="submit"
-      class="btn btn-primary"
-    >Add Club</button>
-  </div>
+<form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center" [formGroup]="addClubForm" (ngSubmit)="$event.preventDefault(); addNewClub()">
+
+  <p-card>
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+
+      <div class="col-sm-9">
+        <h5 #title> Add New Club </h5>
+      </div>
+      <div class="col-sm-3 d-flex justify-content-end">
+        <p-button label="Add Club" type="submit" variant="outlined" [raised]="true" severity="success" />
+      </div>
+    </div>
+
+    <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
+      <div class="col-sm-6">
+        <p-card>
+          <h5> General Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-circle"></i>
+            </p-inputgroup-addon>
+            <input pInputText placeholder="Club Name" formControlName="newClubName" />
+          </p-inputgroup>
+          @if(addClubForm.get('newClubName')?.invalid && addClubForm.get('newClubName')?.touched) {
+            @if(addClubForm.get('newClubName')?.errors?.['required']) {
+              <small class="text-danger">Club name is required.</small>
+            }
+            @if(addClubForm.get('newClubName')?.errors?.['maxlength']) {
+              <small class="text-danger">Club name cannot be longer than 100 characters.</small>
+            }
+          }
+          <p-inputgroup class="mt-1">
+              <p-inputgroup-addon>
+                  <i class="pi pi-flag"></i>
+              </p-inputgroup-addon>
+            <input pInputText placeholder="Location" formControlName="newClubLocation" />
+          </p-inputgroup>
+          @if(addClubForm.get('newClubLocation')?.invalid && addClubForm.get('newClubLocation')?.touched) {
+            <small class="text-danger">Location is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+          <p-inputgroup-addon>
+              <i class="pi pi-calendar"></i>
+          </p-inputgroup-addon>
+            <p-datepicker placeholder="Found Date" dateFormat="dd.mm.yy" formControlName="newClubFoundDate" fluid/>
+          </p-inputgroup>
+          @if(addClubForm.get('newClubFoundDate')?.invalid && addClubForm.get('newClubFoundDate')?.touched) {
+            <small class="text-danger">Found date is required.</small>
+          }
+        </p-card>
+      </div>
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Stadium Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-home"></i>
+            </p-inputgroup-addon>
+            <input pInputText placeholder="Stadium Name" formControlName="newClubStadium" />
+          </p-inputgroup>
+          @if(addClubForm.get('newClubStadium')?.invalid && addClubForm.get('newClubStadium')?.touched) {
+            @if(addClubForm.get('newClubStadium')?.errors?.['required']) {
+              <small class="text-danger">Stadium name is required.</small>
+            }
+            @if(addClubForm.get('newClubStadium')?.errors?.['maxlength']) {
+              <small class="text-danger">Stadium name cannot be longer than 100 characters.</small>
+            }
+          }
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-users"></i>
+            </p-inputgroup-addon>
+            <input pInputText type="number" placeholder="Capacity" formControlName="newClubStadiumCapacity" />
+          </p-inputgroup>
+          @if(addClubForm.get('newClubStadiumCapacity')?.invalid && addClubForm.get('newClubStadiumCapacity')?.touched) {
+            @if(addClubForm.get('newClubStadiumCapacity')?.errors?.['required']) {
+              <small class="text-danger">Capacity is required.</small>
+            }
+          }
+        </p-card>
+      </div>
+
+      <!-- <div class="col-sm-4">
+        <select class="form-select" aria-label="Default select example" formControlName="newFootballerLeague">
+          <option value="" disabled selected>Select league</option>
+          @for (league of leagues; track league) {
+            <option [value]="league.id">{{ league.name }}</option>
+          }
+          @if (addfootballerform.get('newFootballerLeague')?.invalid && addfootballerform.get('newFootballerLeague')?.dirty) {
+            <small class="text-danger">League selection is required.</small>
+          }
+        </select>
+      </div> This is the end of the row -->
+
+    </div>
+
+    <!--<ng-template #footer>
+        <div class="flex gap-4 mt-1">
+            <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+            <p-button label="Save" class="w-full" styleClass="w-full" />
+        </div>
+    </ng-template>-->
+  </p-card>
+
 </form>
+

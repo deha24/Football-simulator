@@ -29,12 +29,12 @@ def get_clubs() -> list[Club]:
     with conn.cursor() as cur:
         cur.execute("SELECT * FROM clubs")
         rows = cur.fetchall()
-    return [Club(id=row[0], name=row[1]) for row in rows]
+    return [Club(id=row[0], name=row[1], location=row[2], foundDate=row[3], stadium=row[4], capacity=row[5]) for row in rows]
 
 @router.post("/addclub")
 async def addclub(club: CreateClubDTO):
     cur = conn.cursor()
-    cur.execute("INSERT INTO clubs (name) VALUES (%s)", (club.name,))
+    cur.execute("INSERT INTO clubs (name, location, found_date, stadium, capacity) VALUES (%s, %s, %s, %s, %s)", (club.name, club.location, club.foundDate, club.stadium, club.capacity))
     conn.commit()
 
 @router.get("/details/{club_id}")
@@ -46,6 +46,10 @@ async def get_club_by_id(club_id: int) -> Club:
         return Club(
             id=row[0],
             name=row[1],
+            location=row[2],
+            foundDate=row[3],
+            stadium=row[4],
+            capacity=row[5]
         )
     return None
 

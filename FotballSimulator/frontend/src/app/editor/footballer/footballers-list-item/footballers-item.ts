@@ -11,12 +11,12 @@ import { DatePickerModule } from 'primeng/datepicker';
 import {DialogModule} from "primeng/dialog";
 import { Footballer } from '../../../../shared/models/footballer';
 import { FootballerRemove } from './footballer-remove/footballer-remove';
-import { FootballerEdit } from './footballer-edit/footballer-edit';
+import { FootballerUpdate } from './footballer-update/footballer-update';
 
 
 @Component({
   selector: '[footballers-item]',
-  imports: [FootballerRemove, FootballerEdit, DialogModule, TableModule, SelectModule, InputNumberModule, TagModule, ButtonModule, InputTextModule, FormsModule, DatePickerModule],
+  imports: [FootballerRemove, FootballerUpdate, DialogModule, TableModule, SelectModule, InputNumberModule, TagModule, ButtonModule, InputTextModule, FormsModule, DatePickerModule],
   templateUrl: './footballers-item.html',
   styleUrl: './footballers-item.css'
 })

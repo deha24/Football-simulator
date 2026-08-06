@@ -1,45 +1,50 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter} from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { SelectModule } from 'primeng/select';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { DatePickerModule } from 'primeng/datepicker';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 import { ClubService } from '../clubService';
-import { Club, CreateClubDTO } from '../../../../shared/models/club';
-import { League } from '../../../../shared/models/league';
-import { LeagueService } from '../../league/leagueService';
+import { CreateClubDTO } from '../../../../shared/models/club';
+import { Club } from '../../../../shared/models/club';
 
 @Component({
   selector: 'app-club-add',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, InputGroupAddonModule, DatePickerModule, CardModule, ButtonModule],
   templateUrl: './club-add.html',
   styleUrl: './club-add.css'
 })
-export class ClubAdd implements OnInit {
+export class ClubAdd{
 
-  constructor(private clubService: ClubService, protected leagueService: LeagueService, private cdr: ChangeDetectorRef) {}
+  @Output() addClub = new EventEmitter<Club>();
 
-  leagues: League[] = [];
+  constructor(private clubService: ClubService) {}
 
-  ngOnInit() {
-    this.leagueService.getLeagues().subscribe((leagues) => {
-      this.leagues = leagues;
-      this.cdr.detectChanges();
-    });
-  }
-
-  addclubform = new FormGroup({
+  addClubForm = new FormGroup({
     newClubName: new FormControl('', { validators: [Validators.required] }),
     newClubLocation: new FormControl('', { validators: [Validators.required] }),
-    newClubLeague: new FormControl('', { validators: [Validators.required] })
+    newClubFoundDate: new FormControl('', { validators: [Validators.required] }),
+    newClubStadium: new FormControl('', { validators: [Validators.required] }),
+    newClubStadiumCapacity: new FormControl(null, { validators: [Validators.required, Validators.min(1)] }),
   });
 
   addNewClub() {
-    const clubName = this.addclubform.value.newClubName;
-    const clubLocation = this.addclubform.value.newClubLocation;
-    const clubLeague = this.addclubform.value.newClubLeague;
+    const clubName = this.addClubForm.value.newClubName;
+    const clubLocation = this.addClubForm.value.newClubLocation;
+    const foundDate = formatDate(this.addClubForm.value.newClubFoundDate!, 'yyyy-MM-dd', 'en-US');
+    const clubStadium = this.addClubForm.value.newClubStadium;
+    const clubStadiumCapacity = this.addClubForm.value.newClubStadiumCapacity;
 
-    if (this.addclubform.valid) {
-      const newClub = new CreateClubDTO(clubName!, []);
+    if (this.addClubForm.valid) {
+      const newClub = new CreateClubDTO(clubName!, clubLocation!, foundDate!, clubStadium!, clubStadiumCapacity!);
       this.clubService.addClub(newClub).subscribe({
         next: () => {
-          this.addclubform.reset();
+          this.addClubForm.reset();
         },
         error: (err) => {
           console.error('Error adding club:', err);
@@ -47,7 +52,7 @@ export class ClubAdd implements OnInit {
       });
     } else {
       // Handle form errors if needed
-      console.error('Form is invalid');
+      console.error('Form is invalid', this.addClubForm.errors, clubName, clubLocation, foundDate, clubStadium, clubStadiumCapacity);
     }
   }
 
