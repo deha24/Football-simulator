@@ -1,0 +1,100 @@
+<form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center" [formGroup]="updateClubForm" (ngSubmit)="$event.preventDefault(); updateClub()">
+
+  <p-card>
+    <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
+      <div class="col-sm-5">
+        <p-card>
+          <h5> General Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-circle"></i>
+            </p-inputgroup-addon>
+            <input pInputText placeholder="Club Name" formControlName="newClubName" />
+          </p-inputgroup>
+          @if(updateClubForm.get('newClubName')?.invalid && updateClubForm.get('newClubName')?.touched) {
+            @if(updateClubForm.get('newClubName')?.errors?.['required']) {
+              <small class="text-danger">Club name is required.</small>
+            }
+            @if(updateClubForm.get('newClubName')?.errors?.['maxlength']) {
+              <small class="text-danger">Club name cannot be longer than 100 characters.</small>
+            }
+          }
+          <p-inputgroup class="mt-1">
+              <p-inputgroup-addon>
+                  <i class="pi pi-flag"></i>
+              </p-inputgroup-addon>
+            <input pInputText placeholder="Location" formControlName="newClubLocation" />
+          </p-inputgroup>
+          @if(updateClubForm.get('newClubLocation')?.invalid && updateClubForm.get('newClubLocation')?.touched) {
+            <small class="text-danger">Location is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+          <p-inputgroup-addon>
+              <i class="pi pi-calendar"></i>
+          </p-inputgroup-addon>
+            <p-datepicker placeholder="Found Date" dateFormat="dd.mm.yy" formControlName="newClubFoundDate" fluid/>
+          </p-inputgroup>
+          @if(updateClubForm.get('newClubFoundDate')?.invalid && updateClubForm.get('newClubFoundDate')?.touched) {
+            <small class="text-danger">Found date is required.</small>
+          }
+        </p-card>
+      </div>
+
+      <div class="col-sm-5">
+        <p-card>
+          <h5> Stadium Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-home"></i>
+            </p-inputgroup-addon>
+            <input pInputText placeholder="Stadium Name" formControlName="newClubStadium" />
+          </p-inputgroup>
+          @if(updateClubForm.get('newClubStadium')?.invalid && updateClubForm.get('newClubStadium')?.touched) {
+            @if(updateClubForm.get('newClubStadium')?.errors?.['required']) {
+              <small class="text-danger">Stadium name is required.</small>
+            }
+            @if(updateClubForm.get('newClubStadium')?.errors?.['maxlength']) {
+              <small class="text-danger">Stadium name cannot be longer than 100 characters.</small>
+            }
+          }
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-users"></i>
+            </p-inputgroup-addon>
+            <input pInputText type="number" placeholder="Capacity" formControlName="newClubStadiumCapacity" />
+          </p-inputgroup>
+          @if(updateClubForm.get('newClubStadiumCapacity')?.invalid && updateClubForm.get('newClubStadiumCapacity')?.touched) {
+            @if(updateClubForm.get('newClubStadiumCapacity')?.errors?.['required']) {
+              <small class="text-danger">Capacity is required.</small>
+            }
+          }
+        </p-card>
+      </div>
+      <div class="col-sm-2 d-flex justify-content-end">
+        <p-button label="Update Club" type="submit" variant="outlined" [raised]="true" severity="success" />
+      </div>
+
+      <!-- <div class="col-sm-4">
+        <select class="form-select" aria-label="Default select example" formControlName="newFootballerLeague">
+          <option value="" disabled selected>Select league</option>
+          @for (league of leagues; track league) {
+            <option [value]="league.id">{{ league.name }}</option>
+          }
+          @if (addfootballerform.get('newFootballerLeague')?.invalid && addfootballerform.get('newFootballerLeague')?.dirty) {
+            <small class="text-danger">League selection is required.</small>
+          }
+        </select>
+      </div> This is the end of the row -->
+
+    </div>
+
+    <!--<ng-template #footer>
+        <div class="flex gap-4 mt-1">
+            <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+            <p-button label="Save" class="w-full" styleClass="w-full" />
+        </div>
+    </ng-template>-->
+  </p-card>
+
+</form>
+

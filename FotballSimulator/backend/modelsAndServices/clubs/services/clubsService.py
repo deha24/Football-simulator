@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.club import Club, CreateClubDTO
+from ..models.club import Club, CreateClubDTO, UpdateClubDTO
 
 router = APIRouter(
     prefix="/clubs",
@@ -52,6 +52,28 @@ async def get_club_by_id(club_id: int) -> Club:
             capacity=row[5]
         )
     return None
+
+@router.patch("/update/{club_id}")
+async def update_club(club_id: int, club: UpdateClubDTO):
+
+    updatedData = club.model_dump(exclude_unset=True)
+    set_clauses = []
+    values = []
+
+    for key, value in updatedData.items():
+        set_clauses.append(f"{key} = %s")
+        values.append(value)
+
+    print("Updated Data:", updatedData, "Club: ",club)  # Debugging line to print the updated data
+    
+    set_query = ", ".join(set_clauses)
+    values.append(club_id) 
+    
+    cur = conn.cursor()
+    query = f"UPDATE clubs SET {set_query} WHERE id = %s"
+    cur.execute(query, tuple(values))
+    conn.commit()
+    return {"message": "Club updated successfully"}
 
 @router.delete("/remove/{club_id}")
 async def remove_club(club_id: int):

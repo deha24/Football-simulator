@@ -21,6 +21,10 @@ export class ClubService {
     return this.http.post<CreateClubDTO>('http://127.0.0.1:8000/clubs/addclub', club);
   }
 
+  updateClub(club: any, clubId: number) {
+    return this.http.patch(`http://127.0.0.1:8000/clubs/update/${clubId}`, club);
+  }
+
   removeClub(clubId: number) {
     return this.http.delete(`http://127.0.0.1:8000/clubs/remove/${clubId}`);
   }

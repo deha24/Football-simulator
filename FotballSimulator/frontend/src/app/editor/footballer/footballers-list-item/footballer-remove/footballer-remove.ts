@@ -12,12 +12,12 @@ import {ButtonModule} from "primeng/button";
 })
 export class FootballerRemove {
 
-  @Input() footballer!: Footballer;
+  @Input() footballerId!: number;
 
   constructor(private eventService: EventService, private footballersService: FootballersService) {}
 
   removeFootballer() {
-    this.footballersService.deleteFootballer(this.footballer.id).subscribe({
+    this.footballersService.deleteFootballer(this.footballerId).subscribe({
       next: () => {
         this.eventService.emitEvent('removedFootballer')
       },

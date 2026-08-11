@@ -7,6 +7,7 @@ import { EventService } from '../../../../shared/services/EventServices';
 import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
+
 @Component({
   selector: 'footballers',
   imports: [FootballersItem, TableModule],

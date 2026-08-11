@@ -1,7 +1,35 @@
-<li class="d-flex justify-content-between list-group-item">
-  <div class="d-flex align-items-center">
-    <span class="me-4">{{ club.name }}</span>
+<td>
+  {{club.name}}
+</td>
+<td>
+  {{club.location}}
+</td>
+<td>
+  {{club.foundDate}}
+</td>
+<td>
+  {{club.stadium}}
+</td>
+<td>
+  {{club.capacity}}
+</td>
+<td>
+  <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-left">
+    <div class="col-sm-4">
+      <button pButton type="button" (click)="openEditDialog()" severity="secondary">
+        <i class="pi pi-pencil"></i>
+      </button>
+      <p-dialog header="Edit Club" [(visible)]="displayEditDialog" [modal]="true">
+        <club-update [club]="club"></club-update>
+      </p-dialog>
+    </div>
+    <div class="col-sm-4">
+      <button pButton type="button" (click)="detailsClub(club.id)" severity="secondary">
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+    <div class="col-sm-4">
+      <club-remove [clubId]="club.id"></club-remove>
+    </div>
   </div>
-  <button class="btn btn-secondary" aria-label="search" (click)="$event.preventDefault(); detailsClub(club.id)">Edit</button>
-  <club-remove [clubId]="club.id"></club-remove>
-</li>
+</td>
