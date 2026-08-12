@@ -33,6 +33,9 @@ export class Clubs {
     this.eventService.getEvent('removedClub', () => {
         this.loadClubs();
     });
+    this.eventService.getEvent('updatedClub', () => {
+        this.loadClubs();
+    });
 
   }
 

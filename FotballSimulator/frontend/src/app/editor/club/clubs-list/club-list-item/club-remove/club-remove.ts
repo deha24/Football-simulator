@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 import { ClubService } from '../../../clubService';
-import { Club } from '../../../../../../shared/models/club';
 import { EventService } from '../../../../../../shared/services/EventServices';
 
 @Component({
   selector: 'club-remove',
-  imports: [],
+  imports: [ButtonModule],
   templateUrl: './club-remove.html',
   styleUrl: './club-remove.css'
 })

@@ -1,6 +1,7 @@
 import { Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 import { Club } from '../../../../../shared/models/club';
 import { ClubRemove } from './club-remove/club-remove';
 import { ClubUpdate } from './club-update/club-update';
@@ -8,7 +9,7 @@ import { ClubUpdate } from './club-update/club-update';
 
 @Component({
   selector: '[clubs-item]',
-  imports: [DialogModule, ClubRemove, ClubUpdate],
+  imports: [DialogModule, ButtonModule, ClubRemove, ClubUpdate],
   templateUrl: './clubs-item.html',
   styleUrl: './clubs-item.css'
 })

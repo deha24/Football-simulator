@@ -24,17 +24,18 @@ try:
 except Exception as e:
     pass
 
+
 @router.get("/getclubs")
 def get_clubs() -> list[Club]:
     with conn.cursor() as cur:
         cur.execute("SELECT * FROM clubs")
         rows = cur.fetchall()
-    return [Club(id=row[0], name=row[1], location=row[2], foundDate=row[3], stadium=row[4], capacity=row[5]) for row in rows]
+    return [Club(id=row[0], name=row[1], location=row[2], found_date=row[3], stadium_name=row[4], stadium_capacity=row[5]) for row in rows]
 
 @router.post("/addclub")
 async def addclub(club: CreateClubDTO):
     cur = conn.cursor()
-    cur.execute("INSERT INTO clubs (name, location, found_date, stadium, capacity) VALUES (%s, %s, %s, %s, %s)", (club.name, club.location, club.foundDate, club.stadium, club.capacity))
+    cur.execute("INSERT INTO clubs (name, location, found_date, stadium_name, stadium_capacity) VALUES (%s, %s, %s, %s, %s)", (club.name, club.location, club.found_date, club.stadium_name, club.stadium_capacity))
     conn.commit()
 
 @router.get("/details/{club_id}")
@@ -47,9 +48,9 @@ async def get_club_by_id(club_id: int) -> Club:
             id=row[0],
             name=row[1],
             location=row[2],
-            foundDate=row[3],
-            stadium=row[4],
-            capacity=row[5]
+            found_date=row[3],
+            stadium_name=row[4],
+            stadium_capacity=row[5]
         )
     return None
 

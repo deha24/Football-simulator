@@ -34,9 +34,9 @@ export class ClubUpdate implements OnInit{
     this.updateClubForm = new FormGroup({
     newClubName: new FormControl(this.club.name, { validators: [Validators.required] }),
     newClubLocation: new FormControl(this.club.location, { validators: [Validators.required] }),
-    newClubFoundDate: new FormControl(this.club.foundDate, { validators: [Validators.required] }),
-    newClubStadium: new FormControl(this.club.stadium, { validators: [Validators.required] }),
-    newClubStadiumCapacity: new FormControl(this.club.capacity, { validators: [Validators.required, Validators.min(1)] }),
+    newClubFoundDate: new FormControl(this.club.found_date, { validators: [Validators.required] }),
+    newClubStadium: new FormControl(this.club.stadium_name, { validators: [Validators.required] }),
+    newClubStadiumCapacity: new FormControl(this.club.stadium_capacity, { validators: [Validators.required, Validators.min(1)] }),
     });
   }
 
@@ -57,13 +57,12 @@ export class ClubUpdate implements OnInit{
           if (key === 'newClubName') data.name = clubName;
           if (key === 'newClubLocation') data.location = clubLocation;
           if (key === 'newClubFoundDate') data.found_date = foundDate;
-          if (key === 'newClubStadium') data.stadium = clubStadium;
+          if (key === 'newClubStadium') data.stadium_name = clubStadium;
           if (key === 'newClubStadiumCapacity') data.stadium_capacity = clubStadiumCapacity;
         }
       });
 
-      this.clubService.updateClub(data, this.club.id).subscribe(() => {
-        console.log('Club updated successfully', data);
+      this.clubService.updateClub(this.club.id, data).subscribe(() => {
         this.updateClubForm.reset();
         this.eventService.emitEvent('updatedClub');
       });

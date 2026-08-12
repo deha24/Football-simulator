@@ -3,9 +3,9 @@ export class Club {
     public id: number,
     public name: string,
     public location: string,
-    public foundDate: string,
-    public stadium: string,
-    public capacity: number,
+    public found_date: string,
+    public stadium_name: string,
+    public stadium_capacity: number,
   ) {}
 }
 
@@ -13,8 +13,8 @@ export class CreateClubDTO {
   constructor(
     public name: string,
     public location: string,
-    public foundDate: string,
-    public stadium: string,
-    public capacity: number,
+    public found_date: string,
+    public stadium_name: string,
+    public stadium_capacity: number,
   ) {}
 }
