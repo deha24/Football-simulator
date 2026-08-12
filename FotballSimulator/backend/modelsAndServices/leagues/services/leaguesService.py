@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.league import League, CreateLeagueDTO
+from ..models.league import League, CreateLeagueDTO, UpdateLeagueDTO
 
 router = APIRouter(
     prefix="/leagues",
@@ -59,6 +59,28 @@ async def get_leagues_by_country_and_level(country: str, level: int) -> list[Lea
     cur.execute("SELECT * FROM leagues WHERE Country = %s AND level = %s", (country, level))
     rows = cur.fetchall()
     return [League(id=row[0], name=row[1], country=row[2], level=row[3]) for row in rows]
+
+@router.patch("/update/{league_id}")
+async def update_league(league_id: int, league: UpdateLeagueDTO):
+
+    updatedData = league.model_dump(exclude_unset=True)
+    set_clauses = []
+    values = []
+
+    for key, value in updatedData.items():
+        set_clauses.append(f"{key} = %s")
+        values.append(value)
+
+    print("Updated Data:", updatedData, "League: ",league)  # Debugging line to print the updated data
+    
+    set_query = ", ".join(set_clauses)
+    values.append(league_id) 
+    
+    cur = conn.cursor()
+    query = f"UPDATE leagues SET {set_query} WHERE id = %s"
+    cur.execute(query, tuple(values))
+    conn.commit()
+    return {"message": "League updated successfully"}
 
 @router.delete("/delete/{league_id}")
 async def delete_league(league_id: int):

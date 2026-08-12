@@ -25,6 +25,11 @@ export class LeagueService {
     return this.http.post<CreateLeagueDTO>('http://127.0.0.1:8000/leagues/addleague', league);
   }
 
+  updateLeague(leagueId: number,league: League) {
+      console.log('League updated successfully', league);
+      return this.http.patch(`http://127.0.0.1:8000/leagues/update/${leagueId}`, league);
+  }
+
   removeLeague(id: number) {
     return this.http.delete(`http://127.0.0.1:8000/leagues/delete/${id}`);
   }

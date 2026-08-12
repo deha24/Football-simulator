@@ -1,14 +1,19 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators, AsyncValidatorFn } from '@angular/forms';
+import { EventService } from '../../../../shared/services/EventServices';
+import { ButtonModule } from 'primeng/button';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
 import { LeagueService } from '../leagueService';
 import { CreateLeagueDTO } from '../../../../shared/models/league';
 import { multipleFirstLeagueLevel } from '../league-form-validators';
-import { EventService } from '../../../../shared/services/EventServices';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-league-add',
-  imports: [ReactiveFormsModule, ButtonModule],
+  imports: [ReactiveFormsModule, ButtonModule, InputGroupAddonModule, InputGroupModule, InputNumberModule, InputTextModule, CardModule],
   templateUrl: './league-add.html',
   styleUrl: './league-add.css'
 })
