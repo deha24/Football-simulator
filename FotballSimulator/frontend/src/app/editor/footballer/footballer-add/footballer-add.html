@@ -56,26 +56,21 @@
           <h5> Footballer Information </h5>
           <p-inputgroup class="mt-1">
             <p-inputgroup-addon>
-              <i class="pi pi-circle"></i>
-            </p-inputgroup-addon>
-            <input pInputText placeholder="Position" formControlName="newFootballerPosition" />
-          </p-inputgroup>
-          @if(addfootballerform.get('newFootballerPosition')?.invalid && addfootballerform.get('newFootballerPosition')?.touched) {
-            @if(addfootballerform.get('newFootballerPosition')?.errors?.['required']) {
-              <small class="text-danger">Position is required.</small>
-            }
-            @if(addfootballerform.get('newFootballerPosition')?.errors?.['maxlength']) {
-              <small class="text-danger">Position cannot be longer than 3 characters.</small>
-            }
-          }
-          <p-inputgroup class="mt-1">
-            <p-inputgroup-addon>
               <i class="pi pi-star"></i>
             </p-inputgroup-addon>
+            <input pInputText type="number" placeholder="goalkeeping" inputId="integeronly" formControlName="newFootballerGoalkeeping" />
             <input pInputText type="number" placeholder="defence" inputId="integeronly" formControlName="newFootballerDefence" />
             <input pInputText type="number" placeholder="midfield" inputId="integeronly" formControlName="newFootballerMidfield" />
             <input pInputText type="number" placeholder="attack" inputId="integeronly" formControlName="newFootballerAttack" />
           </p-inputgroup>
+          @if(addfootballerform.get('newFootballerGoalkeeping')?.invalid && addfootballerform.get('newFootballerGoalkeeping')?.touched) {
+            @if(addfootballerform.get('newFootballerGoalkeeping')?.errors?.['required']) {
+              <small class="text-danger">Goalkeeping rating is required.</small>
+            }
+            @if(addfootballerform.get('newFootballerGoalkeeping')?.errors?.['min'] || addfootballerform.get('newFootballerGoalkeeping')?.errors?.['max']) {
+              <small class="text-danger">Goalkeeping rating must be between 1 and 99.</small>
+            }
+          }
           @if(addfootballerform.get('newFootballerDefence')?.invalid && addfootballerform.get('newFootballerDefence')?.touched) {
             @if(addfootballerform.get('newFootballerDefence')?.errors?.['required']) {
               <small class="text-danger">Defence rating is required.</small>

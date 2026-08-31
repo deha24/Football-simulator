@@ -35,7 +35,7 @@ export class FootballerUpdate {
       newFootballerLastname: new FormControl(this.footballer.last_name, {validators: [Validators.required]}),
       newFootballerBirthDate: new FormControl(this.footballer.birth_date, {validators: [Validators.required]}),
       newFootballerNationality: new FormControl(this.footballer.nationality, {validators: [Validators.required]}),
-      newFootballerPosition: new FormControl(this.footballer.position, { validators: [Validators.required, Validators.maxLength(3)] }),
+      newFootballerGoalkeeping: new FormControl(this.footballer.goalkeeping, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
       newFootballerDefence: new FormControl(this.footballer.defence, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
       newFootballerMidfield: new FormControl(this.footballer.midfield, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
       newFootballerAttack: new FormControl(this.footballer.attack, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
@@ -49,7 +49,7 @@ export class FootballerUpdate {
     const lastName = this.updateFootballerForm.value.newFootballerLastname;
     const birthDate = formatDate(this.updateFootballerForm.value.newFootballerBirthDate!, 'yyyy-MM-dd', 'en-US');
     const nationality = this.updateFootballerForm.value.newFootballerNationality;
-    const position = this.updateFootballerForm.value.newFootballerPosition;
+    const goalkeeping = this.updateFootballerForm.value.newFootballerGoalkeeping;
     const defence = this.updateFootballerForm.value.newFootballerDefence;
     const midfield = this.updateFootballerForm.value.newFootballerMidfield;
     const attack = this.updateFootballerForm.value.newFootballerAttack;
@@ -63,7 +63,7 @@ export class FootballerUpdate {
           if (key === 'newFootballerLastname') data.last_name = lastName;
           if (key === 'newFootballerBirthDate') data.birth_date = birthDate;
           if (key === 'newFootballerNationality') data.nationality = nationality;
-          if (key === 'newFootballerPosition') data.position = position;
+          if (key === 'newFootballerGoalkeeping') data.goalkeeping = goalkeeping;
           if (key === 'newFootballerDefence') data.defence = defence;
           if (key === 'newFootballerMidfield') data.midfield = midfield;
           if (key === 'newFootballerAttack') data.attack = attack;

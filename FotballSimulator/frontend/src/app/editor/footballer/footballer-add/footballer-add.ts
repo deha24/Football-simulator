@@ -29,7 +29,7 @@ export class FootballerAdd {
     newFootballerLastname: new FormControl('', { validators: [Validators.required] }),
     newFootballerBirthDate: new FormControl('', { validators: [Validators.required] }),
     newFootballerNationality: new FormControl('', { validators: [Validators.required] }),
-    newFootballerPosition: new FormControl('', { validators: [Validators.required, Validators.maxLength(3)] }),
+    newFootballerGoalkeeping: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
     newFootballerDefence: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
     newFootballerMidfield: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
     newFootballerAttack: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
@@ -40,13 +40,13 @@ export class FootballerAdd {
     const lastName = this.addfootballerform.value.newFootballerLastname;
     const birthDate = formatDate(this.addfootballerform.value.newFootballerBirthDate!, 'yyyy-MM-dd', 'en-US');
     const nationality = this.addfootballerform.value.newFootballerNationality;
-    const position = this.addfootballerform.value.newFootballerPosition;
+    const goalkeeping = this.addfootballerform.value.newFootballerGoalkeeping;
     const defence = this.addfootballerform.value.newFootballerDefence;
     const midfield = this.addfootballerform.value.newFootballerMidfield;
     const attack = this.addfootballerform.value.newFootballerAttack;
 
     if (this.addfootballerform.valid) {
-      const newFootballer = new CreateFootballerDTO(firstName!, lastName!, birthDate!, nationality!, position!, defence!, midfield!, attack!);
+      const newFootballer = new CreateFootballerDTO(firstName!, lastName!, birthDate!, nationality!, "cam", goalkeeping!, defence!, midfield!, attack!);
       console.log('Dodawanie nowego piłkarza:', newFootballer);
       this.footballersService.addFootballer(newFootballer).subscribe(() => {
       this.addfootballerform.reset();

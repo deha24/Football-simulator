@@ -29,13 +29,13 @@ async def getfootballers() -> list[Footballer]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballers")
     rows = cur.fetchall()
-    return [Footballer(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], position=row[5], defence=row[6], midfield=row[7], attack=row[8]) for row in rows]
+    return [Footballer(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], goalkeeping=row[5], defence=row[6], midfield=row[7], attack=row[8]) for row in rows]
 
 @router.post("/addfootballer")
 async def addfootballer(footballer: CreateFootballerDTO):
     cur = conn.cursor()
-    cur.execute("INSERT INTO footballers (first_name, last_name, birth_date, nationality, position, defence, midfield, atack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
-                (footballer.first_name, footballer.last_name, footballer.birth_date, footballer.nationality, footballer.position, footballer.defence, footballer.midfield, footballer.attack))
+    cur.execute("INSERT INTO footballers (first_name, last_name, birth_date, nationality, goalkeeping, defence, midfield, attack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
+                (footballer.first_name, footballer.last_name, footballer.birth_date, footballer.nationality, footballer.goalkeeping, footballer.defence, footballer.midfield, footballer.attack))
     conn.commit()
     return {"message": "Footballer added successfully"}
 
@@ -51,7 +51,7 @@ async def get_footballer_by_id(footballer_id: int) -> Footballer:
             last_name=row[2],
             birth_date=row[3],
             nationality=row[4],
-            position=row[5],
+            goalkeeping=row[5],
             defence=row[6],
             midfield=row[7],
             attack=row[8]
