@@ -27,7 +27,7 @@ export class FootballerAdd {
   constructor(private footballersService: FootballersService, private eventService: EventService) {}
 
   ngOnInit() {
-    this.eventService.getEvent('newFootballerPositionReply', (newFootballerPositions: FootballerPositionsDTO) => {
+    this.eventService.getEvent('newFootballerPositionsReply', (newFootballerPositions: FootballerPositionsDTO) => {
       this.addNewFootballer(newFootballerPositions);
     });
   }
@@ -43,7 +43,7 @@ export class FootballerAdd {
     newFootballerAttack: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
   });
 
-  validFootballer(){
+  validFootballerForm(){
     if (this.addfootballerform.valid) {
       this.eventService.emitEvent('newFootballerPositionsRequest', {});
     } else{

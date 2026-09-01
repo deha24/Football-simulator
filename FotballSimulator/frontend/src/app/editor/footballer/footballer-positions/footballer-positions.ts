@@ -61,7 +61,7 @@ export class FootballerPositions implements OnInit{
     if (this.addfootballerPositionsForm.valid) {
       const newFootballerPositions = new FootballerPositionsDTO(gk!, lb!, cb!, rb!, lwb!, cdm!, rwb!, lm!, cm!, rm!, lw!, cam!, rw!, st!);
       console.log('Dodawanie Pozycji nowego piłkarza:', newFootballerPositions);
-      this.eventService.emitEvent('newFootballerpositionsReply', newFootballerPositions);
+      this.eventService.emitEvent('newFootballerPositionsReply', newFootballerPositions);
     } else {
       // Handle form errors if needed
       console.error('Form is invalid');
