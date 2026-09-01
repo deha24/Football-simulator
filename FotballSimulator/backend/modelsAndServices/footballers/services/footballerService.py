@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 import psycopg2
 from ..models.footballer import Footballer, CreateFootballerDTO, UpdateFootballerDTO
+from ..models.footballerPositions import FootballerPositionsDTO
 
 router = APIRouter(
     prefix="/footballers",
@@ -36,6 +37,9 @@ async def addfootballer(footballer: CreateFootballerDTO):
     cur = conn.cursor()
     cur.execute("INSERT INTO footballers (first_name, last_name, birth_date, nationality, goalkeeping, defence, midfield, attack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
                 (footballer.first_name, footballer.last_name, footballer.birth_date, footballer.nationality, footballer.goalkeeping, footballer.defence, footballer.midfield, footballer.attack))
+    conn.commit()
+    cur.execute("INSERT INTO footballer_positions (gk, lb, cb, rb, lwb, cdm, rwb, lm, cm, rm, lw, cam, rw, st, footballer_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, (SELECT id FROM footballers ORDER BY id DESC LIMIT 1))", 
+                    (footballer.position.gk, footballer.position.lb, footballer.position.cb, footballer.position.rb, footballer.position.lwb, footballer.position.cdm, footballer.position.rwb, footballer.position.lm, footballer.position.cm, footballer.position.rm, footballer.position.lw, footballer.position.cam, footballer.position.rw, footballer.position.st))
     conn.commit()
     return {"message": "Footballer added successfully"}
 

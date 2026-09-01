@@ -1,0 +1,155 @@
+<form [formGroup]="addfootballerPositionsForm" (ngSubmit)="$event.preventDefault(); addNewFootballerPositions()">
+    <p-panel header="Footballer Positions" class="mt-2">
+
+        <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-2">
+                
+            </div>
+            @for (i of [1, 2, 3]; track $index) {
+                <div class="col-sm-2">
+                    <p-inputgroup>
+                        <input pInputText type="number" placeholder="ST" formControlName="newFootballerPositionST" />
+                    </p-inputgroup>
+                </div>
+            }
+            <div class="col-sm-2">
+                
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+        </div>
+
+        <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="LW" formControlName="newFootballerPositionLW" />
+                </p-inputgroup>
+            </div>
+            @for (i of [1, 2, 3]; track $index) {
+                <div class="col-sm-2">
+                    <p-inputgroup>
+                        <input pInputText type="number" placeholder="CAM" formControlName="newFootballerPositionCAM" />
+                    </p-inputgroup>
+                </div>
+            }
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="RW" formControlName="newFootballerPositionRW" />
+                </p-inputgroup>
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+        </div>
+
+        <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="LM" formControlName="newFootballerPositionLM" />
+                </p-inputgroup>
+            </div>
+            @for (i of [1, 2, 3]; track $index) {
+                <div class="col-sm-2">
+                    <p-inputgroup>
+                        <input pInputText type="number" placeholder="CM" formControlName="newFootballerPositionCM" />
+                    </p-inputgroup>
+                </div>
+            }
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="RM" formControlName="newFootballerPositionRM" />
+                </p-inputgroup>
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+        </div>
+
+        <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="LWB" formControlName="newFootballerPositionLWB" />
+                </p-inputgroup>
+            </div>
+            @for (i of [1, 2, 3]; track $index) {
+                <div class="col-sm-2">
+                    <p-inputgroup>
+                        <input pInputText type="number" placeholder="CDM" formControlName="newFootballerPositionCDM" />
+                    </p-inputgroup>
+                </div>
+            }
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="RWB" formControlName="newFootballerPositionRWB" />
+                </p-inputgroup>
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+        </div>
+
+        <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="LB" formControlName="newFootballerPositionLB" />
+                </p-inputgroup>
+            </div>
+            @for (i of [1, 2, 3]; track $index) {
+                <div class="col-sm-2">
+                    <p-inputgroup>
+                        <input pInputText type="number" placeholder="CB" formControlName="newFootballerPositionCB" />
+                    </p-inputgroup>
+                </div>
+            }
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="RB" formControlName="newFootballerPositionRB" />
+                </p-inputgroup>
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+        </div>
+
+        <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+            <div class="col-sm-1">
+
+            </div>
+            @for (i of [1, 2]; track $index) {
+                <div class="col-sm-2">
+                    
+                </div>
+            }
+            <div class="col-sm-2">
+                <p-inputgroup>
+                    <input pInputText type="number" placeholder="GK" formControlName="newFootballerPositionGK" />
+                </p-inputgroup>
+            </div>
+            @for (i of [1, 2]; track $index) {
+                <div class="col-sm-2">
+                    
+                </div>
+            }
+            <div class="col-sm-1">
+
+            </div>
+        </div>
+    </p-panel>
+
+</form>

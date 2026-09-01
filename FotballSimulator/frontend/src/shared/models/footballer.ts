@@ -5,7 +5,7 @@ export class Footballer {
         public last_name: string,
         public birth_date: string,
         public nationality: string,
-        public position: string,
+        public position: FootballerPositionsDTO,
         public goalkeeping: number,
         public defence: number,
         public midfield: number,
@@ -20,11 +20,31 @@ export class CreateFootballerDTO {
         public last_name: string,
         public birth_date: string,
         public nationality: string,
-        public position: string,
+        public position: FootballerPositionsDTO,
         public goalkeeping: number,
         public defence: number,
         public midfield: number,
         public attack: number,
+    )
+    {}
+}
+
+export class FootballerPositionsDTO {
+    constructor(
+        public gk: number,
+        public lb: number,
+        public cb: number,
+        public rb: number,
+        public lwb: number,
+        public cdm: number,
+        public rwb: number,
+        public lm: number,
+        public cm: number,
+        public rm: number,
+        public lw: number,
+        public cam: number,
+        public rw: number,
+        public st: number
     )
     {}
 }
