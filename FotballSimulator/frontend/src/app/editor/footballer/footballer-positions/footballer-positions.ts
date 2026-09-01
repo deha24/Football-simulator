@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { EventService } from '../../../../shared/services/EventServices';
 import { PanelModule } from 'primeng/panel';
@@ -17,30 +17,55 @@ import { FootballersService } from '../footballersService';
 })
 export class FootballerPositions implements OnInit{
 
+  @Input() footballerPositions!: FootballerPositionsDTO;
+
   constructor(private footballersService: FootballersService, private eventService: EventService) {}
+
+  addfootballerPositionsForm = new FormGroup({
+    newFootballerPositionGK: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionLB: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionCB: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionRB: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionLWB: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionCDM: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionRWB: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionLM: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionCM: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionRM: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionLW: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionCAM: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionRW: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+    newFootballerPositionST: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
+  });
 
   ngOnInit() {
     this.eventService.getEvent('newFootballerPositionsRequest', () => { 
       this.addNewFootballerPositions(); 
     });
+    this.eventService.getEvent('updateFootballerPositionsRequest', () => {
+      this.addNewFootballerPositions();
+    });
+    this.eventService.getEvent('updateFootballerPositionsShowRequest', () => {
+      if (this.footballerPositions) {
+        this.addfootballerPositionsForm.patchValue({
+          newFootballerPositionGK: this.footballerPositions.gk,
+          newFootballerPositionLB: this.footballerPositions.lb,
+          newFootballerPositionCB: this.footballerPositions.cb,
+          newFootballerPositionRB: this.footballerPositions.rb,
+          newFootballerPositionLWB: this.footballerPositions.lwb,
+          newFootballerPositionCDM: this.footballerPositions.cdm,
+          newFootballerPositionRWB: this.footballerPositions.rwb,
+          newFootballerPositionLM: this.footballerPositions.lm,
+          newFootballerPositionCM: this.footballerPositions.cm,
+          newFootballerPositionRM: this.footballerPositions.rm,
+          newFootballerPositionLW: this.footballerPositions.lw,
+          newFootballerPositionCAM: this.footballerPositions.cam,
+          newFootballerPositionRW: this.footballerPositions.rw,
+          newFootballerPositionST: this.footballerPositions.st,
+        });
+      }
+    });
   }
-
-  addfootballerPositionsForm = new FormGroup({
-    newFootballerPositionGK: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionLB: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionCB: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionRB: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionLWB: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionCDM: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionRWB: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionLM: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionCM: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionRM: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionLW: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionCAM: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionRW: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-    newFootballerPositionST: new FormControl(null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
-  });
 
   addNewFootballerPositions() {
     const gk = this.addfootballerPositionsForm.value.newFootballerPositionGK;

@@ -66,19 +66,37 @@ async def get_footballer_by_id(footballer_id: int) -> Footballer:
 async def update_footballer(footballer_id: int, footballer: UpdateFootballerDTO):
 
     updatedData = footballer.model_dump(exclude_unset=True)
-    set_clauses = []
-    values = []
-
-    for key, value in updatedData.items():
-        set_clauses.append(f"{key} = %s")
-        values.append(value)
     
-    set_query = ", ".join(set_clauses)
-    values.append(footballer_id) 
+    position_data = updatedData.pop("position", None)
     
     cur = conn.cursor()
-    query = f"UPDATE footballers SET {set_query} WHERE id = %s"
-    cur.execute(query, tuple(values))
+
+    if updatedData:
+        set_clauses = []
+        values = []
+        for key, value in updatedData.items():
+            set_clauses.append(f"{key} = %s")
+            values.append(value)
+        
+        set_query = ", ".join(set_clauses)
+        values.append(footballer_id) 
+        
+        query = f"UPDATE footballers SET {set_query} WHERE id = %s"
+        cur.execute(query, tuple(values))
+
+    if position_data:
+        pos_clauses = []
+        pos_values = []
+        for key, value in position_data.items():
+            pos_clauses.append(f"{key} = %s")
+            pos_values.append(value)
+            
+        pos_query = ", ".join(pos_clauses)
+        pos_values.append(footballer_id)
+        
+        query_pos = f"UPDATE footballer_positions SET {pos_query} WHERE footballer_id = %s"
+        cur.execute(query_pos, tuple(pos_values))
+
     conn.commit()
     return {"message": "Footballer updated successfully"}
 
