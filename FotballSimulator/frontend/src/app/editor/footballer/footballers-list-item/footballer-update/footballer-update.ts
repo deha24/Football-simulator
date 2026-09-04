@@ -32,6 +32,7 @@ export class FootballerUpdate {
   footballerPositions!: FootballerPositionsDTO;
 
   ngOnInit() {
+
     this.updateFootballerForm = new FormGroup({
       newFootballerFirstName: new FormControl(this.footballer.first_name, {validators: [Validators.required]}),
       newFootballerLastname: new FormControl(this.footballer.last_name, {validators: [Validators.required]}),
@@ -44,7 +45,6 @@ export class FootballerUpdate {
     });
 
     this.footballerPositions = this.footballer.position;
-    this.eventService.emitEvent('updateFootballerPositionsShowRequest');
     this.eventService.getEvent('newFootballerPositionsReply', (updatedPositions: FootballerPositionsDTO) => {
       this.updateFootballer(updatedPositions);
     });

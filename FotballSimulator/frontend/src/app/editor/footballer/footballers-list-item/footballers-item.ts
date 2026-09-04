@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import {DialogModule} from "primeng/dialog";
+import { EventService } from '../../../../shared/services/EventServices';
 import { Footballer } from '../../../../shared/models/footballer';
 import { FootballerRemove } from './footballer-remove/footballer-remove';
 import { FootballerUpdate } from './footballer-update/footballer-update';
@@ -22,9 +23,9 @@ export class FootballersItem {
   displayEditDialog: boolean = false;
   
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private eventService: EventService) {}
 
-  openEditDialog() {
+  openEditDialog(id: number) {
     this.displayEditDialog = true;
   }
 

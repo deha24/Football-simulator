@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Footballer, CreateFootballerDTO } from '../../../shared/models/footballer';
+import { Footballer, CreateFootballerDTO, FootballerPositionsDTO } from '../../../shared/models/footballer';
 
 
 @Injectable({
@@ -17,6 +17,10 @@ export class FootballersService {
 
   getFootballerById(id: number) {
     return this.http.get(`http://127.0.0.1:8000/footballers/details/${id}`);
+  }
+
+  getFootballerPositionsById(id: number) {
+    return this.http.get<FootballerPositionsDTO>(`http://127.0.0.1:8000/footballers/positions/${id}`);
   }
 
   addFootballer(footballer: CreateFootballerDTO) {

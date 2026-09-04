@@ -15,6 +15,15 @@
                     </p-inputgroup>
                 </div>
             }
+            @if(addfootballerPositionsForm.get('newFootballerPositionST')?.invalid && addfootballerPositionsForm.get('newFootballerPositionST')?.touched) {
+                @if(addfootballerPositionsForm.get('newFootballerPositionST')?.errors?.['required']) {
+                <small class="text-danger">ST position is required.</small>
+                }
+                @if(addfootballerPositionsForm.get('newFootballerPositionST')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionST')?.errors?.['max']) {
+                <small class="text-danger">ST position must be between 0 and 10.</small>
+                }
+                <br />
+            }
             <div class="col-sm-2">
                 
             </div>
@@ -31,6 +40,15 @@
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="LW" formControlName="newFootballerPositionLW" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionLW')?.invalid && addfootballerPositionsForm.get('newFootballerPositionLW')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionLW')?.errors?.['required']) {
+                    <small class="text-danger">LW position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionLW')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionLW')?.errors?.['max']) {
+                    <small class="text-danger">LW position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
@@ -39,10 +57,28 @@
                     </p-inputgroup>
                 </div>
             }
+            @if(addfootballerPositionsForm.get('newFootballerPositionCAM')?.invalid && addfootballerPositionsForm.get('newFootballerPositionCAM')?.touched) {
+                @if(addfootballerPositionsForm.get('newFootballerPositionCAM')?.errors?.['required']) {
+                <small class="text-danger">CAM position is required.</small>
+                }
+                @if(addfootballerPositionsForm.get('newFootballerPositionCAM')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionCAM')?.errors?.['max']) {
+                <small class="text-danger">CAM position must be between 0 and 10.</small>
+                }
+                <br />
+            }
             <div class="col-sm-2">
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="RW" formControlName="newFootballerPositionRW" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionRW')?.invalid && addfootballerPositionsForm.get('newFootballerPositionRW')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionRW')?.errors?.['required']) {
+                    <small class="text-danger">RW position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionRW')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionRW')?.errors?.['max']) {
+                    <small class="text-danger">RW position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }
             </div>
             <div class="col-sm-1">
 
@@ -57,6 +93,15 @@
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="LM" formControlName="newFootballerPositionLM" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionLM')?.invalid && addfootballerPositionsForm.get('newFootballerPositionLM')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionLM')?.errors?.['required']) {
+                    <small class="text-danger">LM position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionLM')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionLM')?.errors?.['max']) {
+                    <small class="text-danger">LM position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
@@ -65,10 +110,28 @@
                     </p-inputgroup>
                 </div>
             }
+            @if(addfootballerPositionsForm.get('newFootballerPositionCM')?.invalid && addfootballerPositionsForm.get('newFootballerPositionCM')?.touched) {
+                @if(addfootballerPositionsForm.get('newFootballerPositionCM')?.errors?.['required']) {
+                <small class="text-danger">CM position is required.</small>
+                }
+                @if(addfootballerPositionsForm.get('newFootballerPositionCM')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionCM')?.errors?.['max']) {
+                <small class="text-danger">CM position must be between 0 and 10.</small>
+                }
+                <br />
+            }
             <div class="col-sm-2">
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="RM" formControlName="newFootballerPositionRM" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionRM')?.invalid && addfootballerPositionsForm.get('newFootballerPositionRM')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionRM')?.errors?.['required']) {
+                    <small class="text-danger">RM position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionRM')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionRM')?.errors?.['max']) {
+                    <small class="text-danger">RM position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }       
             </div>
             <div class="col-sm-1">
 
@@ -83,6 +146,15 @@
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="LWB" formControlName="newFootballerPositionLWB" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionLWB')?.invalid && addfootballerPositionsForm.get('newFootballerPositionLWB')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionLWB')?.errors?.['required']) {
+                    <small class="text-danger">LWB position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionLWB')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionLWB')?.errors?.['max']) {
+                    <small class="text-danger">LWB position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
@@ -91,10 +163,28 @@
                     </p-inputgroup>
                 </div>
             }
+            @if(addfootballerPositionsForm.get('newFootballerPositionCB')?.invalid && addfootballerPositionsForm.get('newFootballerPositionCB')?.touched) {
+                @if(addfootballerPositionsForm.get('newFootballerPositionCB')?.errors?.['required']) {
+                <small class="text-danger">CB position is required.</small>
+                }
+                @if(addfootballerPositionsForm.get('newFootballerPositionCB')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionCB')?.errors?.['max']) {
+                <small class="text-danger">CB position must be between 0 and 10.</small>
+                }
+                <br />
+            }
             <div class="col-sm-2">
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="RWB" formControlName="newFootballerPositionRWB" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionRWB')?.invalid && addfootballerPositionsForm.get('newFootballerPositionRWB')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionRWB')?.errors?.['required']) {
+                    <small class="text-danger">RWB position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionRWB')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionRWB')?.errors?.['max']) {
+                    <small class="text-danger">RWB position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }   
             </div>
             <div class="col-sm-1">
 
@@ -109,6 +199,15 @@
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="LB" formControlName="newFootballerPositionLB" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionLB')?.invalid && addfootballerPositionsForm.get('newFootballerPositionLB')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionLB')?.errors?.['required']) {
+                    <small class="text-danger">LB position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionLB')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionLB')?.errors?.['max']) {
+                    <small class="text-danger">LB position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
@@ -117,10 +216,28 @@
                     </p-inputgroup>
                 </div>
             }
+            @if(addfootballerPositionsForm.get('newFootballerPositionCB')?.invalid && addfootballerPositionsForm.get('newFootballerPositionCB')?.touched) {
+                @if(addfootballerPositionsForm.get('newFootballerPositionCB')?.errors?.['required']) {
+                <small class="text-danger">CB position is required.</small>
+                }
+                @if(addfootballerPositionsForm.get('newFootballerPositionCB')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionCB')?.errors?.['max']) {
+                <small class="text-danger">CB position must be between 0 and 10.</small>
+                }
+                <br />
+            }
             <div class="col-sm-2">
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="RB" formControlName="newFootballerPositionRB" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionRB')?.invalid && addfootballerPositionsForm.get('newFootballerPositionRB')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionRB')?.errors?.['required']) {
+                    <small class="text-danger">RB position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionRB')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionRB')?.errors?.['max']) {
+                    <small class="text-danger">RB position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }
             </div>
             <div class="col-sm-1">
 
@@ -140,6 +257,15 @@
                 <p-inputgroup>
                     <input pInputText type="number" placeholder="GK" formControlName="newFootballerPositionGK" />
                 </p-inputgroup>
+                @if(addfootballerPositionsForm.get('newFootballerPositionGK')?.invalid && addfootballerPositionsForm.get('newFootballerPositionGK')?.touched) {
+                    @if(addfootballerPositionsForm.get('newFootballerPositionGK')?.errors?.['required']) {
+                    <small class="text-danger">GK position is required.</small>
+                    }
+                    @if(addfootballerPositionsForm.get('newFootballerPositionGK')?.errors?.['min'] || addfootballerPositionsForm.get('newFootballerPositionGK')?.errors?.['max']) {
+                    <small class="text-danger">GK position must be between 0 and 10.</small>
+                    }
+                    <br />
+                }
             </div>
             @for (i of [1, 2]; track $index) {
                 <div class="col-sm-2">

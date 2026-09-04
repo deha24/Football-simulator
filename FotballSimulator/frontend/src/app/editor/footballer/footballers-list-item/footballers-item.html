@@ -28,11 +28,13 @@
 <td>
   <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-left">
     <div class="col-sm-4">
-      <button pButton type="button" (click)="openEditDialog()" severity="secondary">
+      <button pButton type="button" (click)="openEditDialog(footballer.id)" severity="secondary">
         <i class="pi pi-pencil"></i>
       </button>
       <p-dialog header="Edytuj piłkarza" [(visible)]="displayEditDialog" [modal]="true">
-        <footballer-update [footballer]="footballer"></footballer-update>
+        @if (displayEditDialog) {
+          <footballer-update [footballer]="footballer"></footballer-update>
+        }
       </p-dialog>
     </div>
     <div class="col-sm-4">

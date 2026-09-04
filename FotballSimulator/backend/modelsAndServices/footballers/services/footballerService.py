@@ -25,23 +25,61 @@ try:
 except Exception as e:
     print("-------------------------------------------\n BŁĄD BAZY DANYCH \n -------------------------------------------------------\n", e)
 
+async def get_footballer_positions_by_id(footballer_id: int) -> FootballerPositionsDTO:
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM footballer_positions WHERE footballer_id = %s", (footballer_id,))
+    row = cur.fetchone()
+    if row:
+        return FootballerPositionsDTO(
+            gk=row[0],
+            lb=row[1],
+            cb=row[2],
+            rb=row[3],
+            lwb=row[4],
+            cdm=row[5],
+            rwb=row[6],
+            lm=row[7],
+            cm=row[8],
+            rm=row[9],
+            lw=row[10],
+            cam=row[11],
+            rw=row[12],
+            st=row[13]
+        )
+    #record not found, return default positions
+    return FootballerPositionsDTO(gk=0, lb=0, cb=0, rb=0, lwb=0, cdm=0, rwb=0, lm=0, cm=0, rm=0, lw=0, cam=0, rw=0, st=0)
+
 @router.get("/getfootballers")
 async def getfootballers() -> list[Footballer]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballers")
     rows = cur.fetchall()
-    return [Footballer(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], goalkeeping=row[5], defence=row[6], midfield=row[7], attack=row[8]) for row in rows]
+    return [Footballer(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], position=await get_footballer_positions_by_id(row[0]), goalkeeping=row[5], defence=row[6], midfield=row[7], attack=row[8]) for row in rows]
 
-@router.post("/addfootballer")
-async def addfootballer(footballer: CreateFootballerDTO):
+
+@router.get("/positions/{footballer_id}")
+async def get_footballer_positions(footballer_id: int) -> FootballerPositionsDTO:
     cur = conn.cursor()
-    cur.execute("INSERT INTO footballers (first_name, last_name, birth_date, nationality, goalkeeping, defence, midfield, attack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
-                (footballer.first_name, footballer.last_name, footballer.birth_date, footballer.nationality, footballer.goalkeeping, footballer.defence, footballer.midfield, footballer.attack))
-    conn.commit()
-    cur.execute("INSERT INTO footballer_positions (gk, lb, cb, rb, lwb, cdm, rwb, lm, cm, rm, lw, cam, rw, st, footballer_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, (SELECT id FROM footballers ORDER BY id DESC LIMIT 1))", 
-                    (footballer.position.gk, footballer.position.lb, footballer.position.cb, footballer.position.rb, footballer.position.lwb, footballer.position.cdm, footballer.position.rwb, footballer.position.lm, footballer.position.cm, footballer.position.rm, footballer.position.lw, footballer.position.cam, footballer.position.rw, footballer.position.st))
-    conn.commit()
-    return {"message": "Footballer added successfully"}
+    cur.execute("SELECT * FROM footballer_positions WHERE footballer_id = %s", (footballer_id,))
+    row = cur.fetchone()
+    if row:
+        return FootballerPositionsDTO(
+            gk=row[0],
+            lb=row[1],
+            cb=row[2],
+            rb=row[3],
+            lwb=row[4],
+            cdm=row[5],
+            rwb=row[6],
+            lm=row[7],
+            cm=row[8],
+            rm=row[9],
+            lw=row[10],
+            cam=row[11],
+            rw=row[12],
+            st=row[13]
+        )
+    return None
 
 @router.get("/details/{footballer_id}")
 async def get_footballer_by_id(footballer_id: int) -> Footballer:
@@ -58,9 +96,31 @@ async def get_footballer_by_id(footballer_id: int) -> Footballer:
             goalkeeping=row[5],
             defence=row[6],
             midfield=row[7],
-            attack=row[8]
+            attack=row[8],
+            position=await get_footballer_positions_by_id(footballer_id)
         )
     return None
+
+async def add_footballer_positions(footballer_id: int, positions: FootballerPositionsDTO):
+    cur = conn.cursor()
+    cur.execute("INSERT INTO footballer_positions (gk, lb, cb, rb, lwb, cdm, rwb, lm, cm, rm, lw, cam, rw, st, footballer_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+                (positions.gk, positions.lb, positions.cb, positions.rb, positions.lwb, positions.cdm, positions.rwb, positions.lm, positions.cm, positions.rm, positions.lw, positions.cam, positions.rw, positions.st, footballer_id))
+    conn.commit()
+
+@router.post("/addfootballer")
+async def addfootballer(footballer: CreateFootballerDTO):
+    cur = conn.cursor()
+    cur.execute("INSERT INTO footballers (first_name, last_name, birth_date, nationality, goalkeeping, defence, midfield, attack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
+                (footballer.first_name, footballer.last_name, footballer.birth_date, footballer.nationality, footballer.goalkeeping, footballer.defence, footballer.midfield, footballer.attack))
+    conn.commit()
+    await add_footballer_positions(footballer_id=cur.lastrowid, positions=footballer.position)
+    return {"message": "Footballer added successfully"}
+
+async def update_footballer_positions(footballer_id: int, positions: FootballerPositionsDTO):
+    cur = conn.cursor()
+    cur.execute("UPDATE footballer_positions SET gk = %s, lb = %s, cb = %s, rb = %s, lwb = %s, cdm = %s, rwb = %s, lm = %s, cm = %s, rm = %s, lw = %s, cam = %s, rw = %s, st = %s WHERE footballer_id = %s", 
+                (positions.gk, positions.lb, positions.cb, positions.rb, positions.lwb, positions.cdm, positions.rwb, positions.lm, positions.cm, positions.rm, positions.lw, positions.cam, positions.rw, positions.st, footballer_id))
+    conn.commit()
 
 @router.patch("/update/{footballer_id}")
 async def update_footballer(footballer_id: int, footballer: UpdateFootballerDTO):
@@ -85,17 +145,8 @@ async def update_footballer(footballer_id: int, footballer: UpdateFootballerDTO)
         cur.execute(query, tuple(values))
 
     if position_data:
-        pos_clauses = []
-        pos_values = []
-        for key, value in position_data.items():
-            pos_clauses.append(f"{key} = %s")
-            pos_values.append(value)
-            
-        pos_query = ", ".join(pos_clauses)
-        pos_values.append(footballer_id)
-        
-        query_pos = f"UPDATE footballer_positions SET {pos_query} WHERE footballer_id = %s"
-        cur.execute(query_pos, tuple(pos_values))
+        positions_obj = FootballerPositionsDTO(**position_data)
+        await update_footballer_positions(footballer_id, positions_obj)
 
     conn.commit()
     return {"message": "Footballer updated successfully"}

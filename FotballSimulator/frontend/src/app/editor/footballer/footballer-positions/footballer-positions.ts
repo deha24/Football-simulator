@@ -18,6 +18,7 @@ import { FootballersService } from '../footballersService';
 export class FootballerPositions implements OnInit{
 
   @Input() footballerPositions!: FootballerPositionsDTO;
+  footballerId!: number;
 
   constructor(private footballersService: FootballersService, private eventService: EventService) {}
 
@@ -39,32 +40,33 @@ export class FootballerPositions implements OnInit{
   });
 
   ngOnInit() {
+
     this.eventService.getEvent('newFootballerPositionsRequest', () => { 
       this.addNewFootballerPositions(); 
     });
+
     this.eventService.getEvent('updateFootballerPositionsRequest', () => {
       this.addNewFootballerPositions();
     });
-    this.eventService.getEvent('updateFootballerPositionsShowRequest', () => {
-      if (this.footballerPositions) {
-        this.addfootballerPositionsForm.patchValue({
-          newFootballerPositionGK: this.footballerPositions.gk,
-          newFootballerPositionLB: this.footballerPositions.lb,
-          newFootballerPositionCB: this.footballerPositions.cb,
-          newFootballerPositionRB: this.footballerPositions.rb,
-          newFootballerPositionLWB: this.footballerPositions.lwb,
-          newFootballerPositionCDM: this.footballerPositions.cdm,
-          newFootballerPositionRWB: this.footballerPositions.rwb,
-          newFootballerPositionLM: this.footballerPositions.lm,
-          newFootballerPositionCM: this.footballerPositions.cm,
-          newFootballerPositionRM: this.footballerPositions.rm,
-          newFootballerPositionLW: this.footballerPositions.lw,
-          newFootballerPositionCAM: this.footballerPositions.cam,
-          newFootballerPositionRW: this.footballerPositions.rw,
-          newFootballerPositionST: this.footballerPositions.st,
-        });
-      }
-    });
+
+    if (this.footballerPositions) {
+      this.addfootballerPositionsForm.patchValue({
+        newFootballerPositionGK: this.footballerPositions.gk,
+        newFootballerPositionLB: this.footballerPositions.lb,
+        newFootballerPositionCB: this.footballerPositions.cb,
+        newFootballerPositionRB: this.footballerPositions.rb,
+        newFootballerPositionLWB: this.footballerPositions.lwb,
+        newFootballerPositionCDM: this.footballerPositions.cdm,
+        newFootballerPositionRWB: this.footballerPositions.rwb,
+        newFootballerPositionLM: this.footballerPositions.lm,
+        newFootballerPositionCM: this.footballerPositions.cm,
+        newFootballerPositionRM: this.footballerPositions.rm,
+        newFootballerPositionLW: this.footballerPositions.lw,
+        newFootballerPositionCAM: this.footballerPositions.cam,
+        newFootballerPositionRW: this.footballerPositions.rw,
+        newFootballerPositionST: this.footballerPositions.st,
+      });
+    }
   }
 
   addNewFootballerPositions() {
