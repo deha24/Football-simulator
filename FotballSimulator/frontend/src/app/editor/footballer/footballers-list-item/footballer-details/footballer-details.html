@@ -1,6 +1,6 @@
 <div class="container">
   @if (footballer) {
     <h2>{{ footballer.first_name }} {{ footballer.last_name }}</h2>
-    <p><strong>Position:</strong> {{ footballer.position }}</p>
+    <footballer-positions-show [footballerPositions]="footballerPositions"></footballer-positions-show>
   }
 </div>

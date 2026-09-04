@@ -103,17 +103,20 @@ async def get_footballer_by_id(footballer_id: int) -> Footballer:
 
 async def add_footballer_positions(footballer_id: int, positions: FootballerPositionsDTO):
     cur = conn.cursor()
-    cur.execute("INSERT INTO footballer_positions (gk, lb, cb, rb, lwb, cdm, rwb, lm, cm, rm, lw, cam, rw, st, footballer_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+    # Używamy 15 znaczników %s i przekazujemy footballer_id jako ostatni argument
+    cur.execute("INSERT INTO footballer_positions (gk, lb, cb, rb, lwb, cdm, rwb, lm, cm, rm, lw, cam, rw, st, footballer_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                 (positions.gk, positions.lb, positions.cb, positions.rb, positions.lwb, positions.cdm, positions.rwb, positions.lm, positions.cm, positions.rm, positions.lw, positions.cam, positions.rw, positions.st, footballer_id))
     conn.commit()
 
 @router.post("/addfootballer")
 async def addfootballer(footballer: CreateFootballerDTO):
     cur = conn.cursor()
-    cur.execute("INSERT INTO footballers (first_name, last_name, birth_date, nationality, goalkeeping, defence, midfield, attack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", 
+    cur.execute("INSERT INTO footballers (first_name, last_name, birth_date, nationality, goalkeeping, defence, midfield, attack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id",
                 (footballer.first_name, footballer.last_name, footballer.birth_date, footballer.nationality, footballer.goalkeeping, footballer.defence, footballer.midfield, footballer.attack))
+    
+    new_footballer_id = cur.fetchone()[0]
     conn.commit()
-    await add_footballer_positions(footballer_id=cur.lastrowid, positions=footballer.position)
+    await add_footballer_positions(footballer_id=new_footballer_id, positions=footballer.position)
     return {"message": "Footballer added successfully"}
 
 async def update_footballer_positions(footballer_id: int, positions: FootballerPositionsDTO):

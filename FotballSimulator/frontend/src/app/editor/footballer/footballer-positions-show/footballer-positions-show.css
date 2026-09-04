@@ -1,0 +1,8 @@
+.position-box {
+    border-radius: 15px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin: 2px;
+}

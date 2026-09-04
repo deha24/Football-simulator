@@ -1,128 +1,105 @@
 <p-panel header="Footballer Positions" class="mt-2">
 
-    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
-        <div class="col-sm-1">
-
-        </div>
-        <div class="col-sm-2">
-            
-        </div>
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2"></div>
+        
         @for (i of [1, 2, 3]; track $index) {
-            <div class="col-sm-2">
-                
+            <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.st)">
+                {{ footballerPositions.st }}
             </div>
         }
        
-        <div class="col-sm-2">
-            
-        </div>
-        <div class="col-sm-1">
-
-        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-1"></div>
     </div>
 
-    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
-        <div class="col-sm-1">
-
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.lw)">
+            {{ footballerPositions.lw }}
         </div>
-        <div class="col-sm-2">
-            
-        </div>
+        
         @for (i of [1, 2, 3]; track $index) {
-            <div class="col-sm-2">
-                
+            <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.cam)">
+                {{ footballerPositions.cam }}
             </div>
         }
         
-        <div class="col-sm-2">
-
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.rw)">
+            {{ footballerPositions.rw }}
         </div>
-        <div class="col-sm-1">
-
-        </div>
+        <div class="col-sm-1"></div>
     </div>
 
-    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
-        <div class="col-sm-1">
-
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.lm)">
+            {{ footballerPositions.lm }}
         </div>
-        <div class="col-sm-2">
-            
-        </div>
+        
         @for (i of [1, 2, 3]; track $index) {
-            <div class="col-sm-2">
-                
+            <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.cm)">
+                {{ footballerPositions.cm }}
             </div>
         }
         
-        <div class="col-sm-2">
-            
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.rm)">
+            {{ footballerPositions.rm }}
         </div>
-        <div class="col-sm-1">
-
-        </div>
+        <div class="col-sm-1"></div>
     </div>
 
-    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
-        <div class="col-sm-1">
-
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.lwb)">
+            {{ footballerPositions.lwb }}
         </div>
-        <div class="col-sm-2">
-            
-        </div>
+        
         @for (i of [1, 2, 3]; track $index) {
-            <div class="col-sm-2">
-                
+            <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.cdm)">
+                {{ footballerPositions.cdm }}
             </div>
         }
         
-        <div class="col-sm-2">
-            
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.rwb)">
+            {{ footballerPositions.rwb }}
         </div>
-        <div class="col-sm-1">
-
-        </div>
+        <div class="col-sm-1"></div>
     </div>
 
-    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
-        <div class="col-sm-1">
-
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.lb)">
+            {{ footballerPositions.lb }}
         </div>
-        <div class="col-sm-2">
-            
-        </div>
+        
         @for (i of [1, 2, 3]; track $index) {
-            <div class="col-sm-2">
-                
+            <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.cb)">
+                {{ footballerPositions.cb }}
             </div>
         }
         
-        <div class="col-sm-2">
-            
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.rb)">
+            {{ footballerPositions.rb }}
         </div>
-        <div class="col-sm-1">
-
-        </div>
+        <div class="col-sm-1"></div>
     </div>
 
-    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
-        <div class="col-sm-1">
-
-        </div>
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center">
+        <div class="col-sm-1"></div>
+        
         @for (i of [1, 2]; track $index) {
-            <div class="col-sm-2">
-                
-            </div>
+            <div class="col-sm-2"></div>
         }
-        <div class="col-sm-2">
+        
+        <div class="col-sm-2 position-box" [ngStyle]="getPositionStyles(footballerPositions.gk)">
+            {{ footballerPositions.gk }}
         </div>
+        
         @for (i of [1, 2]; track $index) {
-            <div class="col-sm-2">
-                
-            </div>
+            <div class="col-sm-2"></div>
         }
-        <div class="col-sm-1">
-
-        </div>
+        <div class="col-sm-1"></div>
     </div>
 </p-panel>
