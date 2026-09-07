@@ -34,7 +34,7 @@
       <button pButton type="button" (click)="openEditDialog(coach.id)" severity="secondary">
         <i class="pi pi-pencil"></i>
       </button>
-      <p-dialog header="Edytuj piłkarza" [(visible)]="displayEditDialog" [modal]="true">
+      <p-dialog header="Edit Coach" [(visible)]="displayEditDialog" [modal]="true">
         @if (displayEditDialog) {
           <coach-update [coach]="coach"></coach-update>
         }

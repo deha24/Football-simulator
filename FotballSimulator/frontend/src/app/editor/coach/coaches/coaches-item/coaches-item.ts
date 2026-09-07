@@ -29,8 +29,8 @@ export class CoachesItem {
     this.displayEditDialog = true;
   }
 
-  detailsFootballer(id: number) {
-    this.router.navigate(['/editor/footballers/details', id]);
+  detailsCoach(id: number) {
+    this.router.navigate(['/editor/coaches/details', id]);
   }
 
 }

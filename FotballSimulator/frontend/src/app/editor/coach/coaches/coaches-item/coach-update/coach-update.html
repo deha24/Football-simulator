@@ -1,1 +1,116 @@
-<p>coach-update works!</p>
+<form [formGroup]="updateCoachForm" (ngSubmit)="validUpdateCoachForm()">
+
+  <p-card>
+    <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Personal Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+          <input pInputText placeholder="First Name" formControlName="CoachFirstName" />
+          <input pInputText placeholder="Last Name" formControlName="CoachLastname" />
+          </p-inputgroup>
+          @if (updateCoachForm.get('CoachFirstName')?.invalid && updateCoachForm.get('CoachFirstName')?.touched) {
+            <small class="text-danger">First name is required.</small>
+            <br />
+          }
+          @if (updateCoachForm.get('CoachLastname')?.invalid && updateCoachForm.get('CoachLastname')?.touched) {
+            <small class="text-danger">Last name is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+          <p-inputgroup-addon>
+              <i class="pi pi-calendar"></i>
+          </p-inputgroup-addon>
+            <p-datepicker placeholder="Birth Date" dateFormat="dd.mm.yy" formControlName="CoachBirthDate" fluid/>
+          </p-inputgroup>
+          @if(updateCoachForm.get('CoachBirthDate')?.invalid && updateCoachForm.get('CoachBirthDate')?.touched) {
+            <small class="text-danger">Birth date is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+              <p-inputgroup-addon>
+                  <i class="pi pi-flag"></i>
+              </p-inputgroup-addon>
+            <input pInputText placeholder="Nationality" formControlName="CoachNationality" />
+          </p-inputgroup>
+          @if(updateCoachForm.get('CoachNationality')?.invalid && updateCoachForm.get('CoachNationality')?.touched) {
+            <small class="text-danger">Nationality is required.</small>
+          }
+        </p-card>
+      </div>
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Coach Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-star"></i>
+            </p-inputgroup-addon>
+            <input pInputText type="number" placeholder="defence" inputId="integeronly" formControlName="CoachDefence" />
+            <input pInputText type="number" placeholder="midfield" inputId="integeronly" formControlName="CoachMidfield" />
+            <input pInputText type="number" placeholder="attack" inputId="integeronly" formControlName="CoachAttack" />
+          </p-inputgroup>
+          @if(updateCoachForm.get('CoachDefence')?.invalid && updateCoachForm.get('CoachDefence')?.touched) {
+            @if(updateCoachForm.get('CoachDefence')?.errors?.['required']) {
+              <small class="text-danger">Defence rating is required.</small>
+            }
+            @if(updateCoachForm.get('CoachDefence')?.errors?.['min'] || updateCoachForm.get('CoachDefence')?.errors?.['max']) {
+              <small class="text-danger">Defence rating must be between 1 and 99.</small>
+            }
+          }
+          @if(updateCoachForm.get('CoachMidfield')?.invalid && updateCoachForm.get('CoachMidfield')?.touched) {
+            @if(updateCoachForm.get('CoachMidfield')?.errors?.['required']) {
+              <small class="text-danger">Midfield rating is required.</small>
+            }
+            @if(updateCoachForm.get('CoachMidfield')?.errors?.['min'] || updateCoachForm.get('CoachMidfield')?.errors?.['max']) {
+              <small class="text-danger">Midfield rating must be between 1 and 99.</small>
+              <br />
+              
+            }
+            @if(updateCoachForm.get('CoachDefence')?.errors?.['min'] || updateCoachForm.get('CoachDefence')?.errors?.['max']) {
+              <small class="text-danger">Defence rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(updateCoachForm.get('CoachAttack')?.invalid && updateCoachForm.get('CoachAttack')?.touched) {
+            @if(updateCoachForm.get('CoachAttack')?.errors?.['required']) {
+              <small class="text-danger">Attack rating is required.</small>
+            }
+            @if(updateCoachForm.get('CoachAttack')?.errors?.['min'] || updateCoachForm.get('CoachAttack')?.errors?.['max']) {
+              <small class="text-danger">Attack rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(updateCoachForm.get('CoachAttack')?.invalid && updateCoachForm.get('CoachAttack')?.touched) {
+            @if(updateCoachForm.get('CoachAttack')?.errors?.['required']) {
+              <small class="text-danger">Attack rating is required.</small>
+            }
+            @if(updateCoachForm.get('CoachAttack')?.errors?.['min'] || updateCoachForm.get('CoachAttack')?.errors?.['max']) {
+              <small class="text-danger">Attack rating must be between 1 and 99.</small>
+            }
+          }
+
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+            <div class="flex justify-center">
+                <p-select [options]="midfieldStyles" formControlName="CoachMidfieldStyle" optionLabel="label" optionValue="value" placeholder="Midfield Style" class="w-full md:w-56" />
+            </div>
+          </p-inputgroup>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+            <div class="flex justify-center">
+                <p-select [options]="balanceStyles" formControlName="CoachBalanceStyle" optionLabel="label" optionValue="value" placeholder="Balance Style" class="w-full md:w-56" />
+            </div>
+          </p-inputgroup>
+          
+          <coach-lineup-form></coach-lineup-form>
+        </p-card>
+      </div>
+    </div>
+  </p-card>
+</form>
