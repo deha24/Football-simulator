@@ -1,5 +1,5 @@
 <form [formGroup]="addCoachLineupForm" (ngSubmit)="$event.preventDefault(); newCoachLineup()">
-    <p-panel header="Footballer Positions" class="mt-2">
+    <p-panel header="Coach Lineup" class="mt-2">
 
         <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
             <div class="col-sm-1">
@@ -10,19 +10,8 @@
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
-                    <p-inputgroup>
-                        <input pInputText type="number" placeholder="ST" formControlName="newCoachLineupST" />
-                    </p-inputgroup>
+                    <p-togglebutton onLabel="ST" offLabel="ST" formControlName="newCoachLineupST" class="w-24" styleClass="green-toggle"/>
                 </div>
-            }
-            @if(addCoachLineupForm.get('newCoachLineupST')?.invalid && addCoachLineupForm.get('newCoachLineupST')?.touched) {
-                @if(addCoachLineupForm.get('newCoachLineupST')?.errors?.['required']) {
-                <small class="text-danger">ST position is required.</small>
-                }
-                @if(addCoachLineupForm.get('newCoachLineupST')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupST')?.errors?.['max']) {
-                <small class="text-danger">ST position must be between 0 and 10.</small>
-                }
-                <br />
             }
             <div class="col-sm-2">
                 
@@ -38,47 +27,20 @@
             </div>
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="LW" formControlName="newCoachLineupLW" />
+                    <p-togglebutton onLabel="LW" offLabel="LW" formControlName="newCoachLineupLW" class="w-24"/>
                 </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupLW')?.invalid && addCoachLineupForm.get('newCoachLineupLW')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupLW')?.errors?.['required']) {
-                    <small class="text-danger">LW position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupLW')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupLW')?.errors?.['max']) {
-                    <small class="text-danger">LW position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
                     <p-inputgroup>
-                        <input pInputText type="number" placeholder="CAM" formControlName="newCoachLineupCAM" />
+                        <p-togglebutton onLabel="CAM" offLabel="CAM" formControlName="newCoachLineupCAM" class="w-24"/>
                     </p-inputgroup>
                 </div>
             }
-            @if(addCoachLineupForm.get('newCoachLineupCAM')?.invalid && addCoachLineupForm.get('newCoachLineupCAM')?.touched) {
-                @if(addCoachLineupForm.get('newCoachLineupCAM')?.errors?.['required']) {
-                <small class="text-danger">CAM position is required.</small>
-                }
-                @if(addCoachLineupForm.get('newCoachLineupCAM')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupCAM')?.errors?.['max']) {
-                <small class="text-danger">CAM position must be between 0 and 10.</small>
-                }
-                <br />
-            }
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="RW" formControlName="newCoachLineupRW" />
+                    <p-togglebutton onLabel="RW" offLabel="RW" formControlName="newCoachLineupRW" class="w-24"/>
                 </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupRW')?.invalid && addCoachLineupForm.get('newCoachLineupRW')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupRW')?.errors?.['required']) {
-                    <small class="text-danger">RW position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupRW')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupRW')?.errors?.['max']) {
-                    <small class="text-danger">RW position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }
             </div>
             <div class="col-sm-1">
 
@@ -91,47 +53,20 @@
             </div>
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="LM" formControlName="newCoachLineupLM" />
+                    <p-togglebutton onLabel="LM" offLabel="LM" formControlName="newCoachLineupLM" class="w-24"/>
                 </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupLM')?.invalid && addCoachLineupForm.get('newCoachLineupLM')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupLM')?.errors?.['required']) {
-                    <small class="text-danger">LM position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupLM')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupLM')?.errors?.['max']) {
-                    <small class="text-danger">LM position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
                     <p-inputgroup>
-                        <input pInputText type="number" placeholder="CM" formControlName="newCoachLineupCM" />
+                        <p-togglebutton onLabel="CM" offLabel="CM" formControlName="newCoachLineupCM" class="w-24"/>
                     </p-inputgroup>
                 </div>
             }
-            @if(addCoachLineupForm.get('newCoachLineupCM')?.invalid && addCoachLineupForm.get('newCoachLineupCM')?.touched) {
-                @if(addCoachLineupForm.get('newCoachLineupCM')?.errors?.['required']) {
-                <small class="text-danger">CM position is required.</small>
-                }
-                @if(addCoachLineupForm.get('newCoachLineupCM')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupCM')?.errors?.['max']) {
-                <small class="text-danger">CM position must be between 0 and 10.</small>
-                }
-                <br />
-            }
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="RM" formControlName="newCoachLineupRM" />
-                </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupRM')?.invalid && addCoachLineupForm.get('newCoachLineupRM')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupRM')?.errors?.['required']) {
-                    <small class="text-danger">RM position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupRM')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupRM')?.errors?.['max']) {
-                    <small class="text-danger">RM position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }       
+                    <p-togglebutton onLabel="RM" offLabel="RM" formControlName="newCoachLineupRM" class="w-24"/>
+                </p-inputgroup> 
             </div>
             <div class="col-sm-1">
 
@@ -144,47 +79,20 @@
             </div>
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="LWB" formControlName="newCoachLineupLWB" />
+                    <p-togglebutton onLabel="LWB" offLabel="LWB" formControlName="newCoachLineupLWB" class="w-24"/>
                 </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupLWB')?.invalid && addCoachLineupForm.get('newCoachLineupLWB')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupLWB')?.errors?.['required']) {
-                    <small class="text-danger">LWB position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupLWB')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupLWB')?.errors?.['max']) {
-                    <small class="text-danger">LWB position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
                     <p-inputgroup>
-                        <input pInputText type="number" placeholder="CDM" formControlName="newCoachLineupCDM" />
+                        <p-togglebutton onLabel="CDM" offLabel="CDM" formControlName="newCoachLineupCDM" class="w-24"/>
                     </p-inputgroup>
                 </div>
             }
-            @if(addCoachLineupForm.get('newCoachLineupCB')?.invalid && addCoachLineupForm.get('newCoachLineupCB')?.touched) {
-                @if(addCoachLineupForm.get('newCoachLineupCB')?.errors?.['required']) {
-                <small class="text-danger">CB position is required.</small>
-                }
-                @if(addCoachLineupForm.get('newCoachLineupCB')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupCB')?.errors?.['max']) {
-                <small class="text-danger">CB position must be between 0 and 10.</small>
-                }
-                <br />
-            }
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="RWB" formControlName="newCoachLineupRWB" />
+                    <p-togglebutton onLabel="RWB" offLabel="RWB" formControlName="newCoachLineupRWB" class="w-24"/>
                 </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupRWB')?.invalid && addCoachLineupForm.get('newCoachLineupRWB')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupRWB')?.errors?.['required']) {
-                    <small class="text-danger">RWB position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupRWB')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupRWB')?.errors?.['max']) {
-                    <small class="text-danger">RWB position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }   
             </div>
             <div class="col-sm-1">
 
@@ -197,47 +105,20 @@
             </div>
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="LB" formControlName="newCoachLineupLB" />
+                    <p-togglebutton onLabel="LB" offLabel="LB" formControlName="newCoachLineupLB" class="w-24"/>
                 </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupLB')?.invalid && addCoachLineupForm.get('newCoachLineupLB')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupLB')?.errors?.['required']) {
-                    <small class="text-danger">LB position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupLB')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupLB')?.errors?.['max']) {
-                    <small class="text-danger">LB position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
                     <p-inputgroup>
-                        <input pInputText type="number" placeholder="CB" formControlName="newCoachLineupCB" />
+                        <p-togglebutton onLabel="CB" offLabel="CB" formControlName="newCoachLineupCB" class="w-24"/>
                     </p-inputgroup>
                 </div>
             }
-            @if(addCoachLineupForm.get('newCoachLineupCB')?.invalid && addCoachLineupForm.get('newCoachLineupCB')?.touched) {
-                @if(addCoachLineupForm.get('newCoachLineupCB')?.errors?.['required']) {
-                <small class="text-danger">CB position is required.</small>
-                }
-                @if(addCoachLineupForm.get('newCoachLineupCB')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupCB')?.errors?.['max']) {
-                <small class="text-danger">CB position must be between 0 and 10.</small>
-                }
-                <br />
-            }
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="RB" formControlName="newCoachLineupRB" />
+                    <p-togglebutton onLabel="RB" offLabel="RB" formControlName="newCoachLineupRB"  class="w-24"/>
                 </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupRB')?.invalid && addCoachLineupForm.get('newCoachLineupRB')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupRB')?.errors?.['required']) {
-                    <small class="text-danger">RB position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupRB')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupRB')?.errors?.['max']) {
-                    <small class="text-danger">RB position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }
             </div>
             <div class="col-sm-1">
 
@@ -255,17 +136,8 @@
             }
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <input pInputText type="number" placeholder="GK" formControlName="newCoachLineupGK" />
+                    <p-togglebutton onLabel="GK" offLabel="GK" formControlName="newCoachLineupGK" [disabled]="true" class="w-24"/>
                 </p-inputgroup>
-                @if(addCoachLineupForm.get('newCoachLineupGK')?.invalid && addCoachLineupForm.get('newCoachLineupGK')?.touched) {
-                    @if(addCoachLineupForm.get('newCoachLineupGK')?.errors?.['required']) {
-                    <small class="text-danger">GK position is required.</small>
-                    }
-                    @if(addCoachLineupForm.get('newCoachLineupGK')?.errors?.['min'] || addCoachLineupForm.get('newCoachLineupGK')?.errors?.['max']) {
-                    <small class="text-danger">GK position must be between 0 and 10.</small>
-                    }
-                    <br />
-                }
             </div>
             @for (i of [1, 2]; track $index) {
                 <div class="col-sm-2">
@@ -276,6 +148,14 @@
 
             </div>
         </div>
+    @if(addCoachLineupForm.errors?.['exactElevenPositions'] && addCoachLineupForm.touched) {
+        <div class="mt-2 text-center">
+            <small class="text-danger">
+                The Lineup must consist of exactly 11 players. 
+                Currently selected: {{ addCoachLineupForm.errors?.['exactElevenPositions'].currentCount }}.
+            </small>
+        </div>
+    }
     </p-panel>
 
 </form>

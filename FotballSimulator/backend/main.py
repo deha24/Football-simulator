@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from modelsAndServices.footballers.services.footballerService import router as footballersService
+from modelsAndServices.coaches.services.coachService import router as coachService
 from modelsAndServices.clubs.services.clubsService import router as clubsService
 from modelsAndServices.leagues.services.leaguesService import router as leaguesService
 
@@ -14,6 +15,9 @@ app.include_router(
 )
 app.include_router(
     leaguesService,
+)
+app.include_router(
+    coachService,
 )
 
 

@@ -11,7 +11,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import {EventService} from '../../../../shared/services/EventServices';
 import { CreateCoachDTO, Coach, CoachLineupDTO } from '../../../../shared/models/coach';
-import { CoachService } from '../coach-service';
+import { CoachService } from '../coachService';
 import { CoachLineupForm } from '../coach-lineup/coach-lineup-form/coach-lineup-form';
 
 
@@ -36,7 +36,7 @@ export class CoachAdd {
   constructor(private coachService: CoachService, private eventService: EventService) {}
 
   ngOnInit() {
-    this.eventService.getEvent('newCoachPositionsReply', (newCoachLineup: CoachLineupDTO) => {
+    this.eventService.getEvent('newCoachLineupReply', (newCoachLineup: CoachLineupDTO) => {
       this.addNewCoach(newCoachLineup);
     });
   }
@@ -67,7 +67,7 @@ export class CoachAdd {
 
   validCoachForm(){
     if (this.addCoachform.valid) {
-      this.eventService.emitEvent('newCoachPositionsRequest', {});
+      this.eventService.emitEvent('newCoachLineupRequest', {});
     } else{
       // Handle form errors if needed
       console.error('Form is invalid');

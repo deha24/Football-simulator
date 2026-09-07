@@ -6,12 +6,14 @@ import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { exactElevenPositionsValidator } from '../coach-lineup-form-validators';
 import { CoachLineupDTO } from '../../../../../shared/models/coach';
-import { CoachService } from '../../coach-service';
+import { CoachService } from '../../coachService';
 
 @Component({
   selector: 'coach-lineup-form',
-  imports: [PanelModule, CardModule, InputNumberModule, InputTextModule, InputGroupModule, ReactiveFormsModule, FormsModule],
+  imports: [PanelModule, CardModule, InputNumberModule, InputTextModule, InputGroupModule, ReactiveFormsModule, FormsModule, ToggleButtonModule],
   templateUrl: './coach-lineup-form.html',
   styleUrl: './coach-lineup-form.css',
 })
@@ -23,25 +25,28 @@ export class CoachLineupForm implements OnInit{
   constructor(private CoachService: CoachService, private eventService: EventService) {}
 
   addCoachLineupForm = new FormGroup({
-    newCoachLineupGK: new FormControl(<null | boolean> null, { validators: [Validators.required] }),
-    newCoachLineupLB: new FormControl(<null | boolean> null, { }),
-    newCoachLineupCB: new FormControl(<null | boolean> null, { }),
-    newCoachLineupRB: new FormControl(<null | boolean> null, { }),
-    newCoachLineupLWB: new FormControl(<null | boolean> null, { }),
-    newCoachLineupCDM: new FormControl(<null | boolean> null, { }),
-    newCoachLineupRWB: new FormControl(<null | boolean> null, { }),
-    newCoachLineupLM: new FormControl(<null | boolean> null, { }),
-    newCoachLineupCM: new FormControl(<null | boolean> null, { }),
-    newCoachLineupRM: new FormControl(<null | boolean> null, { }),
-    newCoachLineupLW: new FormControl(<null | boolean> null, { }),
-    newCoachLineupCAM: new FormControl(<null | boolean> null, { }),
-    newCoachLineupRW: new FormControl(<null | boolean> null, { }),
-    newCoachLineupST: new FormControl(<null | boolean> null, { }),
-  });
+    newCoachLineupGK: new FormControl(<null | boolean> true, { validators: [Validators.required] }),
+    newCoachLineupLB: new FormControl(<null | boolean> false, { }),
+    newCoachLineupCB: new FormControl(<null | boolean> false, { }),
+    newCoachLineupRB: new FormControl(<null | boolean> false, { }),
+    newCoachLineupLWB: new FormControl(<null | boolean> false, { }),
+    newCoachLineupCDM: new FormControl(<null | boolean> false, { }),
+    newCoachLineupRWB: new FormControl(<null | boolean> false, { }),
+    newCoachLineupLM: new FormControl(<null | boolean> false, { }),
+    newCoachLineupCM: new FormControl(<null | boolean> false, { }),
+    newCoachLineupRM: new FormControl(<null | boolean> false, { }),
+    newCoachLineupLW: new FormControl(<null | boolean> false, { }),
+    newCoachLineupCAM: new FormControl(<null | boolean> false, { }),
+    newCoachLineupRW: new FormControl(<null | boolean> false, { }),
+    newCoachLineupST: new FormControl(<null | boolean> false, { }),
+    },
+    { validators: [exactElevenPositionsValidator()]},
+  );
 
   ngOnInit() {
 
     this.eventService.getEvent('newCoachLineupRequest', () => { 
+      console.log('Received newCoachLineupRequest event');
       this.newCoachLineup(); 
     });
 
