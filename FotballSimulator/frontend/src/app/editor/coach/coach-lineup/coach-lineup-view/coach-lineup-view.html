@@ -1,1 +1,152 @@
-<p>coach-lineup-view works!</p>
+<p-panel header="Coach Lineup" class="mt-2">
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-2">
+            
+        </div>
+        @for (i of [1, 2, 3]; track $index) {
+            <div class="col-sm-2">
+                <p-card>
+                    ST
+                </p-card>
+            </div>
+        }
+        <div class="col-sm-2">
+            
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+    </div>
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+        <div class="col-sm-1">
+            
+        </div>
+        <div class="col-sm-2">
+            <p-card [styleClass]="'{{coachLineup.lw}}' ? ' active-position' : ''">
+                LW 
+            </p-card>
+        </div>
+        @for (i of [1, 2, 3]; track $index) {
+            <div class="col-sm-2">
+                <p-card>
+                    CAM
+                </p-card>
+            </div>
+        }
+        <div class="col-sm-2">
+            <p-card>
+                RW
+            </p-card>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+    </div>
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-2">
+            <p-card>
+                LM
+            </p-card>
+        </div>
+        @for (i of [1, 2, 3]; track $index) {
+            <div class="col-sm-2">
+                <p-card>
+                    CM
+                </p-card>
+            </div>
+        }
+        <div class="col-sm-2">
+            <p-card>
+                RM
+            </p-card>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+    </div>
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-2">
+            <p-card>
+                LWB
+            </p-card>
+        </div>
+        @for (i of [1, 2, 3]; track $index) {
+            <div class="col-sm-2">
+                <p-card>
+                    CDM
+                </p-card>
+            </div>
+        }
+        <div class="col-sm-2">
+            <p-card>
+                RWB
+            </p-card>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+    </div>
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-2">
+            <p-card>
+                LB
+            </p-card>
+        </div>
+        @for (i of [1, 2, 3]; track $index) {
+            <div class="col-sm-2">
+                <p-card>
+                    CB
+                </p-card>
+            </div>
+        }
+        <div class="col-sm-2">
+            <p-card>
+                RB
+            </p-card>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+    </div>
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+        <div class="col-sm-1">
+
+        </div>
+        @for (i of [1, 2]; track $index) {
+            <div class="col-sm-2">
+                
+            </div>
+        }
+        <div class="col-sm-2">
+            <p-card>
+                GK
+            </p-card>
+        </div>
+        @for (i of [1, 2]; track $index) {
+            <div class="col-sm-2">
+                
+            </div>
+        }
+        <div class="col-sm-1">
+
+        </div>
+    </div>
+</p-panel>

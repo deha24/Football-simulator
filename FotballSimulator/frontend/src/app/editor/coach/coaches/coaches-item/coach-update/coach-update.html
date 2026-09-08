@@ -1,6 +1,19 @@
 <form [formGroup]="updateCoachForm" (ngSubmit)="validUpdateCoachForm()">
 
   <p-card>
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+
+      <div class="col-sm-9">
+        <h5 #title> Update Coach </h5>
+      </div>
+
+      <div class="col-sm-3 d-flex justify-content-end">
+        <p-button label="Update Coach" type="submit" variant="outlined" [raised]="true" severity="success" />
+      </div>
+
+    </div>
+
     <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
       <div class="col-sm-6">
         <p-card>

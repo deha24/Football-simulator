@@ -10,7 +10,7 @@
             </div>
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
-                    <p-togglebutton onLabel="ST" offLabel="ST" formControlName="newCoachLineupST" class="w-24" styleClass="green-toggle"/>
+                    <p-togglebutton onLabel="ST" offLabel="ST" [formControlName]="'newCoachLineupST' + i" class="w-24"/>
                 </div>
             }
             <div class="col-sm-2">
@@ -33,7 +33,7 @@
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
                     <p-inputgroup>
-                        <p-togglebutton onLabel="CAM" offLabel="CAM" formControlName="newCoachLineupCAM" class="w-24"/>
+                        <p-togglebutton onLabel="CAM" offLabel="CAM" [formControlName]="'newCoachLineupCAM' + i" class="w-24"/>
                     </p-inputgroup>
                 </div>
             }
@@ -59,7 +59,7 @@
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
                     <p-inputgroup>
-                        <p-togglebutton onLabel="CM" offLabel="CM" formControlName="newCoachLineupCM" class="w-24"/>
+                        <p-togglebutton onLabel="CM" offLabel="CM" [formControlName]="'newCoachLineupCM' + i" class="w-24"/>
                     </p-inputgroup>
                 </div>
             }
@@ -85,7 +85,7 @@
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
                     <p-inputgroup>
-                        <p-togglebutton onLabel="CDM" offLabel="CDM" formControlName="newCoachLineupCDM" class="w-24"/>
+                        <p-togglebutton onLabel="CDM" offLabel="CDM" [formControlName]="'newCoachLineupCDM' + i" class="w-24"/>
                     </p-inputgroup>
                 </div>
             }
@@ -111,7 +111,7 @@
             @for (i of [1, 2, 3]; track $index) {
                 <div class="col-sm-2">
                     <p-inputgroup>
-                        <p-togglebutton onLabel="CB" offLabel="CB" formControlName="newCoachLineupCB" class="w-24"/>
+                        <p-togglebutton onLabel="CB" offLabel="CB" [formControlName]="'newCoachLineupCB' + i" class="w-24"/>
                     </p-inputgroup>
                 </div>
             }
@@ -136,7 +136,7 @@
             }
             <div class="col-sm-2">
                 <p-inputgroup>
-                    <p-togglebutton onLabel="GK" offLabel="GK" formControlName="newCoachLineupGK" [disabled]="true" class="w-24"/>
+                    <p-togglebutton onLabel="GK" offLabel="GK" formControlName="newCoachLineupGK" class="w-24" [disabled]="true"/>
                 </p-inputgroup>
             </div>
             @for (i of [1, 2]; track $index) {

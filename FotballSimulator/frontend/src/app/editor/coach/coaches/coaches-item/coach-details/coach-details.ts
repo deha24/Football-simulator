@@ -3,11 +3,11 @@ import { Coach, CoachLineupDTO } from '../../../../../../shared/models/coach';
 import { CoachService } from '../../../coachService';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
-//import { FootballerPositionsShow } from '../../footballer-positions-show/footballer-positions-show';
+import { CoachLineupView } from '../../../coach-lineup/coach-lineup-view/coach-lineup-view';
 
 @Component({
   selector: 'coach-details',
-  imports: [],
+  imports: [CoachLineupView],
   templateUrl: './coach-details.html',
   styleUrl: './coach-details.css'
 })
@@ -24,6 +24,7 @@ export class CoachDetails {
       console.log('Coach data:', data);
       this.coach = data;
       this.coachLineup = data.lineup;
+      console.log("Coach Lineup", this.coachLineup);
       this.cdr.detectChanges();
     });
   }

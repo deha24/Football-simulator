@@ -1,0 +1,6 @@
+.active-position {
+    background-color: #28a745 !important; /* Przykładowy zielony kolor */
+    color: white !important;
+    font-weight: bold;
+    border: 2px solid #1e7e34 !important;
+}
