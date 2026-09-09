@@ -28,7 +28,7 @@ except Exception as e:
 async def get_coach_lineup_by_id(coach_id: int) -> CoachLineupDTO:
     print("------------------------------------------------------------------------------------------------\n\n", )
     cur = conn.cursor()
-    cur.execute("SELECT * FROM coach_lineup WHERE coach_id = %s", (coach_id,))
+    cur.execute("SELECT gk, lb, cb1, cb2, cb3, rb, lwb, cdm1, cdm2, cdm3, rwb, lm, cm1, cm2, cm3, rm, lw, cam1, cam2, cam3, rw, st1, st2, st3 FROM coach_lineup WHERE coach_id = %s", (coach_id,))
     row = cur.fetchone()
     if row:
         return CoachLineupDTO(
@@ -44,20 +44,20 @@ async def get_coach_lineup_by_id(coach_id: int) -> CoachLineupDTO:
             cdm3=row[9],
             rwb=row[10],
             lm=row[11],
-            cm1=row[8],
-            cm2=row[9],
-            cm3=row[10],
-            rm=row[11],
-            lw=row[12],
-            cam1=row[13],
-            cam2=row[14],
-            cam3=row[15],
-            rw=row[16],
-            st1=row[17],
-            st2=row[18],
-            st3=row[19]
+            cm1=row[12],
+            cm2=row[13],
+            cm3=row[14],
+            rm=row[15],
+            lw=row[16],
+            cam1=row[16],
+            cam2=row[18],
+            cam3=row[19],
+            rw=row[20],
+            st1=row[21],
+            st2=row[22],
+            st3=row[23]
         )
-
+    
     #record not found, return default positions
     return CoachLineupDTO(gk=False, lb=False, cb1=False, cb2=False, cb3=False, rb=False, lwb=False, cdm1=False, cdm2=False, cdm3=False, rwb=False, lm=False, cm1=False, cm2=False, cm3=False, rm=False, lw=False, cam1=False, cam2=False, cam3=False, rw=False, st1=False, st2=False, st3=False)
 
@@ -78,7 +78,7 @@ async def get_coach_by_id(coach_id: int) -> Coach:
     cur.execute("SELECT * FROM coaches WHERE id = %s", (coach_id,))
     row = cur.fetchone()
     if row:
-        return Coach(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], defence=row[5], midfield=row[6], attack=row[7], midfield_style=row[8], balance_style=row[9], lineup=get_coach_lineup_by_id(row[0]))
+        return Coach(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], defence=row[5], midfield=row[6], attack=row[7], midfield_style=row[8], balance_style=row[9], lineup= await get_coach_lineup_by_id(coach_id))
     return None
 
 async def add_coach_lineup(coach_id: int, lineup: CoachLineupDTO):
