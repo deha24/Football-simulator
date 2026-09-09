@@ -18,13 +18,6 @@ export class Clubs {
   @Output() club!: Club;
   clubs: Club[] = [];
 
-  loadClubs() {
-    this.clubService.getClubs().subscribe((data) => {
-      this.clubs = data;
-      this.cdr.detectChanges();
-    });
-  }
-
   constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private eventService: EventService) {
     this.eventService.getEvent('removedClub', () => {
         this.loadClubs();
@@ -37,5 +30,12 @@ export class Clubs {
 
   ngOnInit() {
     this.loadClubs();
+  }
+
+  loadClubs() {
+    this.clubService.getClubs().subscribe((data) => {
+      this.clubs = data;
+      this.cdr.detectChanges();
+    });
   }
 }

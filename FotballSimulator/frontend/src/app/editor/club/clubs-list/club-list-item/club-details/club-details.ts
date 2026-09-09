@@ -19,7 +19,11 @@ export class ClubDetails implements OnInit {
   ngOnInit() {
 
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.clubsService.getClubById(parseInt(id)).subscribe((data: any) => {
+    this.loadClub(parseInt(id));
+  }
+
+  loadClub(id: number){
+    this.clubsService.getClubById(id).subscribe((data: any) => {
       this.club = data;
       this.cdr.detectChanges();
     });
