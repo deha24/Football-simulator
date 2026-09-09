@@ -36,7 +36,7 @@ export class ClubUpdate implements OnInit{
     newClubLocation: new FormControl(this.club.location, { validators: [Validators.required] }),
     newClubFoundDate: new FormControl(this.club.found_date, { validators: [Validators.required] }),
     newClubStadium: new FormControl(this.club.stadium_name, { validators: [Validators.required] }),
-    newClubStadiumCapacity: new FormControl(this.club.stadium_capacity, { validators: [Validators.required, Validators.min(1)] }),
+    newClubStadiumCapacity: new FormControl(this.club.stadium_capacity, { validators: [Validators.required, Validators.min(1), Validators.max(200000)] }),
     });
   }
 

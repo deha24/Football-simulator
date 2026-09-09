@@ -67,6 +67,9 @@
             @if(updateClubForm.get('newClubStadiumCapacity')?.errors?.['required']) {
               <small class="text-danger">Capacity is required.</small>
             }
+            @if(updateClubForm.get('newClubStadiumCapacity')?.errors?.['min'] || updateClubForm.get('newClubStadiumCapacity')?.errors?.['max']) {
+              <small class="text-danger">Capacity must be at range 1 to 200 000.</small>
+            }
           }
         </p-card>
       </div>

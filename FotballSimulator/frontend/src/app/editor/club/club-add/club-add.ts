@@ -30,7 +30,7 @@ export class ClubAdd{
     newClubLocation: new FormControl('', { validators: [Validators.required] }),
     newClubFoundDate: new FormControl('', { validators: [Validators.required] }),
     newClubStadium: new FormControl('', { validators: [Validators.required] }),
-    newClubStadiumCapacity: new FormControl(null, { validators: [Validators.required, Validators.min(1)] }),
+    newClubStadiumCapacity: new FormControl(null, { validators: [Validators.required, Validators.min(1), Validators.max(200000)] }),
   });
 
   addNewClub() {
