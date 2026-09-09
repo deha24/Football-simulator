@@ -20,12 +20,12 @@ import { CoachService } from '../../coachService';
 export class CoachLineupForm implements OnInit{
 
   @Input() coachLineup!: CoachLineupDTO;
-  footballerId!: number;
+  coachId!: number;
 
   constructor(private CoachService: CoachService, private eventService: EventService) {}
 
   addCoachLineupForm = new FormGroup({
-    newCoachLineupGK: new FormControl(<null | boolean> true, { validators: [Validators.required] }),
+    newCoachLineupGK: new FormControl(<null | boolean> true, { }),
     newCoachLineupLB: new FormControl(<null | boolean> false, { }),
     newCoachLineupCB1: new FormControl(<null | boolean> false, { }),
     newCoachLineupCB2: new FormControl(<null | boolean> false, { }),
@@ -56,15 +56,12 @@ export class CoachLineupForm implements OnInit{
   ngOnInit() {
 
     this.eventService.getEvent('newCoachLineupRequest', () => { 
-      console.log('Received newCoachLineupRequest event');
       this.newCoachLineup(); 
     });
 
     this.eventService.getEvent('updateCoachLineupRequest', () => {
       this.newCoachLineup();
     });
-
-    //this.addCoachLineupForm.controls['newCoachLineupGK'].disable();
 
     if (this.coachLineup) {
       this.addCoachLineupForm.patchValue({

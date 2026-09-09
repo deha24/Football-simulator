@@ -38,19 +38,19 @@ export class CoachUpdate {
   ngOnInit() {
 
     this.updateCoachForm = new FormGroup({
-      CoachFirstName: new FormControl(this.coach.first_name, {validators: [Validators.required]}),
-      CoachLastname: new FormControl(this.coach.last_name, {validators: [Validators.required]}),
-      CoachBirthDate: new FormControl(this.coach.birth_date, {validators: [Validators.required]}),
-      CoachNationality: new FormControl(this.coach.nationality, {validators: [Validators.required]}),
-      CoachDefence: new FormControl(this.coach.defence, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
-      CoachMidfield: new FormControl(this.coach.midfield, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
-      CoachAttack: new FormControl(this.coach.attack, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
-      CoachMidfieldStyle: new FormControl(this.coach.midfield_style, {validators: [Validators.required]}),
-      CoachBalanceStyle: new FormControl(this.coach.balance_style, {validators: [Validators.required]}),
+      coachFirstName: new FormControl(this.coach.first_name, {validators: [Validators.required]}),
+      coachLastname: new FormControl(this.coach.last_name, {validators: [Validators.required]}),
+      coachBirthDate: new FormControl(this.coach.birth_date, {validators: [Validators.required]}),
+      coachNationality: new FormControl(this.coach.nationality, {validators: [Validators.required]}),
+      coachDefence: new FormControl(this.coach.defence, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
+      coachMidfield: new FormControl(this.coach.midfield, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
+      coachAttack: new FormControl(this.coach.attack, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
+      coachMidfieldStyle: new FormControl(this.coach.midfield_style, {validators: [Validators.required]}),
+      coachBalanceStyle: new FormControl(this.coach.balance_style, {validators: [Validators.required]}),
     });
 
     this.coachLineup = this.coach.lineup;
-    this.eventService.getEvent('newcoachLineupReply', (updatedLinueup: CoachLineupDTO) => {
+    this.eventService.getEvent('newCoachLineupReply', (updatedLinueup: CoachLineupDTO) => {
       this.updateCoach(updatedLinueup);
     });
   }
@@ -70,7 +70,7 @@ export class CoachUpdate {
 
   validUpdateCoachForm() {
     if (this.updateCoachForm.valid) {
-      this.eventService.emitEvent('updateCoachPositionsRequest');
+      this.eventService.emitEvent('updateCoachLineupRequest');
     } else {
       // Handle form errors if needed
       console.error('Form is invalid');
@@ -87,27 +87,29 @@ export class CoachUpdate {
   updateCoach(updatedLinueup: CoachLineupDTO) {
 
     const data: any = {};
-    const firstName = this.updateCoachForm.value.newCoachFirstName;
-    const lastName = this.updateCoachForm.value.newCoachLastname;
-    const birthDate = formatDate(this.updateCoachForm.value.newCoachBirthDate!, 'yyyy-MM-dd', 'en-US');
-    const nationality = this.updateCoachForm.value.newCoachNationality;
-    const goalkeeping = this.updateCoachForm.value.newCoachGoalkeeping;
-    const defence = this.updateCoachForm.value.newCoachDefence;
-    const midfield = this.updateCoachForm.value.newCoachMidfield;
-    const attack = this.updateCoachForm.value.newCoachAttack;
+    const firstName = this.updateCoachForm.value.coachFirstName;
+    const lastName = this.updateCoachForm.value.coachLastname;
+    const birthDate = formatDate(this.updateCoachForm.value.coachBirthDate!, 'yyyy-MM-dd', 'en-US');
+    const nationality = this.updateCoachForm.value.coachNationality;
+    const goalkeeping = this.updateCoachForm.value.coachGoalkeeping;
+    const defence = this.updateCoachForm.value.coachDefence;
+    const midfield = this.updateCoachForm.value.coachMidfield;
+    const attack = this.updateCoachForm.value.coachAttack;
+    const midfield_style = this.updateCoachForm.value.coachMidfieldStyle;
+    const balance_style = this.updateCoachForm.value.coachBalanceStyle;
 
     Object.keys(this.updateCoachForm.controls).forEach(key => {
         const control = this.updateCoachForm.get(key);
         if (control && control.dirty) {
-          if (key === 'CoachFirstName') data.first_name = firstName;
-          if (key === 'CoachLastname') data.last_name = lastName;
-          if (key === 'CoachBirthDate') data.birth_date = birthDate;
-          if (key === 'CoachNationality') data.nationality = nationality;
-          if (key === 'CoachDefence') data.defence = defence;
-          if (key === 'CoachMidfield') data.midfield = midfield;
-          if (key === 'CoachAttack') data.attack = attack;
-          if (key === 'CoachMidfieldStyle') data.midfield_style = this.updateCoachForm.value.newCoachMidfieldStyle;
-          if (key === 'CoachBalanceStyle') data.balance_style = this.updateCoachForm.value.newCoachBalanceStyle;
+          if (key === 'coachFirstName') data.first_name = firstName;
+          if (key === 'coachLastname') data.last_name = lastName;
+          if (key === 'coachBirthDate') data.birth_date = birthDate;
+          if (key === 'coachNationality') data.nationality = nationality;
+          if (key === 'coachDefence') data.defence = defence;
+          if (key === 'coachMidfield') data.midfield = midfield;
+          if (key === 'coachAttack') data.attack = attack;
+          if (key === 'coachMidfieldStyle') data.midfield_style = midfield_style;
+          if (key === 'coachBalanceStyle') data.balance_style = balance_style;
           if (updatedLinueup) data.lineup = updatedLinueup;
         }
       });

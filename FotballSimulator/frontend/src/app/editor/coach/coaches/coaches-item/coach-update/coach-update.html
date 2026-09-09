@@ -22,32 +22,32 @@
             <p-inputgroup-addon>
                 <i class="pi pi-user"></i>
             </p-inputgroup-addon>
-          <input pInputText placeholder="First Name" formControlName="CoachFirstName" />
-          <input pInputText placeholder="Last Name" formControlName="CoachLastname" />
+          <input pInputText placeholder="First Name" formControlName="coachFirstName" />
+          <input pInputText placeholder="Last Name" formControlName="coachLastname" />
           </p-inputgroup>
-          @if (updateCoachForm.get('CoachFirstName')?.invalid && updateCoachForm.get('CoachFirstName')?.touched) {
+          @if (updateCoachForm.get('coachFirstName')?.invalid && updateCoachForm.get('coachFirstName')?.touched) {
             <small class="text-danger">First name is required.</small>
             <br />
           }
-          @if (updateCoachForm.get('CoachLastname')?.invalid && updateCoachForm.get('CoachLastname')?.touched) {
+          @if (updateCoachForm.get('coachLastname')?.invalid && updateCoachForm.get('coachLastname')?.touched) {
             <small class="text-danger">Last name is required.</small>
           }
           <p-inputgroup class="mt-1">
           <p-inputgroup-addon>
               <i class="pi pi-calendar"></i>
           </p-inputgroup-addon>
-            <p-datepicker placeholder="Birth Date" dateFormat="dd.mm.yy" formControlName="CoachBirthDate" fluid/>
+            <p-datepicker placeholder="Birth Date" dateFormat="dd.mm.yy" formControlName="coachBirthDate" fluid/>
           </p-inputgroup>
-          @if(updateCoachForm.get('CoachBirthDate')?.invalid && updateCoachForm.get('CoachBirthDate')?.touched) {
+          @if(updateCoachForm.get('coachBirthDate')?.invalid && updateCoachForm.get('coachBirthDate')?.touched) {
             <small class="text-danger">Birth date is required.</small>
           }
           <p-inputgroup class="mt-1">
               <p-inputgroup-addon>
                   <i class="pi pi-flag"></i>
               </p-inputgroup-addon>
-            <input pInputText placeholder="Nationality" formControlName="CoachNationality" />
+            <input pInputText placeholder="Nationality" formControlName="coachNationality" />
           </p-inputgroup>
-          @if(updateCoachForm.get('CoachNationality')?.invalid && updateCoachForm.get('CoachNationality')?.touched) {
+          @if(updateCoachForm.get('coachNationality')?.invalid && updateCoachForm.get('coachNationality')?.touched) {
             <small class="text-danger">Nationality is required.</small>
           }
         </p-card>
@@ -60,46 +60,46 @@
             <p-inputgroup-addon>
               <i class="pi pi-star"></i>
             </p-inputgroup-addon>
-            <input pInputText type="number" placeholder="defence" inputId="integeronly" formControlName="CoachDefence" />
-            <input pInputText type="number" placeholder="midfield" inputId="integeronly" formControlName="CoachMidfield" />
-            <input pInputText type="number" placeholder="attack" inputId="integeronly" formControlName="CoachAttack" />
+            <input pInputText type="number" placeholder="defence" inputId="integeronly" formControlName="coachDefence" />
+            <input pInputText type="number" placeholder="midfield" inputId="integeronly" formControlName="coachMidfield" />
+            <input pInputText type="number" placeholder="attack" inputId="integeronly" formControlName="coachAttack" />
           </p-inputgroup>
-          @if(updateCoachForm.get('CoachDefence')?.invalid && updateCoachForm.get('CoachDefence')?.touched) {
-            @if(updateCoachForm.get('CoachDefence')?.errors?.['required']) {
+          @if(updateCoachForm.get('coachDefence')?.invalid && updateCoachForm.get('coachDefence')?.touched) {
+            @if(updateCoachForm.get('coachDefence')?.errors?.['required']) {
               <small class="text-danger">Defence rating is required.</small>
             }
-            @if(updateCoachForm.get('CoachDefence')?.errors?.['min'] || updateCoachForm.get('CoachDefence')?.errors?.['max']) {
+            @if(updateCoachForm.get('coachDefence')?.errors?.['min'] || updateCoachForm.get('coachDefence')?.errors?.['max']) {
               <small class="text-danger">Defence rating must be between 1 and 99.</small>
             }
           }
-          @if(updateCoachForm.get('CoachMidfield')?.invalid && updateCoachForm.get('CoachMidfield')?.touched) {
-            @if(updateCoachForm.get('CoachMidfield')?.errors?.['required']) {
+          @if(updateCoachForm.get('coachMidfield')?.invalid && updateCoachForm.get('coachMidfield')?.touched) {
+            @if(updateCoachForm.get('coachMidfield')?.errors?.['required']) {
               <small class="text-danger">Midfield rating is required.</small>
             }
-            @if(updateCoachForm.get('CoachMidfield')?.errors?.['min'] || updateCoachForm.get('CoachMidfield')?.errors?.['max']) {
+            @if(updateCoachForm.get('coachMidfield')?.errors?.['min'] || updateCoachForm.get('coachMidfield')?.errors?.['max']) {
               <small class="text-danger">Midfield rating must be between 1 and 99.</small>
               <br />
               
             }
-            @if(updateCoachForm.get('CoachDefence')?.errors?.['min'] || updateCoachForm.get('CoachDefence')?.errors?.['max']) {
+            @if(updateCoachForm.get('coachDefence')?.errors?.['min'] || updateCoachForm.get('coachDefence')?.errors?.['max']) {
               <small class="text-danger">Defence rating must be between 1 and 99.</small>
               <br />
             }
           }
-          @if(updateCoachForm.get('CoachAttack')?.invalid && updateCoachForm.get('CoachAttack')?.touched) {
-            @if(updateCoachForm.get('CoachAttack')?.errors?.['required']) {
+          @if(updateCoachForm.get('coachAttack')?.invalid && updateCoachForm.get('coachAttack')?.touched) {
+            @if(updateCoachForm.get('coachAttack')?.errors?.['required']) {
               <small class="text-danger">Attack rating is required.</small>
             }
-            @if(updateCoachForm.get('CoachAttack')?.errors?.['min'] || updateCoachForm.get('CoachAttack')?.errors?.['max']) {
+            @if(updateCoachForm.get('coachAttack')?.errors?.['min'] || updateCoachForm.get('coachAttack')?.errors?.['max']) {
               <small class="text-danger">Attack rating must be between 1 and 99.</small>
               <br />
             }
           }
-          @if(updateCoachForm.get('CoachAttack')?.invalid && updateCoachForm.get('CoachAttack')?.touched) {
-            @if(updateCoachForm.get('CoachAttack')?.errors?.['required']) {
+          @if(updateCoachForm.get('coachAttack')?.invalid && updateCoachForm.get('coachAttack')?.touched) {
+            @if(updateCoachForm.get('coachAttack')?.errors?.['required']) {
               <small class="text-danger">Attack rating is required.</small>
             }
-            @if(updateCoachForm.get('CoachAttack')?.errors?.['min'] || updateCoachForm.get('CoachAttack')?.errors?.['max']) {
+            @if(updateCoachForm.get('coachAttack')?.errors?.['min'] || updateCoachForm.get('coachAttack')?.errors?.['max']) {
               <small class="text-danger">Attack rating must be between 1 and 99.</small>
             }
           }
@@ -109,7 +109,7 @@
                 <i class="pi pi-user"></i>
             </p-inputgroup-addon>
             <div class="flex justify-center">
-                <p-select [options]="midfieldStyles" formControlName="CoachMidfieldStyle" optionLabel="label" optionValue="value" placeholder="Midfield Style" class="w-full md:w-56" />
+                <p-select [options]="midfieldStyles" formControlName="coachMidfieldStyle" optionLabel="label" optionValue="value" placeholder="Midfield Style" class="w-full md:w-56" />
             </div>
           </p-inputgroup>
           <p-inputgroup class="mt-1">
@@ -117,11 +117,11 @@
                 <i class="pi pi-user"></i>
             </p-inputgroup-addon>
             <div class="flex justify-center">
-                <p-select [options]="balanceStyles" formControlName="CoachBalanceStyle" optionLabel="label" optionValue="value" placeholder="Balance Style" class="w-full md:w-56" />
+                <p-select [options]="balanceStyles" formControlName="coachBalanceStyle" optionLabel="label" optionValue="value" placeholder="Balance Style" class="w-full md:w-56" />
             </div>
           </p-inputgroup>
           
-          <coach-lineup-form></coach-lineup-form>
+          <coach-lineup-form [coachLineup]="coachLineup" ></coach-lineup-form>
         </p-card>
       </div>
     </div>

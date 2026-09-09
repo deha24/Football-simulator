@@ -26,7 +26,6 @@ except Exception as e:
     print("-------------------------------------------\n BŁĄD BAZY DANYCH \n -------------------------------------------------------\n", e)
 
 async def get_coach_lineup_by_id(coach_id: int) -> CoachLineupDTO:
-    print("------------------------------------------------------------------------------------------------\n\n", )
     cur = conn.cursor()
     cur.execute("SELECT gk, lb, cb1, cb2, cb3, rb, lwb, cdm1, cdm2, cdm3, rwb, lm, cm1, cm2, cm3, rm, lw, cam1, cam2, cam3, rw, st1, st2, st3 FROM coach_lineup WHERE coach_id = %s", (coach_id,))
     row = cur.fetchone()
@@ -66,11 +65,7 @@ async def getcoaches() -> list[Coach]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM coaches")
     rows = cur.fetchall()
-    return [Coach(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], defence=row[5], midfield=row[6], attack=row[7], midfield_style=row[8], balance_style=row[9]) for row in rows]
-
-@router.get("/lineup/{coach_id}")
-async def get_coach_lineup(coach_id: int) -> CoachLineupDTO:
-    return await get_coach_lineup_by_id(coach_id)
+    return [Coach(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], defence=row[5], midfield=row[6], attack=row[7], midfield_style=row[8], balance_style=row[9], lineup= await get_coach_lineup_by_id(row[0])) for row in rows]
 
 @router.get("/details/{coach_id}")
 async def get_coach_by_id(coach_id: int) -> Coach:
@@ -91,12 +86,10 @@ async def add_coach_lineup(coach_id: int, lineup: CoachLineupDTO):
 @router.post("/addcoach")
 async def addCoach(coach: CreateCoachDTO):
     cur = conn.cursor()
-    print(f"Adding new coach: {coach.first_name} {coach.last_name}, Birth Date: {coach.birth_date}, Nationality: {coach.nationality}, Defence: {coach.defence}, Midfield: {coach.midfield}, Attack: {coach.attack}, Midfield Style: {coach.midfield_style}, Balance Style: {coach.balance_style}")
     cur.execute("INSERT INTO coaches (first_name, last_name, birth_date, nationality, defence, midfield, attack, midfield_style, balance_style) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id",
                 (coach.first_name, coach.last_name, coach.birth_date, coach.nationality, coach.defence, coach.midfield, coach.attack, coach.midfield_style, coach.balance_style))
     new_coach_id = cur.fetchone()[0]
     conn.commit()
-    print(f"New coach added with ID: {new_coach_id}")
     await add_coach_lineup(coach_id=new_coach_id, lineup=coach.lineup)
     return {"message": "Coach added successfully"}
 
