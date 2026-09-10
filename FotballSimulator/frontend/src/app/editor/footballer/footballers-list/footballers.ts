@@ -1,5 +1,5 @@
 import { FootballersItem, } from '../footballers-list-item/footballers-item';
-import { Component, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { Footballer } from '../../../../shared/models/footballer';
 import { ChangeDetectorRef } from '@angular/core';
 import { FootballersService } from '../footballersService';
@@ -14,7 +14,7 @@ import { SortEvent } from 'primeng/api';
   templateUrl: './footballers.html',
   styleUrl: './footballers.css'
 })
-export class Footballers {
+export class Footballers implements OnInit{
 
   @ViewChild('dt') dt!: Table;
   footballers: Footballer[] = [];
@@ -76,6 +76,4 @@ export class Footballers {
             return event.order! * result;
         });
     }
-
-    
 }

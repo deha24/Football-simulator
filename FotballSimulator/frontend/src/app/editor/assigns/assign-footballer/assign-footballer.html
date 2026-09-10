@@ -8,7 +8,7 @@
                         <h5>Club 1:</h5>
                     </div>
                     <div class="col-sm-5">
-                        @if(club1.name){
+                        @if(club1){
                             <h5>{{club1.name}}</h5>
                         }
                     </div>
@@ -23,6 +23,11 @@
                     </div>
                 </div>
             </ng-template>
+            <div class="row mt-1 gx-3 gy-2">
+                @if(club1){
+                    <footballers-in-club [clubId]="club1?.id"></footballers-in-club>
+                }
+            </div>
         </p-card>
     </div>
 
@@ -34,7 +39,7 @@
                         <h5>Club 2:</h5>
                     </div>
                     <div class="col-sm-5">
-                        @if(club2.name){
+                        @if(club2){
                             <h5>{{club2.name}}</h5>   
                         }
                     </div>

@@ -1,0 +1,58 @@
+import { Component, Input, Output, ViewChild, OnChanges } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { EventService } from '../../../../../shared/services/EventServices';
+import { TableModule } from 'primeng/table';
+import { Table } from 'primeng/table';
+import { SortEvent } from 'primeng/api';
+import { AssignFootballerService } from '../assignFootballerService';
+import { Footballer } from '../../../../../shared/models/footballer';
+
+@Component({
+  selector: 'footballers-in-club',
+  imports: [TableModule],
+  templateUrl: './footballers-in-club.html',
+  styleUrl: './footballers-in-club.css',
+})
+export class FootballersInClub implements OnChanges{
+
+  @Output() footballer!: Footballer;
+  @Input() clubId!: number;
+
+  @ViewChild('dt') dt!: Table;
+  footballers: Footballer[] = [];
+  initialValue: Footballer[] = [];
+  isSorted: boolean | null = null;
+
+  constructor(private cdr: ChangeDetectorRef, private assignFootballerService: AssignFootballerService, private eventService: EventService) { }
+
+  ngOnChanges() {
+    this.loadFootballersByClubId(this.clubId);
+  }
+
+  loadFootballersByClubId(id: number): void {
+    this.assignFootballerService.getFootballersByClubId(this.clubId).subscribe((data: Footballer[]) => {
+      this.footballers = data;
+      this.cdr.detectChanges();
+      this.initialValue = [...data];
+    });
+  }
+
+  sortTableData(event: SortEvent) {
+      if (!event.data) {
+        console.error('No data to sort');
+        return;
+      }
+      event.data.sort((data1, data2) => {
+          let value1 = data1[event.field!];
+          let value2 = data2[event.field!];
+          let result = null;
+          if (value1 == null && value2 != null) result = -1;
+          else if (value1 != null && value2 == null) result = 1;
+          else if (value1 == null && value2 == null) result = 0;
+          else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
+          else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
+
+          return event.order! * result;
+      });
+  }
+}
