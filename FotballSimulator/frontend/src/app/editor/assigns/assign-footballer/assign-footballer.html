@@ -16,7 +16,7 @@
                         <form [formGroup]="pickClub1form">
                             <select class="form-select" aria-label="Default select example" formControlName="club1Id">
                                 @for (club of clubs; track club) {
-                                    <option [value]="club.id">{{ club.name }}</option>
+                                    <option [ngValue]="club.id">{{ club.name }}</option>
                                 }
                             </select>
                         </form>
@@ -47,13 +47,18 @@
                         <form [formGroup]="pickClub2form">
                             <select class="form-select" aria-label="Default select example" formControlName="club2Id">
                                 @for (club of clubs; track club) {
-                                    <option [value]="club.id">{{ club.name }}</option>
+                                    <option [ngValue]="club.id">{{ club.name }}</option>
                                 }
                             </select>
                         </form>
                     </div>
                 </div>
             </ng-template>
+            <div class="row mt-1 gx-3 gy-2">
+                @if(club2){
+                    <footballers-in-club [clubId]="club2?.id"></footballers-in-club>
+                }
+            </div>
         </p-card>
     </div>
 </div>

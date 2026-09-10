@@ -33,9 +33,8 @@ export class CoachAdd {
   selectedMidfieldStyle: string = '';
   selectedBalanceStyle: string = '';
 
-  constructor(private coachService: CoachService, private eventService: EventService) {}
+  constructor(private coachService: CoachService, private eventService: EventService) {
 
-  ngOnInit() {
     this.eventService.getEvent('newCoachLineupReply', (newCoachLineup: CoachLineupDTO) => {
       this.addNewCoach(newCoachLineup);
     });
@@ -93,7 +92,6 @@ export class CoachAdd {
     const balanceStyle = this.addCoachform.value.newCoachBalanceStyle;
 
     const newCoach = new CreateCoachDTO(firstName!, lastName!, birthDate!, nationality!, newCoachLineup!, defence!, midfield!, attack!, midfieldStyle!, balanceStyle!);
-      console.log('Dodawanie nowego trenera:', newCoach);
       this.coachService.addCoach(newCoach).subscribe(() => {
       this.addCoachform.reset();
       });   

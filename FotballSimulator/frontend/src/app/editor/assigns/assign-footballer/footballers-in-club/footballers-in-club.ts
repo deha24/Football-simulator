@@ -4,19 +4,20 @@ import { EventService } from '../../../../../shared/services/EventServices';
 import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
+import { FootballersInClubItem } from './footballers-in-club-item/footballers-in-club-item';
 import { AssignFootballerService } from '../assignFootballerService';
 import { Footballer } from '../../../../../shared/models/footballer';
 
 @Component({
   selector: 'footballers-in-club',
-  imports: [TableModule],
+  imports: [TableModule, FootballersInClubItem],
   templateUrl: './footballers-in-club.html',
   styleUrl: './footballers-in-club.css',
 })
 export class FootballersInClub implements OnChanges{
 
   @Output() footballer!: Footballer;
-  @Input() clubId!: number;
+  @Input() clubId!: number | undefined;
 
   @ViewChild('dt') dt!: Table;
   footballers: Footballer[] = [];
@@ -26,14 +27,16 @@ export class FootballersInClub implements OnChanges{
   constructor(private cdr: ChangeDetectorRef, private assignFootballerService: AssignFootballerService, private eventService: EventService) { }
 
   ngOnChanges() {
-    this.loadFootballersByClubId(this.clubId);
+    if(this.clubId){
+      this.loadFootballersByClubId(this.clubId);
+    }
   }
 
   loadFootballersByClubId(id: number): void {
-    this.assignFootballerService.getFootballersByClubId(this.clubId).subscribe((data: Footballer[]) => {
+    this.assignFootballerService.getFootballersByClubId(this.clubId!).subscribe((data: Footballer[]) => {
       this.footballers = data;
-      this.cdr.detectChanges();
       this.initialValue = [...data];
+      this.cdr.markForCheck();
     });
   }
 

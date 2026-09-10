@@ -21,7 +21,15 @@ export class AssignFootballer implements OnInit {
   club2: Club | undefined;
   tmpClub: Club | undefined;
 
-  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private eventService: EventService){}
+  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private eventService: EventService){
+
+    this.eventService.getEvent('ClubsIdRequest', () => {
+      this.eventService.emitEvent('ClubsIdReply', { 
+        club1Id: this.club1!.id, 
+        club2Id: this.club2!.id 
+      }); 
+    });
+  }
 
   ngOnInit(): void {
       this.loadClubs();
@@ -40,7 +48,7 @@ export class AssignFootballer implements OnInit {
   loadClubs() {
     this.clubService.getClubs().subscribe((data) => {
       this.clubs = data;
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     });
   }
 
@@ -49,6 +57,7 @@ export class AssignFootballer implements OnInit {
       if(clubId !== null){
         this.clubService.getClubById(clubId).subscribe((data: Club) => {
           this.club1 = data;
+          this.cdr.markForCheck();
         });
       }
     });
@@ -59,6 +68,7 @@ export class AssignFootballer implements OnInit {
       if(clubId !== null){
         this.clubService.getClubById(clubId).subscribe((data: Club) => {
           this.club2 = data;
+          this.cdr.markForCheck();
         });
       }
     });

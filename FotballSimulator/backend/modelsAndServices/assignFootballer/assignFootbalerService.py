@@ -53,9 +53,9 @@ async def get_footballer_positions_by_id(footballer_id: int) -> FootballerPositi
 async def get_footballer_by_club_id(club_id: int) -> list[Footballer]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballers WHERE club_id = %s", (club_id,))
-    row = cur.fetchone()
-    if row:
-        return Footballer(
+    rows = cur.fetchall()
+    if rows:
+        return [Footballer(
             id=row[0],
             first_name=row[1],
             last_name=row[2],
@@ -66,5 +66,5 @@ async def get_footballer_by_club_id(club_id: int) -> list[Footballer]:
             midfield=row[7],
             attack=row[8],
             position=await get_footballer_positions_by_id(row[0])
-        )
+        ) for row in rows]
     return []
