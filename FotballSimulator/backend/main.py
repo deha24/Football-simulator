@@ -4,7 +4,7 @@ from modelsAndServices.footballers.services.footballerService import router as f
 from modelsAndServices.coaches.services.coachService import router as coachService
 from modelsAndServices.clubs.services.clubsService import router as clubsService
 from modelsAndServices.leagues.services.leaguesService import router as leaguesService
-from modelsAndServices.assignFootballer.assignFootbalerService import router as assignFootbalerService
+from modelsAndServices.assignFootballer.services.assignFootbalerService import router as assignFootbalerService
 
 app = FastAPI()
 

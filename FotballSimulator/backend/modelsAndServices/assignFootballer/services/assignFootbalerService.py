@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 import psycopg2
-from ..footballers.models.footballer import Footballer
-from ..footballers.models.footballerPositions import FootballerPositionsDTO
+from ...footballers.models.footballer import Footballer
+from ...footballers.models.footballerPositions import FootballerPositionsDTO
+from ..models.assignFootballer import ClubsIds
+
 router = APIRouter(
     prefix="/assign/footballer",
     tags=["assign", "footballer"],
@@ -48,8 +50,7 @@ async def get_footballer_positions_by_id(footballer_id: int) -> FootballerPositi
     #record not found, return default positions
     return FootballerPositionsDTO(gk=0, lb=0, cb=0, rb=0, lwb=0, cdm=0, rwb=0, lm=0, cm=0, rm=0, lw=0, cam=0, rw=0, st=0)
 
-
-@router.get("/{club_id}")
+@router.get("/getfootballers/{club_id}")
 async def get_footballer_by_club_id(club_id: int) -> list[Footballer]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballers WHERE club_id = %s", (club_id,))
@@ -68,3 +69,27 @@ async def get_footballer_by_club_id(club_id: int) -> list[Footballer]:
             position=await get_footballer_positions_by_id(row[0])
         ) for row in rows]
     return []
+
+@router.post("/{footballer_id}")
+async def assignFootballerToClub(footballer_id: int, clubsIds: ClubsIds):
+    footballer_club_id = checkFootballerClubId(footballer_id)
+    cur = conn.cursor()
+    if footballer_club_id == clubsIds.club1Id:
+        cur.execute(
+            "UPDATE footballers SET club_id = %s WHERE id = %s", 
+            (clubsIds.club2Id, footballer_id)
+        )
+    else:
+        cur.execute(
+                    "UPDATE footballers SET club_id = %s WHERE id = %s", 
+                    (clubsIds.club1Id, footballer_id)
+                )
+    conn.commit()
+    cur.close
+
+async def checkFootballerClubId(footballer_id: int):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM footballers WHERE id = %s", (footballer_id))
+    row = cur.fetchone()
+    if row:
+        return row[9]

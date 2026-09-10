@@ -11,7 +11,7 @@ export class AssignFootballerService {
   constructor(private http: HttpClient) {}
 
   getFootballersByClubId(id: number){
-    return this.http.get<Footballer[]>(`http://127.0.0.1:8000/assign/footballer/${id}`);
+    return this.http.get<Footballer[]>(`http://127.0.0.1:8000/assign/footballer/getfootballers/${id}`);
   }
 
   assignFootballerToClub(id: number, clubsIds: ClubsIds){

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { EventService } from '../../../../../../../shared/services/EventServices';
 import { AssignFootballerService } from '../../../assignFootballerService';
@@ -16,20 +16,20 @@ export class FootballersAssignFootballer {
   @Input() footballerId!: number;
   clubsIds!: ClubsIds;
 
-  constructor(private assignFootballerService: AssignFootballerService, private eventService: EventService){ 
+  constructor(private assignFootballerService: AssignFootballerService, private eventService: EventService, private cdr: ChangeDetectorRef){ 
 
     this.eventService.getEvent('ClubsIdReply', (payload: { club1Id: number, club2Id: number }) => {
       this.clubsIds.club1Id = payload.club1Id;
       this.clubsIds.club2Id = payload.club2Id;
+      this.cdr.markForCheck;
     });
   }
 
   assignNewClub(){
     this.eventService.emitEvent("ClubsIdRequest");
 
-    if(this.clubsIds.club1Id && this.clubsIds.club2Id){
+    if(this.clubsIds){
       this.assignFootballerService.assignFootballerToClub(this.footballerId, this.clubsIds);
     }
   }
-
 }
