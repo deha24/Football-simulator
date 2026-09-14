@@ -1,9 +1,6 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { EventService } from '../../../../../../../shared/services/EventServices';
-import { AssignFootballerService } from '../../../assignFootballerService';
-import { ClubsIds } from '../../../../../../../shared/models/assigns/assignFootballer';
-import { Footballer } from '../../../../../../../shared/models/footballer';
+import { AssignFootballerStateService } from '../../../assign-footballer-state-service';
 
 @Component({
   selector: 'footballers-assign-footballer',
@@ -14,22 +11,13 @@ import { Footballer } from '../../../../../../../shared/models/footballer';
 export class FootballersAssignFootballer {
 
   @Input() footballerId!: number;
-  clubsIds!: ClubsIds;
 
-  constructor(private assignFootballerService: AssignFootballerService, private eventService: EventService, private cdr: ChangeDetectorRef){ 
+  private stateService = inject(AssignFootballerStateService);
 
-    this.eventService.getEvent('ClubsIdReply', (payload: { club1Id: number, club2Id: number }) => {
-      this.clubsIds.club1Id = payload.club1Id;
-      this.clubsIds.club2Id = payload.club2Id;
-      this.cdr.markForCheck;
-    });
-  }
+  constructor(){ }
 
   assignNewClub(){
-    this.eventService.emitEvent("ClubsIdRequest");
-
-    if(this.clubsIds){
-      this.assignFootballerService.assignFootballerToClub(this.footballerId, this.clubsIds);
-    }
+    this.stateService.assignFootballer(this.footballerId);
   }
+
 }

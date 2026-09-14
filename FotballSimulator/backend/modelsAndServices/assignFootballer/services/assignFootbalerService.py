@@ -72,7 +72,8 @@ async def get_footballer_by_club_id(club_id: int) -> list[Footballer]:
 
 @router.post("/{footballer_id}")
 async def assignFootballerToClub(footballer_id: int, clubsIds: ClubsIds):
-    footballer_club_id = checkFootballerClubId(footballer_id)
+    print("here")
+    footballer_club_id = await checkFootballerClubId(footballer_id)
     cur = conn.cursor()
     if footballer_club_id == clubsIds.club1Id:
         cur.execute(
@@ -89,7 +90,7 @@ async def assignFootballerToClub(footballer_id: int, clubsIds: ClubsIds):
 
 async def checkFootballerClubId(footballer_id: int):
     cur = conn.cursor()
-    cur.execute("SELECT * FROM footballers WHERE id = %s", (footballer_id))
+    cur.execute("SELECT * FROM footballers WHERE id = %s", (footballer_id,))
     row = cur.fetchone()
     if row:
         return row[9]
