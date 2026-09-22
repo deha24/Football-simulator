@@ -13,6 +13,7 @@ import { LeagueAdd } from './editor/league/league-add/league-add';
 import { Leagues } from './editor/league/league-list/leagues';
 import { LeagueDetails } from './editor/league/league-list/league-list-item/league-details/league-details';
 import { AssignFootballer } from './editor/assigns/assign-footballer/assign-footballer';
+import { AssignClub } from './editor/assigns/assign-club/assign-club';
 
 export const routes: Routes = [
   { path: 'editor/footballers', component: Footballers },
@@ -28,5 +29,6 @@ export const routes: Routes = [
   { path: 'editor/addleague', component: LeagueAdd },
   { path: 'editor/leagues/details/:id', component: LeagueDetails },
   { path: 'editor/assign/footballer', component: AssignFootballer},
+  { path: 'editor/assign/club', component: AssignClub}, 
   { path: '**', component: NotFound } 
 ];

@@ -64,4 +64,4 @@ async def checkClubLeagueId(club_id: int):
     cur.execute("SELECT * FROM clubs WHERE id = %s", (club_id,))
     row = cur.fetchone()
     if row:
-        return row[9]
+        return row[6]
