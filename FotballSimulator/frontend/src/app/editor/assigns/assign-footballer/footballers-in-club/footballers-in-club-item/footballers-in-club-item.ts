@@ -15,6 +15,6 @@ export class FootballersInClubItem {
 
   @Input() footballer!: Footballer;
 
-  constructor(private eventService: EventService) { }
+  constructor() { }
 
 }

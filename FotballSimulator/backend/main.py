@@ -4,7 +4,8 @@ from modelsAndServices.footballers.services.footballerService import router as f
 from modelsAndServices.coaches.services.coachService import router as coachService
 from modelsAndServices.clubs.services.clubsService import router as clubsService
 from modelsAndServices.leagues.services.leaguesService import router as leaguesService
-from modelsAndServices.assignFootballer.services.assignFootbalerService import router as assignFootbalerService
+from modelsAndServices.assigns.assignFootballer.services.assignFootbalerService import router as assignFootbalerService
+from modelsAndServices.assigns.assignClub.services.assignClubService import router as assignClubService
 
 app = FastAPI()
 
@@ -22,6 +23,9 @@ app.include_router(
 )
 app.include_router(
     assignFootbalerService,
+)
+app.include_router(
+    assignClubService,
 )
 
 app.add_middleware(

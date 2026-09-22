@@ -7,6 +7,7 @@ import { ClubService } from '../../club/clubService';
 import { AssignFootballerStateService } from '../assign-footballer/assign-footballer-state-service';
 import { Club } from '../../../../shared/models/club';
 import { ClubsIds } from '../../../../shared/models/assigns/assignFootballer';
+import { EventService } from '../../../../shared/services/EventServices';
 
 @Component({
   selector: 'assign-footballer',
@@ -24,7 +25,7 @@ export class AssignFootballer implements OnInit {
   tmpClub: Club | undefined;
   currentClubsIds: ClubsIds = { club1Id: 0, club2Id: 0 };
 
-  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private stateService: AssignFootballerStateService){ }
+  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private stateService: AssignFootballerStateService, private eventService: EventService){ }
 
   ngOnInit(): void {
       this.loadClubs();

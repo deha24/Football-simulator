@@ -1,1 +1,68 @@
-<p>assign-club works!</p>
+<div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center">
+  @for (league of leagues; track league.id) {
+    <div class="col-lg-6">
+        <p-card>
+            <ng-template #header>
+                <div class="row mt-1 gx-3 gy-2">
+                    <div class="col-sm-2">
+                        <h5>league 1:</h5>
+                    </div>
+                    <div class="col-sm-5">
+                        @if(league1){
+                            <h5>{{league1.name}}</h5>
+                        }
+                    </div>
+                    <div class="col-sm-5">
+                        <form [formGroup]="pickLeague1form">
+                            <select class="form-select" aria-label="Default select example" formControlName="league1Id">
+                                @for (league of leagues; track league) {
+                                    <option [ngValue]="league.id">{{ league.name }}</option>
+                                }
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
+            <div class="row mt-1 gx-3 gy-2">
+                @if(league1){
+                    <clubs-in-league [leagueId]="league1?.id"></clubs-in-league>
+                }
+            </div>
+        </p-card>
+    </div>
+
+    <div class="col-lg-6">
+        <p-card>
+            <ng-template #header>
+                <div class="row mt-1 gx-3 gy-2">
+                    <div class="col-sm-2">
+                        <h5>League 2:</h5>
+                    </div>
+                    <div class="col-sm-5">
+                        @if(league2){
+                            <h5>{{league2.name}}</h5>   
+                        }
+                    </div>
+                    <div class="col-sm-5">
+                        <form [formGroup]="pickLeague2form">
+                            <select class="form-select" aria-label="Default select example" formControlName="league2Id">
+                                @for (league of leagues; track league) {
+                                    <option [ngValue]="league.id">{{ league.name }}</option>
+                                }
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
+            <div class="row mt-1 gx-3 gy-2">
+                @if(league2){
+                    <clubs-in-league [leagueId]="league2?.id"></clubs-in-league>
+                }
+            </div>
+        </p-card>
+    </div>
+</div>
+
+<div class="col-sm-4">
+
+</div>

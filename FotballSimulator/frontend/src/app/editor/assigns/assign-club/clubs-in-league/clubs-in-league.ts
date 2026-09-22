@@ -4,43 +4,43 @@ import { EventService } from '../../../../../shared/services/EventServices';
 import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
-import { FootballersInClubItem } from './footballers-in-club-item/footballers-in-club-item';
-import { AssignFootballerService } from '../assignFootballerService';
-import { Footballer } from '../../../../../shared/models/footballer';
+import { ClubsInLeagueItem } from './clubs-in-league-item/clubs-in-league-item';
+import { AssignClubService } from '../assignClubService';
+import { Club } from '../../../../../shared/models/club';
 
 @Component({
-  selector: 'footballers-in-club',
-  imports: [TableModule, FootballersInClubItem],
-  templateUrl: './footballers-in-club.html',
-  styleUrl: './footballers-in-club.css',
+  selector: 'clubs-in-league',
+  imports: [TableModule, ClubsInLeagueItem],
+  templateUrl: './clubs-in-league.html',
+  styleUrl: './clubs-in-league.css',
 })
-export class FootballersInClub implements OnChanges{
+export class ClubsInLeague implements OnChanges{
 
-  @Output() footballer!: Footballer;
-  @Input() clubId!: number | undefined;
+  @Output() club!: Club;
+  @Input() leagueId!: number | undefined;
 
   @ViewChild('dt') dt!: Table;
-  footballers: Footballer[] = [];
-  initialValue: Footballer[] = [];
+  clubs: Club[] = [];
+  initialValue: Club[] = [];
   isSorted: boolean | null = null;
 
-  constructor(private cdr: ChangeDetectorRef, private assignFootballerService: AssignFootballerService, private eventService: EventService) {
-    this.eventService.getEvent('footballerAssigned', () => {
-      if(this.clubId){
-        this.loadFootballersByClubId(this.clubId);
+  constructor(private cdr: ChangeDetectorRef, private assignClubService: AssignClubService, private eventService: EventService) {
+    this.eventService.getEvent('clubAssigned', () => {
+      if(this.leagueId){
+        this.loadClubsByLeagueId(this.leagueId);
       }
     });
   }
 
   ngOnChanges() {
-    if(this.clubId){
-      this.loadFootballersByClubId(this.clubId);
+    if(this.leagueId){
+      this.loadClubsByLeagueId(this.leagueId);
     }
   }
 
-  loadFootballersByClubId(id: number): void {
-    this.assignFootballerService.getFootballersByClubId(this.clubId!).subscribe((data: Footballer[]) => {
-      this.footballers = data;
+  loadClubsByLeagueId(id: number): void {
+    this.assignClubService.getClubsByLeagueId(this.leagueId!).subscribe((data: Club[]) => {
+      this.clubs = data;
       this.initialValue = [...data];
       this.cdr.markForCheck();
     });

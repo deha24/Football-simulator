@@ -1,4 +1,5 @@
-import { Injectable, signal, inject, ChangeDetectorRef } from '@angular/core';
+import { Injectable, signal, inject} from '@angular/core';
+import { EventService } from '../../../../shared/services/EventServices';
 import { AssignFootballerService } from './assignFootballerService';
 import { ClubsIds } from '../../../../shared/models/assigns/assignFootballer';
 
@@ -9,7 +10,7 @@ export class AssignFootballerStateService {
   readonly club1Id = signal<number>(0);
   readonly club2Id = signal<number>(0);
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private eventService: EventService) { }
 
   setClub1(id: number){ 
     this.club1Id.set(id); 
@@ -27,9 +28,11 @@ export class AssignFootballerStateService {
 
     if (ids.club1Id && ids.club2Id) {
       this.assignService.assignFootballerToClub(footballerId, ids).subscribe({
+        next: () => {
+          this.eventService.emitEvent('footballerAssigned');
+        },
         error: (error) => console.error('Failed to assign footballer', error),
       });
-      this.cdr.detectChanges();
     }
   }
 }

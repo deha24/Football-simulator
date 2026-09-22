@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 import psycopg2
-from ...footballers.models.footballer import Footballer
-from ...footballers.models.footballerPositions import FootballerPositionsDTO
+from ....footballers.models.footballer import Footballer
+from ....footballers.models.footballerPositions import FootballerPositionsDTO
 from ..models.assignFootballer import ClubsIds
 
 router = APIRouter(
