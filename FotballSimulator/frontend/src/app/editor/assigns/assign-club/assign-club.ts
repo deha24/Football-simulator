@@ -4,7 +4,7 @@ import { SelectModule } from 'primeng/select';
 import { CardModule } from 'primeng/card';
 import { ClubsInLeague } from './clubs-in-league/clubs-in-league';
 import { LeagueService } from '../../league/leagueService';
-import { AssignClubStateService } from './assignClubStateService';
+import { AssignClubStateService } from './services/assignClubStateService';
 import { League } from '../../../../shared/models/league';
 import { LeaguesIds } from '../../../../shared/models/assigns/assignClub';
 import { EventService } from '../../../../shared/services/EventServices';

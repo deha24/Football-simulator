@@ -1,7 +1,7 @@
 import { Injectable, signal, inject} from '@angular/core';
-import { EventService } from '../../../../shared/services/EventServices';
+import { EventService } from '../../../../../shared/services/EventServices';
 import { AssignFootballerService } from './assignFootballerService';
-import { ClubsIds } from '../../../../shared/models/assigns/assignFootballer';
+import { ClubsIds } from '../../../../../shared/models/assigns/assignPerson';
 
 @Injectable()
 export class AssignFootballerStateService {

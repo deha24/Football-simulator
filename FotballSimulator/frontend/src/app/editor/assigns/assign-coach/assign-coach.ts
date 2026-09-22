@@ -2,21 +2,21 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { CardModule } from 'primeng/card';
-import { FootballersInClub } from './footballers-in-club/footballers-in-club';
 import { ClubService } from '../../club/clubService';
-import { AssignFootballerStateService } from './services/assignFootballerStateService';
+import { AssignCoachStateService } from './services/assignCoachStateService';
+import { EventService } from '../../../../shared/services/EventServices';
 import { Club } from '../../../../shared/models/club';
 import { ClubsIds } from '../../../../shared/models/assigns/assignPerson';
-import { EventService } from '../../../../shared/services/EventServices';
+import { CoachInClub } from './coach-in-club/coach-in-club';
 
 @Component({
-  selector: 'assign-footballer',
-  imports: [ReactiveFormsModule, FormsModule, CardModule, SelectModule, FootballersInClub],
-  templateUrl: './assign-footballer.html',
-  styleUrl: './assign-footballer.css',
-  providers: [AssignFootballerStateService],
+  selector: 'assign-coach',
+  imports: [ReactiveFormsModule, FormsModule, CardModule, SelectModule, CoachInClub],
+  templateUrl: './assign-coach.html',
+  styleUrl: './assign-coach.css',
+  providers: [AssignCoachStateService],
 })
-export class AssignFootballer implements OnInit {
+export class AssignCoach implements OnInit {
 
   clubs: Club[]= [];
   club: Club | undefined;
@@ -25,7 +25,7 @@ export class AssignFootballer implements OnInit {
   tmpClub: Club | undefined;
   currentClubsIds: ClubsIds = { club1Id: 0, club2Id: 0 };
 
-  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private stateService: AssignFootballerStateService, private eventService: EventService){ }
+  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private stateService: AssignCoachStateService, private eventService: EventService){ }
 
   ngOnInit(): void {
       this.loadClubs();

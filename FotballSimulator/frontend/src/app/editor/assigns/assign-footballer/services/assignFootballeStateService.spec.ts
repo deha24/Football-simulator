@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AssignFootballerStateService } from './assign-footballer-state-service';
+import { AssignFootballerStateService } from './assignFootballerStateService';
 
 describe('AssignFootballerStateService', () => {
   let service: AssignFootballerStateService;

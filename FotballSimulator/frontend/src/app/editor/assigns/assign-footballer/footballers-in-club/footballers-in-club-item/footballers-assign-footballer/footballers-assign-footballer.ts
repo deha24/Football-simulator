@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { AssignFootballerStateService } from '../../../assign-footballer-state-service';
+import { AssignFootballerStateService } from '../../../services/assignFootballerStateService';
 
 @Component({
   selector: 'footballers-assign-footballer',

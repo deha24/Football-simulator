@@ -1,7 +1,6 @@
 import { Component, Input} from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { EventService } from '../../../../../../shared/services/EventServices';
 import { Footballer } from '../../../../../../shared/models/footballer';
 import { FootballersAssignFootballer } from './footballers-assign-footballer/footballers-assign-footballer';
 

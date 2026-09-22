@@ -1,0 +1,68 @@
+<div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
+
+    <div class="col-lg-6">
+        <p-card>
+            <ng-template #header>
+                <div class="row mt-1 gx-3 gy-2">
+                    <div class="col-sm-2">
+                        <h5>Club 1:</h5>
+                    </div>
+                    <div class="col-sm-5">
+                        @if(club1){
+                            <h5>{{club1.name}}</h5>
+                        }
+                    </div>
+                    <div class="col-sm-5">
+                        <form [formGroup]="pickClub1form">
+                            <select class="form-select" aria-label="Default select example" formControlName="club1Id">
+                                @for (club of clubs; track club) {
+                                    <option [ngValue]="club.id">{{ club.name }}</option>
+                                }
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
+            <div class="row mt-1 gx-3 gy-2">
+                @if(club1){
+                    <coach-in-club [clubId]="club1?.id"></coach-in-club>
+                }
+            </div>
+        </p-card>
+    </div>
+
+    <div class="col-lg-6">
+        <p-card>
+            <ng-template #header>
+                <div class="row mt-1 gx-3 gy-2">
+                    <div class="col-sm-2">
+                        <h5>Club 2:</h5>
+                    </div>
+                    <div class="col-sm-5">
+                        @if(club2){
+                            <h5>{{club2.name}}</h5>   
+                        }
+                    </div>
+                    <div class="col-sm-5">
+                        <form [formGroup]="pickClub2form">
+                            <select class="form-select" aria-label="Default select example" formControlName="club2Id">
+                                @for (club of clubs; track club) {
+                                    <option [ngValue]="club.id">{{ club.name }}</option>
+                                }
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
+            <div class="row mt-1 gx-3 gy-2">
+                @if(club2){
+                    <coach-in-club [clubId]="club2?.id"></coach-in-club>
+                }
+            </div>
+        </p-card>
+    </div>
+</div>
+
+<div class="col-sm-4">
+
+</div>

@@ -5,7 +5,7 @@ import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
 import { ClubsInLeagueItem } from './clubs-in-league-item/clubs-in-league-item';
-import { AssignClubService } from '../assignClubService';
+import { AssignClubService } from '../services/assignClubService';
 import { Club } from '../../../../../shared/models/club';
 
 @Component({

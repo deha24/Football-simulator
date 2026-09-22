@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Footballer, CreateFootballerDTO, FootballerPositionsDTO } from '../../../../shared/models/footballer';
-import { ClubsIds } from '../../../../shared/models/assigns/assignFootballer';
+import { Footballer, CreateFootballerDTO, FootballerPositionsDTO } from '../../../../../shared/models/footballer';
+import { ClubsIds } from '../../../../../shared/models/assigns/assignPerson';
 
 @Injectable({
   providedIn: 'root',
