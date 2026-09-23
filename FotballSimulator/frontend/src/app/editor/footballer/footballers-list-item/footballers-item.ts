@@ -2,7 +2,7 @@ import { Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import {DialogModule} from "primeng/dialog";
+import { DialogModule } from "primeng/dialog";
 import { EventService } from '../../../../shared/services/EventServices';
 import { Footballer } from '../../../../shared/models/footballer';
 import { FootballerRemove } from './footballer-remove/footballer-remove';
@@ -11,7 +11,7 @@ import { FootballerUpdate } from './footballer-update/footballer-update';
 
 @Component({
   selector: '[footballers-item]',
-  imports: [FootballerRemove, FootballerUpdate, DialogModule, TableModule, ButtonModule],
+  imports: [DialogModule, TableModule, ButtonModule, FootballerRemove, FootballerUpdate],
   templateUrl: './footballers-item.html',
   styleUrl: './footballers-item.css'
 })

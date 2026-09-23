@@ -1,17 +1,9 @@
 import { Component, Output, EventEmitter} from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { SelectModule } from 'primeng/select';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerModule } from 'primeng/datepicker';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
-import {EventService} from '../../../../shared/services/EventServices';
-import { CreateCoachDTO, Coach, CoachLineupDTO } from '../../../../shared/models/coach';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../shared/formsImports';
+import { EventService } from '../../../../shared/services/EventServices';
 import { CoachService } from '../coachService';
+import { CreateCoachDTO, Coach, CoachLineupDTO } from '../../../../shared/models/coach';
 import { CoachLineupForm } from '../coach-lineup/coach-lineup-form/coach-lineup-form';
 
 
@@ -22,7 +14,7 @@ interface CoachingStyles {
 
 @Component({
   selector: 'coach-add',
-  imports: [ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule, InputGroupAddonModule, DatePickerModule, CardModule, ButtonModule, CoachLineupForm],
+  imports: [ FORMS_IMPORTS, CoachLineupForm],
   templateUrl: './coach-add.html',
   styleUrl: './coach-add.css'
 })

@@ -1,16 +1,17 @@
-import { FootballersItem, } from '../footballers-list-item/footballers-item';
-import { Component, OnInit, Output, ViewChild } from '@angular/core';
-import { Footballer } from '../../../../shared/models/footballer';
-import { ChangeDetectorRef } from '@angular/core';
-import { FootballersService } from '../footballersService';
-import { EventService } from '../../../../shared/services/EventServices';
+
+import { Component, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
+import { FootballersService } from '../footballersService';
+import { EventService } from '../../../../shared/services/EventServices';
+import { Footballer } from '../../../../shared/models/footballer';
+import { FootballersItem } from '../footballers-list-item/footballers-item';
+
 
 @Component({
   selector: 'footballers',
-  imports: [FootballersItem, TableModule],
+  imports: [TableModule, FootballersItem],
   templateUrl: './footballers.html',
   styleUrl: './footballers.css'
 })

@@ -1,5 +1,5 @@
-import { EventService } from './../../../../../../shared/services/EventServices';
 import { Component, Input } from '@angular/core';
+import { EventService } from './../../../../../../shared/services/EventServices';
 import { LeagueService } from '../../../leagueService';
 
 @Component({

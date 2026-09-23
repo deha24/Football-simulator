@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { Coach, CoachLineupDTO } from '../../../../../../shared/models/coach';
-import { CoachService } from '../../../coachService';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
+import { CoachService } from '../../../coachService';
+import { Coach, CoachLineupDTO } from '../../../../../../shared/models/coach';
 import { CoachLineupView } from '../../../coach-lineup/coach-lineup-view/coach-lineup-view';
 
 @Component({

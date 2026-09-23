@@ -1,16 +1,15 @@
-import { Component, Input, Output, ViewChild } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { Component, Input, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Table } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
-import { Coach } from '../../../../../shared/models/coach';
-import { AssignCoachService } from '../services/assignCoachService';
 import { EventService } from '../../../../../shared/services/EventServices';
+import { AssignCoachService } from '../services/assignCoachService';
+import { Coach } from '../../../../../shared/models/coach';
 import { CoachInClubItem } from './coach-in-club-item/coach-in-club-item';
 
 @Component({
   selector: 'coach-in-club',
-  imports: [CoachInClubItem, TableModule],
+  imports: [TableModule, CoachInClubItem],
   templateUrl: './coach-in-club.html',
   styleUrl: './coach-in-club.css'
 })
@@ -47,21 +46,22 @@ export class CoachInClub {
   }
 
   sortTableData(event: SortEvent) {
-      if (!event.data) {
-        console.error('No data to sort');
-        return;
-      }
-      event.data.sort((data1, data2) => {
-          let value1 = data1[event.field!];
-          let value2 = data2[event.field!];
-          let result = null;
-          if (value1 == null && value2 != null) result = -1;
-          else if (value1 != null && value2 == null) result = 1;
-          else if (value1 == null && value2 == null) result = 0;
-          else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
-          else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
+      
+    if (!event.data) {
+      console.error('No data to sort');
+      return;
+    }
+    event.data.sort((data1, data2) => {
+        let value1 = data1[event.field!];
+        let value2 = data2[event.field!];
+        let result = null;
+        if (value1 == null && value2 != null) result = -1;
+        else if (value1 != null && value2 == null) result = 1;
+        else if (value1 == null && value2 == null) result = 0;
+        else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
+        else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
-          return event.order! * result;
-      });
+        return event.order! * result;
+    });
   }
 }

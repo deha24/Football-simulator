@@ -1,21 +1,12 @@
 import { Component, Output, EventEmitter} from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { SelectModule } from 'primeng/select';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerModule } from 'primeng/datepicker';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../shared/formsImports';
 import { ClubService } from '../clubService';
-import { CreateClubDTO } from '../../../../shared/models/club';
-import { Club } from '../../../../shared/models/club';
+import { Club, CreateClubDTO } from '../../../../shared/models/club';
 
 @Component({
   selector: 'app-club-add',
-  imports: [ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, InputGroupAddonModule, DatePickerModule, CardModule, ButtonModule],
+  imports: [FORMS_IMPORTS],
   templateUrl: './club-add.html',
   styleUrl: './club-add.css'
 })

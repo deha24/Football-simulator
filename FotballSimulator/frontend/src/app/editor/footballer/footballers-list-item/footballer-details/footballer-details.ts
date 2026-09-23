@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
-import { Footballer } from '../../../../../shared/models/footballer';
-import { FootballersService } from '../../footballersService';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
+import { FootballersService } from '../../footballersService';
 import { FootballerPositionsShow } from '../../footballer-positions-show/footballer-positions-show';
-import { FootballerPositionsDTO } from '../../../../../shared/models/footballer';
+import { Footballer, FootballerPositionsDTO } from '../../../../../shared/models/footballer';
 
 @Component({
   selector: 'app-footballer-details',

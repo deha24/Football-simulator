@@ -1,17 +1,12 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../shared/formsImports';
 import { EventService } from '../../../../shared/services/EventServices';
-import { PanelModule } from 'primeng/panel';
-import { CardModule } from 'primeng/card';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputGroupModule } from 'primeng/inputgroup';
 import { FootballerPositionsDTO } from '../../../../shared/models/footballer';
 import { FootballersService } from '../footballersService';
 
 @Component({
   selector: 'footballer-positions',
-  imports: [PanelModule, CardModule, InputNumberModule, InputTextModule, InputGroupModule, ReactiveFormsModule, FormsModule],
+  imports: [FORMS_IMPORTS],
   templateUrl: './footballer-positions.html',
   styleUrl: './footballer-positions.css',
 })
@@ -20,7 +15,16 @@ export class FootballerPositions implements OnInit{
   @Input() footballerPositions!: FootballerPositionsDTO;
   footballerId!: number;
 
-  constructor(private footballersService: FootballersService, private eventService: EventService) {}
+  constructor(private footballersService: FootballersService, private eventService: EventService) {
+
+    this.eventService.getEvent('newFootballerPositionsRequest', () => { 
+      this.addNewFootballerPositions(); 
+    });
+
+    this.eventService.getEvent('updateFootballerPositionsRequest', () => {
+      this.addNewFootballerPositions();
+    });
+  }
 
   addfootballerPositionsForm = new FormGroup({
     newFootballerPositionGK: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
@@ -40,14 +44,6 @@ export class FootballerPositions implements OnInit{
   });
 
   ngOnInit() {
-
-    this.eventService.getEvent('newFootballerPositionsRequest', () => { 
-      this.addNewFootballerPositions(); 
-    });
-
-    this.eventService.getEvent('updateFootballerPositionsRequest', () => {
-      this.addNewFootballerPositions();
-    });
 
     if (this.footballerPositions) {
       this.addfootballerPositionsForm.patchValue({

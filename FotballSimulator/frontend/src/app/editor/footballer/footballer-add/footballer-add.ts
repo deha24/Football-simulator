@@ -1,22 +1,14 @@
-import { Component, Output, EventEmitter} from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { SelectModule } from 'primeng/select';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerModule } from 'primeng/datepicker';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
-import {EventService} from '../../../../shared/services/EventServices';
+import { FORMS_IMPORTS, FormGroup, FormControl, Validators} from '../../../../shared/formsImports';
+import { EventService } from '../../../../shared/services/EventServices';
 import { CreateFootballerDTO, Footballer, FootballerPositionsDTO } from '../../../../shared/models/footballer';
 import { FootballersService } from '../footballersService';
 import { FootballerPositions } from '../footballer-positions/footballer-positions';
 
 @Component({
   selector: 'footballer-add',
-  imports: [ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule, InputGroupAddonModule, DatePickerModule, CardModule, ButtonModule, FootballerPositions],
+  imports: [FORMS_IMPORTS, FootballerPositions],
   templateUrl: './footballer-add.html',
   styleUrl: './footballer-add.css'
 })

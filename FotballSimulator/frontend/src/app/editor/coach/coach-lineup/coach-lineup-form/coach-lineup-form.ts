@@ -1,19 +1,13 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../shared/formsImports';
 import { EventService } from '../../../../../shared/services/EventServices';
-import { PanelModule } from 'primeng/panel';
-import { CardModule } from 'primeng/card';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { CoachService } from '../../coachService';
 import { exactElevenPositionsValidator } from '../coach-lineup-form-validators';
 import { CoachLineupDTO } from '../../../../../shared/models/coach';
-import { CoachService } from '../../coachService';
 
 @Component({
   selector: 'coach-lineup-form',
-  imports: [PanelModule, CardModule, InputNumberModule, InputTextModule, InputGroupModule, ReactiveFormsModule, FormsModule, ToggleButtonModule],
+  imports: [FORMS_IMPORTS],
   templateUrl: './coach-lineup-form.html',
   styleUrl: './coach-lineup-form.css',
 })

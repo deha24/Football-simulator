@@ -14,8 +14,8 @@ export class FootballerPositionsShow {
   @Input() footballerPositions!: FootballerPositionsDTO;
 
   getPositionStyles(rating: number): any {
+    
     const numRating = Number(rating);
-
     const clampedRating = Math.max(0, Math.min(10, numRating));
     const hue = clampedRating * 12;
     const backgroundColor = `hsla(${hue}, 65%, 70%, 0.8)`;

@@ -1,5 +1,4 @@
 import { Component, Input, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { AssignClubStateService } from '../../../services/assignClubStateService';
 
 @Component({

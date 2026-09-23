@@ -1,8 +1,8 @@
 import { Injectable, signal, inject} from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { EventService } from '../../../../../shared/services/EventServices';
 import { AssignCoachService } from './assignCoachService';
 import { ClubsIds } from '../../../../../shared/models/assigns/assignPerson';
-import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class AssignCoachStateService {

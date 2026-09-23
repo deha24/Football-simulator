@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { EventService } from '../../../../../../shared/services/EventServices';
 import { CoachService } from '../../../coachService';
-import { Coach } from '../../../../../../shared/models/coach';
 import {ButtonModule} from "primeng/button";
 
 @Component({

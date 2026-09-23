@@ -1,14 +1,6 @@
 import { Component, Output, EventEmitter, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { SelectModule } from 'primeng/select';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerModule } from 'primeng/datepicker';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
 import { CoachLineupForm } from '../../../coach-lineup/coach-lineup-form/coach-lineup-form';
 import { CreateCoachDTO, Coach, CoachLineupDTO } from '../../../../../../shared/models/coach';
 import { CoachService } from '../../../coachService';
@@ -21,7 +13,7 @@ interface CoachingStyles {
 
 @Component({
   selector: 'coach-update',
-  imports: [ButtonModule, ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule, InputGroupAddonModule, DatePickerModule, CardModule, CoachLineupForm],
+  imports: [FORMS_IMPORTS, CoachLineupForm],
   templateUrl: './coach-update.html',
   styleUrl: './coach-update.css',
 })
@@ -30,7 +22,11 @@ export class CoachUpdate {
   @Input() coach!: Coach;
   @Output() updateCoachEvent = new EventEmitter<Coach>();
   
-  constructor(private coachService: CoachService, private eventService: EventService) {}
+  constructor(private coachService: CoachService, private eventService: EventService) {
+    this.eventService.getEvent('newCoachLineupReply', (updatedLinueup: CoachLineupDTO) => {
+      this.updateCoach(updatedLinueup);
+    });
+  }
 
   updateCoachForm!: FormGroup;
   coachLineup!: CoachLineupDTO;
@@ -50,9 +46,6 @@ export class CoachUpdate {
     });
 
     this.coachLineup = this.coach.lineup;
-    this.eventService.getEvent('newCoachLineupReply', (updatedLinueup: CoachLineupDTO) => {
-      this.updateCoach(updatedLinueup);
-    });
   }
 
     midfieldStyles: CoachingStyles[] = [

@@ -1,17 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { CardModule } from 'primeng/card';
-import { ClubsInLeague } from './clubs-in-league/clubs-in-league';
+import { FORMS_IMPORTS, FormControl, FormGroup } from '../../../../shared/formsImports';
 import { LeagueService } from '../../league/leagueService';
 import { AssignClubStateService } from './services/assignClubStateService';
+import { ClubsInLeague } from './clubs-in-league/clubs-in-league';
 import { League } from '../../../../shared/models/league';
 import { LeaguesIds } from '../../../../shared/models/assigns/assignClub';
-import { EventService } from '../../../../shared/services/EventServices';
 
 @Component({
   selector: 'assign-club',
-  imports: [ReactiveFormsModule, FormsModule, CardModule, SelectModule, ClubsInLeague],
+  imports: [FORMS_IMPORTS, ClubsInLeague],
   templateUrl: './assign-club.html',
   styleUrl: './assign-club.css',
   providers: [AssignClubStateService],
@@ -25,7 +22,7 @@ export class AssignClub implements OnInit {
   tmpleague: League | undefined;
   currentleaguesIds: LeaguesIds = { league1Id: 0, league2Id: 0 };
 
-  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private stateService: AssignClubStateService, private eventService: EventService){ }
+  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private stateService: AssignClubStateService){ }
 
   ngOnInit(): void {
       this.loadLeagues();

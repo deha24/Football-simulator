@@ -1,23 +1,15 @@
-import { Component, Output, EventEmitter, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { SelectModule } from 'primeng/select';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerModule } from 'primeng/datepicker';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
-import { CreateFootballerDTO, Footballer } from '../../../../../shared/models/footballer';
-import { FootballersService } from '../../footballersService';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../shared/formsImports';
 import { EventService } from '../../../../../shared/services/EventServices';
+import { FootballersService } from '../../footballersService';
+import { Footballer } from '../../../../../shared/models/footballer';
 import { FootballerPositionsDTO } from '../../../../../shared/models/footballer';
 import { FootballerPositions } from '../../footballer-positions/footballer-positions';
 
 @Component({
   selector: 'footballer-update',
-  imports: [ButtonModule, ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule, InputGroupAddonModule, DatePickerModule, CardModule, FootballerPositions ],
+  imports: [FORMS_IMPORTS, FootballerPositions ],
   templateUrl: './footballer-update.html',
   styleUrl: './footballer-update.css',
 })
@@ -26,7 +18,11 @@ export class FootballerUpdate {
   @Input() footballer!: Footballer;
   @Output() updateFootballerEvent = new EventEmitter<Footballer>();
   
-  constructor(private footballersService: FootballersService, private eventService: EventService) {}
+  constructor(private footballersService: FootballersService, private eventService: EventService) {
+    this.eventService.getEvent('newFootballerPositionsReply', (updatedPositions: FootballerPositionsDTO) => {
+      this.updateFootballer(updatedPositions);
+    });
+  }
 
   updateFootballerForm!: FormGroup;
   footballerPositions!: FootballerPositionsDTO;
@@ -45,9 +41,6 @@ export class FootballerUpdate {
     });
 
     this.footballerPositions = this.footballer.position;
-    this.eventService.getEvent('newFootballerPositionsReply', (updatedPositions: FootballerPositionsDTO) => {
-      this.updateFootballer(updatedPositions);
-    });
   }
 
   validUpdateFootballerForm() {

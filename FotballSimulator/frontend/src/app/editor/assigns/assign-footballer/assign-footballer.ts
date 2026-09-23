@@ -1,21 +1,20 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { CardModule } from 'primeng/card';
-import { FootballersInClub } from './footballers-in-club/footballers-in-club';
+import { FORMS_IMPORTS, FormControl, FormGroup } from '../../../../shared/formsImports';
 import { ClubService } from '../../club/clubService';
+import { EventService } from '../../../../shared/services/EventServices';
 import { AssignFootballerStateService } from './services/assignFootballerStateService';
 import { Club } from '../../../../shared/models/club';
 import { ClubsIds } from '../../../../shared/models/assigns/assignPerson';
-import { EventService } from '../../../../shared/services/EventServices';
+import { FootballersInClub } from './footballers-in-club/footballers-in-club';
 
 @Component({
   selector: 'assign-footballer',
-  imports: [ReactiveFormsModule, FormsModule, CardModule, SelectModule, FootballersInClub],
+  imports: [FORMS_IMPORTS, FootballersInClub],
   templateUrl: './assign-footballer.html',
   styleUrl: './assign-footballer.css',
   providers: [AssignFootballerStateService],
 })
+
 export class AssignFootballer implements OnInit {
 
   clubs: Club[]= [];
@@ -25,7 +24,7 @@ export class AssignFootballer implements OnInit {
   tmpClub: Club | undefined;
   currentClubsIds: ClubsIds = { club1Id: 0, club2Id: 0 };
 
-  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private stateService: AssignFootballerStateService, private eventService: EventService){ }
+  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private stateService: AssignFootballerStateService){ }
 
   ngOnInit(): void {
       this.loadClubs();

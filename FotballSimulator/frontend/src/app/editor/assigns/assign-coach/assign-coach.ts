@@ -1,8 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { CardModule } from 'primeng/card';
-import { ToastModule } from 'primeng/toast';
+import { FORMS_IMPORTS, FormControl, FormGroup } from '../../../../shared/formsImports';
 import { ClubService } from '../../club/clubService';
 import { AssignCoachStateService } from './services/assignCoachStateService';
 import { Club } from '../../../../shared/models/club';
@@ -12,7 +9,7 @@ import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'assign-coach',
-  imports: [ReactiveFormsModule, FormsModule, CardModule, SelectModule, CoachInClub, ToastModule],
+  imports: [FORMS_IMPORTS, CoachInClub],
   templateUrl: './assign-coach.html',
   styleUrl: './assign-coach.css',
   providers: [AssignCoachStateService, MessageService],
@@ -34,7 +31,6 @@ export class AssignCoach implements OnInit {
       this.loadClubs();
       this.club1Listener();
       this.club2Listener();
-      this.showError();
   }
 
   pickClub1form = new FormGroup({
@@ -74,9 +70,5 @@ export class AssignCoach implements OnInit {
         });
       }
     });
-  }
-
-  showError() {
-    this.messageService.add({ severity: 'error', summary: 'Something went wrong', detail: 'We couldn’t complete the action. Please try again.' });
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Club, CreateClubDTO} from '../../../../../shared/models/club';
+import { Club } from '../../../../../shared/models/club';
 import { LeaguesIds } from '../../../../../shared/models/assigns/assignClub';
 
 @Injectable({

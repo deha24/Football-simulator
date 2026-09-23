@@ -1,11 +1,10 @@
-import { Component, Input, Output, ViewChild, OnChanges } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { EventService } from '../../../../../shared/services/EventServices';
+import { Component, Input, Output, ViewChild, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
-import { ClubsInLeagueItem } from './clubs-in-league-item/clubs-in-league-item';
+import { EventService } from '../../../../../shared/services/EventServices';
 import { AssignClubService } from '../services/assignClubService';
+import { ClubsInLeagueItem } from './clubs-in-league-item/clubs-in-league-item';
 import { Club } from '../../../../../shared/models/club';
 
 @Component({

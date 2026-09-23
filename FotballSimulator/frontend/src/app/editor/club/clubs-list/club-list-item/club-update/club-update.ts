@@ -1,22 +1,13 @@
 import { Component, Input ,Output, EventEmitter, OnInit} from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { SelectModule } from 'primeng/select';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerModule } from 'primeng/datepicker';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
 import { ClubService } from '../../../clubService';
-import { CreateClubDTO } from '../../../../../../shared/models/club';
-import { Club } from '../../../../../../shared/models/club';
 import { EventService } from '../../../../../../shared/services/EventServices';
+import { Club } from '../../../../../../shared/models/club';
 
 @Component({
   selector: 'club-update',
-  imports: [ReactiveFormsModule, SelectModule, InputGroupModule, InputNumberModule, InputTextModule, InputGroupAddonModule, DatePickerModule, CardModule, ButtonModule],
+  imports: [FORMS_IMPORTS],
   templateUrl: './club-update.html',
   styleUrl: './club-update.css'
 })
@@ -24,11 +15,9 @@ export class ClubUpdate implements OnInit{
 
   @Input() club!: Club;
   @Output() addClub = new EventEmitter<Club>();
-
-  constructor(private clubService: ClubService, private eventService: EventService) {}
-
   updateClubForm!: FormGroup;
-  
+
+  constructor(private clubService: ClubService, private eventService: EventService) { }
 
   ngOnInit() {
     this.updateClubForm = new FormGroup({

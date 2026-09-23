@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Club } from '../../../../../../shared/models/club';
-import { ClubService } from '../../../clubService';
 import { ActivatedRoute } from '@angular/router';
-
+import { ClubService } from '../../../clubService';
+import { Club } from '../../../../../../shared/models/club';
 
 @Component({
   selector: 'club-details',
@@ -10,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './club-details.html',
   styleUrl: './club-details.css'
 })
+
 export class ClubDetails implements OnInit {
 
   club!: Club;
@@ -17,7 +17,6 @@ export class ClubDetails implements OnInit {
   constructor(private clubsService: ClubService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-
     const id = this.route.snapshot.paramMap.get('id')!;
     this.loadClub(parseInt(id));
   }

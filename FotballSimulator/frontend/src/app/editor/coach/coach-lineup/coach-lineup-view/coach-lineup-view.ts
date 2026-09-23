@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { CoachLineupDTO } from '../../../../../shared/models/coach';
@@ -9,13 +9,9 @@ import { CoachLineupDTO } from '../../../../../shared/models/coach';
   templateUrl: './coach-lineup-view.html',
   styleUrl: './coach-lineup-view.css',
 })
-export class CoachLineupView implements OnInit{
+export class CoachLineupView{
 
   @Input() coachLineup!: CoachLineupDTO;
-
-  ngOnInit(): void {
-      console.log("Lienup: ", this.coachLineup)
-  }
 
   isPositionActive(position: boolean){
     return this.coachLineup;

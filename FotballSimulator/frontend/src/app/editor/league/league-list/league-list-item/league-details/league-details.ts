@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { League } from '../../../../../../shared/models/league';
 import { ActivatedRoute } from '@angular/router';
 import { LeagueService } from '../../../leagueService';
+import { League } from '../../../../../../shared/models/league';
 
 @Component({
   selector: 'league-details',

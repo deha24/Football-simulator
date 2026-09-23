@@ -1,19 +1,13 @@
 import { Component, ChangeDetectorRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators, AsyncValidatorFn } from '@angular/forms';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
 import { EventService } from '../../../../../../shared/services/EventServices';
-import { ButtonModule } from 'primeng/button';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { CardModule } from 'primeng/card';
 import { LeagueService } from '../../../leagueService';
 import { multipleFirstLeagueLevel } from '../../../league-form-validators';
 import { League } from '../../../../../../shared/models/league';
 
 @Component({
   selector: 'league-update',
-  imports: [ReactiveFormsModule, ButtonModule, InputGroupAddonModule, InputGroupModule, InputNumberModule, InputTextModule, CardModule],
+  imports: [FORMS_IMPORTS],
   templateUrl: './league-update.html',
   styleUrl: './league-update.css',
 })

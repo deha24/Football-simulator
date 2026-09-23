@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ClubService } from '../../../clubService';
 import { EventService } from '../../../../../../shared/services/EventServices';
+import { ClubService } from '../../../clubService';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'club-remove',
@@ -13,9 +13,7 @@ export class ClubRemove {
 
   @Input() clubId!: number;
 
-  constructor(private clubsService: ClubService, private eventService: EventService) {
-
-  }
+  constructor(private clubsService: ClubService, private eventService: EventService) { }
 
   removeClub() {
     this.clubsService.removeClub(this.clubId).subscribe({

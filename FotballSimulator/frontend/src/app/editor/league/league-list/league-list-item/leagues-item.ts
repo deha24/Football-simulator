@@ -8,7 +8,7 @@ import { LeagueUpdate } from "./league-update/league-update";
 
 @Component({
   selector: '[leagues-item]',
-  imports: [LeagueRemove, DialogModule, ButtonModule, LeagueUpdate],
+  imports: [DialogModule, ButtonModule, LeagueUpdate, LeagueRemove],
   templateUrl: './leagues-item.html',
   styleUrl: './leagues-item.css'
 })
