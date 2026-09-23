@@ -106,21 +106,12 @@
 
           <p-inputgroup class="mt-1">
             <p-inputgroup-addon>
-                <i class="pi pi-user"></i>
+                <i class="pi pi-circle"></i>
             </p-inputgroup-addon>
-            <div class="flex justify-center">
-                <p-select [options]="midfieldStyles" formControlName="newCoachMidfieldStyle" optionLabel="label" optionValue="value" placeholder="Midfield Style" class="w-full md:w-56" />
-            </div>
+            <p-select [options]="midfieldStyles" formControlName="newCoachMidfieldStyle" optionLabel="label" optionValue="value" placeholder="Midfield Style" />
+            <p-select [options]="balanceStyles" formControlName="newCoachBalanceStyle" optionLabel="label" optionValue="value" placeholder="Balance Style" />
           </p-inputgroup>
-          <p-inputgroup class="mt-1">
-            <p-inputgroup-addon>
-                <i class="pi pi-user"></i>
-            </p-inputgroup-addon>
-            <div class="flex justify-center">
-                <p-select [options]="balanceStyles" formControlName="newCoachBalanceStyle" optionLabel="label" optionValue="value" placeholder="Balance Style" class="w-full md:w-56" />
-            </div>
-          </p-inputgroup>
-          
+
           <coach-lineup-form></coach-lineup-form>
         </p-card>
       </div>
