@@ -1,7 +1,8 @@
 
 import { Component, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 import { SortEvent } from 'primeng/api';
 import { FootballersService } from '../footballersService';
 import { EventService } from '../../../../shared/services/EventServices';
@@ -11,7 +12,7 @@ import { FootballersItem } from '../footballers-list-item/footballers-item';
 
 @Component({
   selector: 'footballers',
-  imports: [TableModule, FootballersItem],
+  imports: [TableModule, ToastModule, FootballersItem],
   templateUrl: './footballers.html',
   styleUrl: './footballers.css'
 })

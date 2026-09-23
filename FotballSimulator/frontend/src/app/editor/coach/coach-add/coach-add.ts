@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter} from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../shared/formsImports';
 import { EventService } from '../../../../shared/services/EventServices';
+import { NotificationService } from '../../../../shared/services/NotificationService';
 import { CoachService } from '../coachService';
 import { CreateCoachDTO, Coach, CoachLineupDTO } from '../../../../shared/models/coach';
 import { CoachLineupForm } from '../coach-lineup/coach-lineup-form/coach-lineup-form';
@@ -25,7 +26,7 @@ export class CoachAdd {
   selectedMidfieldStyle: string = '';
   selectedBalanceStyle: string = '';
 
-  constructor(private coachService: CoachService, private eventService: EventService) {
+  constructor(private coachService: CoachService, private eventService: EventService, private notificationService: NotificationService) {
 
     this.eventService.getEvent('newCoachLineupReply', (newCoachLineup: CoachLineupDTO) => {
       this.addNewCoach(newCoachLineup);
@@ -61,6 +62,7 @@ export class CoachAdd {
       this.eventService.emitEvent('newCoachLineupRequest', {});
     } else{
       // Handle form errors if needed
+      this.notificationService.showError();
       console.error('Form is invalid');
       Object.keys(this.addCoachform.controls).forEach(key => {
         const control = this.addCoachform.get(key);
@@ -85,7 +87,8 @@ export class CoachAdd {
 
     const newCoach = new CreateCoachDTO(firstName!, lastName!, birthDate!, nationality!, newCoachLineup!, defence!, midfield!, attack!, midfieldStyle!, balanceStyle!);
       this.coachService.addCoach(newCoach).subscribe(() => {
-      this.addCoachform.reset();
+        this.notificationService.showSuccess('Coach Added');
+        this.addCoachform.reset();
       });   
   }
 }

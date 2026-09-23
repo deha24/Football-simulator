@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, ViewChild, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, Output } from '@angular/core';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast'
 import { EventService } from '../../../../shared/services/EventServices';
 import { ClubService } from '../clubService';
 import { Club } from '../../../../shared/models/club';
@@ -7,7 +8,7 @@ import { ClubsItem } from './club-list-item/clubs-item';
 
 @Component({
   selector: 'clubs',
-  imports: [TableModule, ClubsItem],
+  imports: [TableModule, ToastModule, ClubsItem],
   templateUrl: './clubs.html',
   styleUrl: './clubs.css'
 })

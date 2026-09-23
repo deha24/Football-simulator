@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormGroup, FormControl, Validators} from '../../../../shared/formsImports';
 import { EventService } from '../../../../shared/services/EventServices';
+import { NotificationService } from '../../../../shared/services/NotificationService';
 import { CreateFootballerDTO, Footballer, FootballerPositionsDTO } from '../../../../shared/models/footballer';
 import { FootballersService } from '../footballersService';
 import { FootballerPositions } from '../footballer-positions/footballer-positions';
@@ -16,7 +17,7 @@ export class FootballerAdd {
 
   @Output() addFootballer = new EventEmitter<Footballer>();
 
-  constructor(private footballersService: FootballersService, private eventService: EventService) {}
+  constructor(private footballersService: FootballersService, private eventService: EventService, private notificationService: NotificationService) {}
 
   ngOnInit() {
     this.eventService.getEvent('newFootballerPositionsReply', (newFootballerPositions: FootballerPositionsDTO) => {
@@ -41,6 +42,7 @@ export class FootballerAdd {
     } else{
       // Handle form errors if needed
       console.error('Form is invalid');
+      this.notificationService.showError('Error', 'Form is invalid');
       Object.keys(this.addfootballerform.controls).forEach(key => {
         const control = this.addfootballerform.get(key);
         // if the control is invalid, log the errors
@@ -62,7 +64,7 @@ export class FootballerAdd {
     const attack = this.addfootballerform.value.newFootballerAttack;
 
     const newFootballer = new CreateFootballerDTO(firstName!, lastName!, birthDate!, nationality!, newFootballerPositions!, goalkeeping!, defence!, midfield!, attack!);
-      console.log('Dodawanie nowego piłkarza:', newFootballer);
+      this.notificationService.showSuccess('Footballer Added');
       this.footballersService.addFootballer(newFootballer).subscribe(() => {
       this.addfootballerform.reset();
       });   

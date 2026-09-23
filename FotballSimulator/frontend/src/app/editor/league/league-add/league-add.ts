@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../shared/formsImports';
 import { EventService } from '../../../../shared/services/EventServices';
 import { LeagueService } from '../leagueService';
+import { NotificationService } from '../../../../shared/services/NotificationService';
 import { CreateLeagueDTO } from '../../../../shared/models/league';
 import { multipleFirstLeagueLevel } from '../league-form-validators';
 
@@ -15,7 +16,7 @@ export class LeagueAdd {
 
   multipleLowerLeaguesLevel: boolean = false;
 
-  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private eventService: EventService) {
+  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private eventService: EventService, private notificationService: NotificationService) {
   }
 
   checkForMultipleLowerLeaguesLevel() {
@@ -36,14 +37,13 @@ export class LeagueAdd {
   addLeagueForm!: FormGroup;
 
   ngOnInit() {
-
-    this.addLeagueForm = new FormGroup({
-      newLeagueName: new FormControl('', Validators.required),
-      newLeagueLocation: new FormControl('', Validators.required),
-      newLeagueLevel: new FormControl(null, Validators.required,)
-    },
-    { asyncValidators: [ multipleFirstLeagueLevel(this.leagueService, this.eventService)] });
-}
+      this.addLeagueForm = new FormGroup({
+        newLeagueName: new FormControl('', Validators.required),
+        newLeagueLocation: new FormControl('', Validators.required),
+        newLeagueLevel: new FormControl(null, Validators.required,)
+      },
+      { asyncValidators: [ multipleFirstLeagueLevel(this.leagueService, this.eventService)] });
+  }
 
   addNewLeague() {
     const newLeagueName = this.addLeagueForm.get('newLeagueName')?.value;
@@ -54,8 +54,11 @@ export class LeagueAdd {
       const newLeague = new CreateLeagueDTO(newLeagueName!, newLeagueLocation!, newLeagueLevel!);
 
       this.leagueService.addLeague(newLeague).subscribe(() => {
+        this.notificationService.showSuccess('League Added');
         this.addLeagueForm.reset();
       });
+    }else{
+      this.notificationService.showError();
     }
   }
 }

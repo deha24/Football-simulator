@@ -1,8 +1,9 @@
 import { Component, Input ,Output, EventEmitter, OnInit} from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
-import { ClubService } from '../../../clubService';
 import { EventService } from '../../../../../../shared/services/EventServices';
+import { NotificationService } from '../../../../../../shared/services/NotificationService';
+import { ClubService } from '../../../clubService';
 import { Club } from '../../../../../../shared/models/club';
 
 @Component({
@@ -17,7 +18,7 @@ export class ClubUpdate implements OnInit{
   @Output() addClub = new EventEmitter<Club>();
   updateClubForm!: FormGroup;
 
-  constructor(private clubService: ClubService, private eventService: EventService) { }
+  constructor(private clubService: ClubService, private eventService: EventService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.updateClubForm = new FormGroup({
@@ -52,12 +53,14 @@ export class ClubUpdate implements OnInit{
       });
 
       this.clubService.updateClub(this.club.id, data).subscribe(() => {
-        this.updateClubForm.reset();
+        this.notificationService.showSuccess('Club Updated');
         this.eventService.emitEvent('updatedClub');
+        this.updateClubForm.reset();
       });
 
     } else {
       // Handle form errors if needed
+      this.notificationService.showError();
       console.error('Form is invalid');
       Object.keys(this.updateClubForm.controls).forEach(key => {
         const control = this.updateClubForm.get(key);

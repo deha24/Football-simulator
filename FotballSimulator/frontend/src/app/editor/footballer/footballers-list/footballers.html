@@ -1,3 +1,5 @@
+<p-toast position="bottom-right"/>
+
 <p-table #dt [value]="footballers" showGridlines [resizableColumns]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [scrollable]="true" sortMode="multiple" removableSort dataKey="id" dataKey="id" editMode="row" (sortFunction)="customSort($event)">
 
     <ng-template pTemplate="header">

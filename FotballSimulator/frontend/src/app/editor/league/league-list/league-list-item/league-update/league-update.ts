@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
 import { EventService } from '../../../../../../shared/services/EventServices';
+import { NotificationService } from '../../../../../../shared/services/NotificationService';
 import { LeagueService } from '../../../leagueService';
 import { multipleFirstLeagueLevel } from '../../../league-form-validators';
 import { League } from '../../../../../../shared/models/league';
@@ -17,7 +18,7 @@ export class LeagueUpdate implements OnInit {
   @Output() addLeague = new EventEmitter<League>();
   multipleLowerLeaguesLevel: boolean = false;
 
-  constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private eventService: EventService) {}
+  constructor(private leagueService: LeagueService, private eventService: EventService, private notificationService: NotificationService) {}
 
   updateLeagueForm!: FormGroup;
 
@@ -49,12 +50,14 @@ export class LeagueUpdate implements OnInit {
       });
 
       this.leagueService.updateLeague(this.league.id, data).subscribe(() => {
-        this.updateLeagueForm.reset();
+        this.notificationService.showSuccess('League Updated');
         this.eventService.emitEvent('updatedLeague');
+        this.updateLeagueForm.reset();
       });
 
     } else {
       // Handle form errors if needed
+      this.notificationService.showError();
       console.error('Form is invalid');
       Object.keys(this.updateLeagueForm.controls).forEach(key => {
         const control = this.updateLeagueForm.get(key);

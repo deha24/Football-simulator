@@ -1,15 +1,16 @@
 import { Component, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { Table } from 'primeng/table';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 import { CoachService } from '../coachService';
 import { EventService } from '../../../../shared/services/EventServices';
-import { TableModule } from 'primeng/table';
-import { Table } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
 import { Coach } from '../../../../shared/models/coach';
 import { CoachesItem, } from './coaches-item/coaches-item';
 
 @Component({
   selector: 'coaches',
-  imports: [TableModule, CoachesItem],
+  imports: [TableModule, ToastModule, CoachesItem],
   templateUrl: './coaches.html',
   styleUrl: './coaches.css'
 })

@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../shared/formsImports';
 import { EventService } from '../../../../../shared/services/EventServices';
+import { NotificationService } from '../../../../../shared/services/NotificationService';
 import { FootballersService } from '../../footballersService';
 import { Footballer } from '../../../../../shared/models/footballer';
 import { FootballerPositionsDTO } from '../../../../../shared/models/footballer';
@@ -18,7 +19,7 @@ export class FootballerUpdate {
   @Input() footballer!: Footballer;
   @Output() updateFootballerEvent = new EventEmitter<Footballer>();
   
-  constructor(private footballersService: FootballersService, private eventService: EventService) {
+  constructor(private footballersService: FootballersService, private eventService: EventService, private notificationService: NotificationService) {
     this.eventService.getEvent('newFootballerPositionsReply', (updatedPositions: FootballerPositionsDTO) => {
       this.updateFootballer(updatedPositions);
     });
@@ -48,6 +49,7 @@ export class FootballerUpdate {
       this.eventService.emitEvent('updateFootballerPositionsRequest');
     } else {
       // Handle form errors if needed
+      this.notificationService.showError();
       console.error('Form is invalid');
       Object.keys(this.updateFootballerForm.controls).forEach(key => {
         const control = this.updateFootballerForm.get(key);
@@ -87,8 +89,9 @@ export class FootballerUpdate {
       });
 
       this.footballersService.updateFootballer(data, this.footballer.id).subscribe(() => {
-        this.updateFootballerForm.reset();
+        this.notificationService.showSuccess('Footballer Updated');
         this.eventService.emitEvent('updatedFootballer');
+        this.updateFootballerForm.reset();
       });
   }
 }

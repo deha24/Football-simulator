@@ -1,10 +1,11 @@
 import { Component, Output, EventEmitter, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
-import { CoachLineupForm } from '../../../coach-lineup/coach-lineup-form/coach-lineup-form';
-import { CreateCoachDTO, Coach, CoachLineupDTO } from '../../../../../../shared/models/coach';
-import { CoachService } from '../../../coachService';
 import { EventService } from '../../../../../../shared/services/EventServices';
+import { NotificationService } from '../../../../../../shared/services/NotificationService';
+import { CoachService } from '../../../coachService';
+import { CoachLineupForm } from '../../../coach-lineup/coach-lineup-form/coach-lineup-form';
+import { Coach, CoachLineupDTO } from '../../../../../../shared/models/coach';
 
 interface CoachingStyles {
     label: string;
@@ -22,7 +23,7 @@ export class CoachUpdate {
   @Input() coach!: Coach;
   @Output() updateCoachEvent = new EventEmitter<Coach>();
   
-  constructor(private coachService: CoachService, private eventService: EventService) {
+  constructor(private coachService: CoachService, private eventService: EventService, private notificationService: NotificationService) {
     this.eventService.getEvent('newCoachLineupReply', (updatedLinueup: CoachLineupDTO) => {
       this.updateCoach(updatedLinueup);
     });
@@ -66,6 +67,7 @@ export class CoachUpdate {
       this.eventService.emitEvent('updateCoachLineupRequest');
     } else {
       // Handle form errors if needed
+      this.notificationService.showError();
       console.error('Form is invalid');
       Object.keys(this.updateCoachForm.controls).forEach(key => {
         const control = this.updateCoachForm.get(key);
@@ -108,8 +110,9 @@ export class CoachUpdate {
       });
 
       this.coachService.updateCoach(data, this.coach.id).subscribe(() => {
-        this.updateCoachForm.reset();
+        this.notificationService.showSuccess('Coach Updated');
         this.eventService.emitEvent('updatedCoach');
+        this.updateCoachForm.reset();
       });
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 import { EventService } from '../../../../shared/services/EventServices';
 import { LeagueService } from '../leagueService';
 import { League } from '../../../../shared/models/league';
@@ -7,7 +8,7 @@ import { LeaguesItem } from "./league-list-item/leagues-item";
 
 @Component({
   selector: 'leagues',
-  imports: [LeaguesItem, TableModule],
+  imports: [TableModule, ToastModule, LeaguesItem],
   templateUrl: './leagues.html',
   styleUrl: './leagues.css'
 })
