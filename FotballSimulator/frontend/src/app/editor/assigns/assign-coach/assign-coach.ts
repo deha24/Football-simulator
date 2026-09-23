@@ -1,20 +1,21 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
 import { ClubService } from '../../club/clubService';
 import { AssignCoachStateService } from './services/assignCoachStateService';
-import { EventService } from '../../../../shared/services/EventServices';
 import { Club } from '../../../../shared/models/club';
 import { ClubsIds } from '../../../../shared/models/assigns/assignPerson';
 import { CoachInClub } from './coach-in-club/coach-in-club';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'assign-coach',
-  imports: [ReactiveFormsModule, FormsModule, CardModule, SelectModule, CoachInClub],
+  imports: [ReactiveFormsModule, FormsModule, CardModule, SelectModule, CoachInClub, ToastModule],
   templateUrl: './assign-coach.html',
   styleUrl: './assign-coach.css',
-  providers: [AssignCoachStateService],
+  providers: [AssignCoachStateService, MessageService],
 })
 export class AssignCoach implements OnInit {
 
@@ -24,13 +25,16 @@ export class AssignCoach implements OnInit {
   club2: Club | undefined;
   tmpClub: Club | undefined;
   currentClubsIds: ClubsIds = { club1Id: 0, club2Id: 0 };
+  private messageService = inject(MessageService);
+  private stateService = inject(AssignCoachStateService);
 
-  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private stateService: AssignCoachStateService, private eventService: EventService){ }
+  constructor(private clubService: ClubService, private cdr: ChangeDetectorRef){ }
 
   ngOnInit(): void {
       this.loadClubs();
       this.club1Listener();
       this.club2Listener();
+      this.showError();
   }
 
   pickClub1form = new FormGroup({
@@ -70,5 +74,9 @@ export class AssignCoach implements OnInit {
         });
       }
     });
+  }
+
+  showError() {
+    this.messageService.add({ severity: 'error', summary: 'Something went wrong', detail: 'We couldn’t complete the action. Please try again.' });
   }
 }

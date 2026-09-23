@@ -2,9 +2,11 @@ import { Injectable, signal, inject} from '@angular/core';
 import { EventService } from '../../../../../shared/services/EventServices';
 import { AssignCoachService } from './assignCoachService';
 import { ClubsIds } from '../../../../../shared/models/assigns/assignPerson';
+import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class AssignCoachStateService {
+  private messageService = inject(MessageService)
   private assignService = inject(AssignCoachService);
 
   readonly club1Id = signal<number>(0);
@@ -31,8 +33,12 @@ export class AssignCoachStateService {
         next: () => {
           this.eventService.emitEvent('coachAssigned');
         },
-        error: (error) => console.error('Failed to assign coach', error),
+        error: (err) => this.showError('Failed to assign Coach', err.error.detail),
       });
     }
+  }
+
+  showError(summary: string, detail: string) {
+    this.messageService.add({ severity: 'error', summary: summary, detail: detail });
   }
 }

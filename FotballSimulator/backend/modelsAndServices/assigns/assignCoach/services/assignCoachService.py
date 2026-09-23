@@ -1,7 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 import psycopg2
 from ....coaches.models.coach import Coach
-from ....coaches.models.coachPositions import CoachPositionsDTO
+from ....coaches.models.coachLineup import CoachLineupDTO
 from ....coaches.services.coachService import get_coach_lineup_by_id
 from ..models.assignCoach import ClubsIds
 
@@ -27,10 +27,10 @@ try:
 except Exception as e:
     pass
 
-@router.get("/getcoachs/{club_id}")
+@router.get("/getcoaches/{club_id}")
 async def get_coach_by_club_id(club_id: int) -> list[Coach]:
     cur = conn.cursor()
-    cur.execute("SELECT * FROM coachs WHERE club_id = %s", (club_id,))
+    cur.execute("SELECT * FROM coaches WHERE club_id = %s", (club_id,))
     rows = cur.fetchall()
     if rows:
         return [Coach(
@@ -49,26 +49,41 @@ async def get_coach_by_club_id(club_id: int) -> list[Coach]:
     return []
 
 @router.post("/{coach_id}")
-async def assignCoachToClub(coach_id: int, clubsIds: ClubsIds):
-    print("here")
-    coach_club_id = await checkCoachClubId(coach_id)
+async def assign_coach_to_club(coach_id: int, clubsIds: ClubsIds):
+    coach_club_id = await check_coach_club_id(coach_id)
     cur = conn.cursor()
     if coach_club_id == clubsIds.club1Id:
-        cur.execute(
-            "UPDATE coachs SET club_id = %s WHERE id = %s", 
-            (clubsIds.club2Id, coach_id)
-        )
+        if await check_second_club_avaibility(clubsIds.club2Id):
+            cur.execute(
+                "UPDATE coaches SET club_id = %s WHERE id = %s", 
+                (clubsIds.club2Id, coach_id)
+            )
     else:
-        cur.execute(
-                    "UPDATE coachs SET club_id = %s WHERE id = %s", 
-                    (clubsIds.club1Id, coach_id)
-                )
+        if await check_second_club_avaibility(clubsIds.club2Id):
+            cur.execute(
+                "UPDATE coaches SET club_id = %s WHERE id = %s", 
+                (clubsIds.club1Id, coach_id)
+            )
     conn.commit()
     cur.close
 
-async def checkCoachClubId(coach_id: int):
+async def check_coach_club_id(coach_id: int):
     cur = conn.cursor()
     cur.execute("SELECT * FROM coaches WHERE id = %s", (coach_id,))
     row = cur.fetchone()
     if row:
         return row[10]
+
+async def check_second_club_avaibility(club_id: int):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM coaches WHERE club_id = %s", (club_id,))
+    row = cur.fetchone()
+    #id = 2 is hardcoded as noclub (unassigned), so multiple coaches can be unassigned 
+    if row and club_id !=2:
+        raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="This club has already an assigned coach and it is imposible to assign another one."
+            )
+    else:
+        return True
+        
