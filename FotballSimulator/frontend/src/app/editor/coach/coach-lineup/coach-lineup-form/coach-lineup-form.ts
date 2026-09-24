@@ -1,7 +1,6 @@
-import { Component, Input, OnInit} from '@angular/core';
-import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../shared/formsImports';
+import { Component, Input, OnInit } from '@angular/core';
+import { FORMS_IMPORTS, FormControl, FormGroup } from '../../../../../shared/formsImports';
 import { EventService } from '../../../../../shared/services/EventServices';
-import { CoachService } from '../../coachService';
 import { exactElevenPositionsValidator } from '../coach-lineup-form-validators';
 import { CoachLineupDTO } from '../../../../../shared/models/coach';
 
@@ -16,7 +15,7 @@ export class CoachLineupForm implements OnInit{
   @Input() coachLineup!: CoachLineupDTO;
   coachId!: number;
 
-  constructor(private CoachService: CoachService, private eventService: EventService) {}
+  constructor(private eventService: EventService) {}
 
   addCoachLineupForm = new FormGroup({
     newCoachLineupGK: new FormControl(<null | boolean> true, { }),
@@ -87,6 +86,12 @@ export class CoachLineupForm implements OnInit{
     }
   }
 
+  setGkTrue(){
+    this.addCoachLineupForm.patchValue({
+      newCoachLineupGK: true
+    });
+  }
+
   newCoachLineup() {
     const lb = this.addCoachLineupForm.value.newCoachLineupLB;
     const cb1 = this.addCoachLineupForm.value.newCoachLineupCB1;
@@ -114,9 +119,9 @@ export class CoachLineupForm implements OnInit{
 
     if (this.addCoachLineupForm.valid) {
       const newCoachLineup = new CoachLineupDTO(true, lb!, cb1!, cb2!, cb3!, rb!, lwb!, cdm1!, cdm2!, cdm3!, rwb!, lm!, cm1!, cm2!, cm3!, rm!, lw!, cam1!, cam2!, cam3!, rw!, st1!, st2!, st3!);
-      console.log('Dodawanie nowej układu trenera:', newCoachLineup);
       this.eventService.emitEvent('newCoachLineupReply', newCoachLineup);
       this.addCoachLineupForm.reset();
+      this.setGkTrue();
     } else {
       // Handle form errors if needed
       console.error('Form is invalid');
