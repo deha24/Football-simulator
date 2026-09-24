@@ -1,16 +1,16 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../shared/formsImports';
-import { EventService } from '../../../../shared/services/EventServices';
-import { FootballerPositionsDTO } from '../../../../shared/models/footballer';
-import { FootballersService } from '../footballersService';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../shared/formsImports';
+import { EventService } from '../../../../../shared/services/EventServices';
+import { FootballerPositionsDTO } from '../../../../../shared/models/footballer';
+import { FootballersService } from '../../footballersService';
 
 @Component({
-  selector: 'footballer-positions',
+  selector: 'footballer-positions-form',
   imports: [FORMS_IMPORTS],
-  templateUrl: './footballer-positions.html',
-  styleUrl: './footballer-positions.css',
+  templateUrl: './footballer-positions-form.html',
+  styleUrl: './footballer-positions-form.css',
 })
-export class FootballerPositions implements OnInit{
+export class FootballerPositionsForm implements OnInit{
 
   @Input() footballerPositions!: FootballerPositionsDTO;
   footballerId!: number;

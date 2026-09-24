@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import {ButtonModule} from "primeng/button";
-import { EventService } from '../../../../../shared/services/EventServices';
-import { NotificationService } from '../../../../../shared/services/NotificationService';
-import { FootballersService } from '../../footballersService';
+import { EventService } from '../../../../../../shared/services/EventServices';
+import { NotificationService } from '../../../../../../shared/services/NotificationService';
+import { FootballersService } from '../../../footballersService';
 
 @Component({
   selector: 'footballer-remove',

@@ -7,7 +7,7 @@ import { SortEvent } from 'primeng/api';
 import { FootballersService } from '../footballersService';
 import { EventService } from '../../../../shared/services/EventServices';
 import { Footballer } from '../../../../shared/models/footballer';
-import { FootballersItem } from '../footballers-list-item/footballers-item';
+import { FootballersItem } from './footballers-item/footballers-item';
 
 
 @Component({

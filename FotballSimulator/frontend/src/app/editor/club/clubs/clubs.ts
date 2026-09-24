@@ -4,7 +4,7 @@ import { ToastModule } from 'primeng/toast'
 import { EventService } from '../../../../shared/services/EventServices';
 import { ClubService } from '../clubService';
 import { Club } from '../../../../shared/models/club';
-import { ClubsItem } from './club-list-item/clubs-item';
+import { ClubsItem } from './clubs-item/clubs-item';
 
 @Component({
   selector: 'clubs',

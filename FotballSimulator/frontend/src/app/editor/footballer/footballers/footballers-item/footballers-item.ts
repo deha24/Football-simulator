@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from "primeng/dialog";
-import { EventService } from '../../../../shared/services/EventServices';
-import { Footballer } from '../../../../shared/models/footballer';
+import { EventService } from '../../../../../shared/services/EventServices';
+import { Footballer } from '../../../../../shared/models/footballer';
 import { FootballerRemove } from './footballer-remove/footballer-remove';
 import { FootballerUpdate } from './footballer-update/footballer-update';
 

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EventService } from './../../../../../../shared/services/EventServices';
+import { EventService } from '../../../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../../../shared/services/NotificationService';
 import { LeagueService } from '../../../leagueService';
 

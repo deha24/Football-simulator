@@ -1,11 +1,11 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../shared/formsImports';
-import { EventService } from '../../../../../shared/services/EventServices';
-import { NotificationService } from '../../../../../shared/services/NotificationService';
-import { FootballersService } from '../../footballersService';
-import { Footballer } from '../../../../../shared/models/footballer';
-import { FootballerPositionsDTO } from '../../../../../shared/models/footballer';
+import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
+import { EventService } from '../../../../../../shared/services/EventServices';
+import { NotificationService } from '../../../../../../shared/services/NotificationService';
+import { FootballersService } from '../../../footballersService';
+import { Footballer } from '../../../../../../shared/models/footballer';
+import { FootballerPositionsDTO } from '../../../../../../shared/models/footballer';
 import { FootballerPositions } from '../../footballer-positions/footballer-positions';
 
 @Component({

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FootballerPositionsShow } from './footballer-positions-show';
+import { FootballerPositionsShow } from './footballer-positions-view';
 
 describe('FootballerPositionsShow', () => {
   let component: FootballerPositionsShow;

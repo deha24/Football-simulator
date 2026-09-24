@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
-import { FootballerPositionsDTO } from '../../../../shared/models/footballer';
+import { FootballerPositionsDTO } from '../../../../../shared/models/footballer';
 
 @Component({
-  selector: 'footballer-positions-show',
+  selector: 'footballer-positions-view',
   imports: [PanelModule, CommonModule],
-  templateUrl: './footballer-positions-show.html',
-  styleUrl: './footballer-positions-show.css',
+  templateUrl: './footballer-positions-view.html',
+  styleUrl: './footballer-positions-view.css',
 })
-export class FootballerPositionsShow {
+export class FootballerPositionsView {
 
   @Input() footballerPositions!: FootballerPositionsDTO;
 
