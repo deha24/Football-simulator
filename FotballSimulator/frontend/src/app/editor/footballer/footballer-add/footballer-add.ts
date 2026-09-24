@@ -5,11 +5,11 @@ import { EventService } from '../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../shared/services/NotificationService';
 import { CreateFootballerDTO, Footballer, FootballerPositionsDTO } from '../../../../shared/models/footballer';
 import { FootballersService } from '../footballersService';
-import { FootballerPositions } from '../footballer-positions/footballer-positions';
+import { FootballerPositionsForm } from '../footballer-positions/footballer-positions-form/footballer-positions-form';
 
 @Component({
   selector: 'footballer-add',
-  imports: [FORMS_IMPORTS, FootballerPositions],
+  imports: [FORMS_IMPORTS, FootballerPositionsForm],
   templateUrl: './footballer-add.html',
   styleUrl: './footballer-add.css'
 })

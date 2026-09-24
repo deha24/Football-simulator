@@ -2,7 +2,6 @@ import { Component, Input, OnInit} from '@angular/core';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../shared/formsImports';
 import { EventService } from '../../../../../shared/services/EventServices';
 import { FootballerPositionsDTO } from '../../../../../shared/models/footballer';
-import { FootballersService } from '../../footballersService';
 
 @Component({
   selector: 'footballer-positions-form',
@@ -15,7 +14,15 @@ export class FootballerPositionsForm implements OnInit{
   @Input() footballerPositions!: FootballerPositionsDTO;
   footballerId!: number;
 
-  constructor(private footballersService: FootballersService, private eventService: EventService) {
+  duplicatedControls = [
+    'newFootballerPositionST',
+    'newFootballerPositionCAM',
+    'newFootballerPositionCM',
+    'newFootballerPositionCDM',
+    'newFootballerPositionCB'
+  ];
+
+  constructor(private eventService: EventService) {
 
     this.eventService.getEvent('newFootballerPositionsRequest', () => { 
       this.addNewFootballerPositions(); 
@@ -63,7 +70,15 @@ export class FootballerPositionsForm implements OnInit{
         newFootballerPositionST: this.footballerPositions.st,
       });
     }
+
+    this.duplicatedControls.forEach(controlName => {
+      this.addfootballerPositionsForm.get(controlName)?.valueChanges.subscribe(value => {
+        this.addfootballerPositionsForm.get(controlName)?.patchValue(value, { emitEvent: false });
+      });
+    });
   }
+
+
 
   addNewFootballerPositions() {
     const gk = this.addfootballerPositionsForm.value.newFootballerPositionGK;

@@ -6,11 +6,11 @@ import { NotificationService } from '../../../../../../shared/services/Notificat
 import { FootballersService } from '../../../footballersService';
 import { Footballer } from '../../../../../../shared/models/footballer';
 import { FootballerPositionsDTO } from '../../../../../../shared/models/footballer';
-import { FootballerPositions } from '../../footballer-positions/footballer-positions';
+import { FootballerPositionsForm } from '../../../footballer-positions/footballer-positions-form/footballer-positions-form';
 
 @Component({
   selector: 'footballer-update',
-  imports: [FORMS_IMPORTS, FootballerPositions ],
+  imports: [FORMS_IMPORTS, FootballerPositionsForm ],
   templateUrl: './footballer-update.html',
   styleUrl: './footballer-update.css',
 })
