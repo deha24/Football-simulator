@@ -4,7 +4,7 @@ import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../s
 import { EventService } from '../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../shared/services/NotificationService';
 import { CoachService } from '../coachService';
-import { CreateCoachDTO, Coach, CoachLineupDTO } from '../../../../shared/models/coach';
+import { CreateCoachDTO, Coach, CoachLineupDTO, MIDFIELD_STYLES, BALANCE_STYLES } from '../../../../shared/models/coach';
 import { CoachLineupForm } from '../coach-lineup/coach-lineup-form/coach-lineup-form';
 
 
@@ -22,9 +22,8 @@ interface CoachingStyles {
 export class CoachAdd {
 
   @Output() addCoach = new EventEmitter<Coach>();
-
-  selectedMidfieldStyle: string = '';
-  selectedBalanceStyle: string = '';
+  midfieldStyles = MIDFIELD_STYLES;
+  balanceStyles = BALANCE_STYLES;
 
   constructor(private coachService: CoachService, private eventService: EventService, private notificationService: NotificationService) {
 
@@ -32,18 +31,6 @@ export class CoachAdd {
       this.addNewCoach(newCoachLineup);
     });
   }
-
-  midfieldStyles: CoachingStyles[] = [
-    { label: 'Long Possesions', value: 'longPossesions' },
-    { label: 'Balanced', value: 'balanced' },
-    { label: 'Counter Attacks', value: 'counterAttacks' }
-  ];
-
-  balanceStyles: CoachingStyles[] = [
-    { label: 'Attacking', value: 'attacking' },
-    { label: 'Balanced', value: 'balanced' },
-    { label: 'Defensive', value: 'defensive' }
-  ];
 
   addCoachform = new FormGroup({
     newCoachFirstName: new FormControl('', { validators: [Validators.required] }),

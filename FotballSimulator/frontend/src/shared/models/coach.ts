@@ -57,3 +57,22 @@ export class CoachLineupDTO{
         public st3: boolean
     ) {}
 }
+
+export class CoachinfStyles{
+    constructor(
+        label: string,
+        value: string
+    ){}
+}
+
+export const MIDFIELD_STYLES: CoachinfStyles[] =[
+    { label: 'Long Possesions', value: 'longPossesions' },
+    { label: 'Balanced', value: 'balanced' },
+    { label: 'Counter Attacks', value: 'counterAttacks' }
+]
+
+export const BALANCE_STYLES: CoachinfStyles[] =[
+    { label: 'Attacking', value: 'attacking' },
+    { label: 'Balanced', value: 'balanced' },
+    { label: 'Defensive', value: 'defensive' }
+]

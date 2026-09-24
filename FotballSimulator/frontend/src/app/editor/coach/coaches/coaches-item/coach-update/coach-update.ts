@@ -5,12 +5,7 @@ import { EventService } from '../../../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../../../shared/services/NotificationService';
 import { CoachService } from '../../../coachService';
 import { CoachLineupForm } from '../../../coach-lineup/coach-lineup-form/coach-lineup-form';
-import { Coach, CoachLineupDTO } from '../../../../../../shared/models/coach';
-
-interface CoachingStyles {
-    label: string;
-    value: string;
-}
+import { Coach, CoachLineupDTO, MIDFIELD_STYLES, BALANCE_STYLES } from '../../../../../../shared/models/coach';
 
 @Component({
   selector: 'coach-update',
@@ -22,6 +17,8 @@ export class CoachUpdate {
 
   @Input() coach!: Coach;
   @Output() updateCoachEvent = new EventEmitter<Coach>();
+  midfieldStyles = MIDFIELD_STYLES;
+  balanceStyles = BALANCE_STYLES;
   
   constructor(private coachService: CoachService, private eventService: EventService, private notificationService: NotificationService) {
     this.eventService.getEvent('newCoachLineupReply', (updatedLinueup: CoachLineupDTO) => {
@@ -48,19 +45,6 @@ export class CoachUpdate {
 
     this.coachLineup = this.coach.lineup;
   }
-
-    midfieldStyles: CoachingStyles[] = [
-    { label: 'Long Possesions', value: 'longPossesions' },
-    { label: 'Balanced', value: 'balanced' },
-    { label: 'Counter Attacks', value: 'counterAttacks' }
-  ];
-
-  balanceStyles: CoachingStyles[] = [
-    { label: 'Attacking', value: 'attacking' },
-    { label: 'Balanced', value: 'balanced' },
-    { label: 'Defensive', value: 'defensive' }
-  ];
-
 
   validUpdateCoachForm() {
     if (this.updateCoachForm.valid) {
