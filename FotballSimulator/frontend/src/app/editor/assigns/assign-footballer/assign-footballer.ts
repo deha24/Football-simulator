@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FORMS_IMPORTS, FormControl, FormGroup } from '../../../../shared/formsImports';
 import { ClubService } from '../../club/clubService';
-import { EventService } from '../../../../shared/services/EventServices';
 import { AssignFootballerStateService } from './services/assignFootballerStateService';
 import { Club } from '../../../../shared/models/club';
 import { ClubsIds } from '../../../../shared/models/assigns/assignPerson';

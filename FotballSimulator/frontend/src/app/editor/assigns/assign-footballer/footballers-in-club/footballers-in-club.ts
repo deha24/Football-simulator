@@ -4,7 +4,7 @@ import { TableModule } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
 import { EventService } from '../../../../../shared/services/EventServices';
 import { AssignFootballerService } from '../services/assignFootballerService';
-import { Footballer } from '../../../../../shared/models/footballer';
+import { FootballersDTO } from '../../../../../shared/models/footballer';
 import { FootballersInClubItem } from './footballers-in-club-item/footballers-in-club-item';
 
 @Component({
@@ -15,12 +15,12 @@ import { FootballersInClubItem } from './footballers-in-club-item/footballers-in
 })
 export class FootballersInClub implements OnChanges{
 
-  @Output() footballer!: Footballer;
+  @Output() footballer!: FootballersDTO;
   @Input() clubId!: number | undefined;
 
   @ViewChild('dt') dt!: Table;
-  footballers: Footballer[] = [];
-  initialValue: Footballer[] = [];
+  footballers: FootballersDTO[] = [];
+  initialValue: FootballersDTO[] = [];
   isSorted: boolean | null = null;
 
   constructor(private cdr: ChangeDetectorRef, private assignFootballerService: AssignFootballerService, private eventService: EventService) {
@@ -38,7 +38,7 @@ export class FootballersInClub implements OnChanges{
   }
 
   loadFootballersByClubId(id: number): void {
-    this.assignFootballerService.getFootballersByClubId(this.clubId!).subscribe((data: Footballer[]) => {
+    this.assignFootballerService.getFootballersByClubId(this.clubId!).subscribe((data: FootballersDTO[]) => {
       this.footballers = data;
       this.initialValue = [...data];
       this.cdr.markForCheck();

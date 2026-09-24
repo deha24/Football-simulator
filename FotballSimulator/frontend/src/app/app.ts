@@ -1,4 +1,3 @@
-import { Footballer } from '../shared/models/footballer';
 import { Component, OnInit, Output, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 

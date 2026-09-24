@@ -6,7 +6,7 @@ import { ToastModule } from 'primeng/toast';
 import { SortEvent } from 'primeng/api';
 import { FootballersService } from '../footballersService';
 import { EventService } from '../../../../shared/services/EventServices';
-import { Footballer } from '../../../../shared/models/footballer';
+import { FootballersDTO } from '../../../../shared/models/footballer';
 import { FootballersItem } from './footballers-item/footballers-item';
 
 
@@ -19,19 +19,11 @@ import { FootballersItem } from './footballers-item/footballers-item';
 export class Footballers implements OnInit{
 
   @ViewChild('dt') dt!: Table;
-  footballers: Footballer[] = [];
-  initialValue: Footballer[] = [];
+  footballers: FootballersDTO[] = [];
+  initialValue: FootballersDTO[] = [];
   isSorted: boolean | null = null;
 
-  @Output() footballer!: Footballer;
-
-  loadFootballers(): void {
-    this.footballersService.getFootballers().subscribe((data: Footballer[]) => {
-      this.footballers = data;
-      this.cdr.detectChanges();
-      this.initialValue = [...data];
-    });
-  }
+  @Output() footballer!: FootballersDTO;
 
   constructor(private cdr: ChangeDetectorRef, private footballersService: FootballersService, private eventService: EventService) {
     this.eventService.getEvent('removedFootballer', () => {
@@ -44,6 +36,15 @@ export class Footballers implements OnInit{
 
   ngOnInit() {
     this.loadFootballers();
+  }
+
+  loadFootballers(): void {
+    this.footballersService.getFootballers().subscribe((data: FootballersDTO[]) => {
+      this.footballers = data;
+      this.cdr.detectChanges();
+      this.initialValue = [...data];
+    });
+    console.log
   }
 
   customSort(event: SortEvent) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Footballer, CreateFootballerDTO, FootballerPositionsDTO } from '../../../shared/models/footballer';
+import { FootballersDTO, FootballerDetailsDTO, CreateFootballerDTO, FootballerPositionsDTO } from '../../../shared/models/footballer';
 
 
 @Injectable({
@@ -12,11 +12,11 @@ export class FootballersService {
   constructor(private http: HttpClient) {}
 
   getFootballers() {
-    return this.http.get<Footballer[]>('http://127.0.0.1:8000/footballers/getfootballers');
+    return this.http.get<FootballersDTO[]>('http://127.0.0.1:8000/footballers/getfootballers');
   }
 
   getFootballerById(id: number) {
-    return this.http.get(`http://127.0.0.1:8000/footballers/details/${id}`);
+    return this.http.get<FootballerDetailsDTO>(`http://127.0.0.1:8000/footballers/details/${id}`);
   }
 
   getFootballerPositionsById(id: number) {
@@ -27,7 +27,7 @@ export class FootballersService {
     return this.http.post('http://127.0.0.1:8000/footballers/addfootballer', footballer);
   }
 
-  updateFootballer(footballer: Footballer, id: number) {
+  updateFootballer(footballer: CreateFootballerDTO, id: number) {
     return this.http.patch(`http://127.0.0.1:8000/footballers/update/${id}`, footballer);
   }
 

@@ -3,7 +3,7 @@ import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormGroup, FormControl, Validators} from '../../../../shared/formsImports';
 import { EventService } from '../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../shared/services/NotificationService';
-import { CreateFootballerDTO, Footballer, FootballerPositionsDTO } from '../../../../shared/models/footballer';
+import { CreateFootballerDTO, FootballerPositionsDTO } from '../../../../shared/models/footballer';
 import { FootballersService } from '../footballersService';
 import { FootballerPositionsForm } from '../footballer-positions/footballer-positions-form/footballer-positions-form';
 
@@ -15,7 +15,7 @@ import { FootballerPositionsForm } from '../footballer-positions/footballer-posi
 })
 export class FootballerAdd {
 
-  @Output() addFootballer = new EventEmitter<Footballer>();
+  @Output() addFootballer = new EventEmitter<CreateFootballerDTO>();
 
   constructor(private footballersService: FootballersService, private eventService: EventService, private notificationService: NotificationService) {}
 

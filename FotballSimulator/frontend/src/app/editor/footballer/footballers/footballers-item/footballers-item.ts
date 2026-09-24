@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from "primeng/dialog";
-import { Footballer } from '../../../../../shared/models/footballer';
+import { FootballersDTO } from '../../../../../shared/models/footballer';
 import { FootballerRemove } from './footballer-remove/footballer-remove';
 import { FootballerUpdate } from './footballer-update/footballer-update';
 
@@ -16,7 +16,7 @@ import { FootballerUpdate } from './footballer-update/footballer-update';
 })
 export class FootballersItem {
 
-  @Input() footballer!: Footballer;
+  @Input() footballer!: FootballersDTO;
   @Input() rowIndex!: number;
 
   displayEditDialog: boolean = false;

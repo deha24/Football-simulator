@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.footballer import Footballer, CreateFootballerDTO, UpdateFootballerDTO
+from ..models.footballer import FootballersDTO, CreateFootballerDTO, UpdateFootballerDTO, FootballerDetailsDTO
 from ..models.footballerPositions import FootballerPositionsDTO
+from ..models.footballerDomain import FootballerDomain, FootballerPositionsDomain
+from .footballersMappers import map_to_domain, map_to_footballers_detailsDTO, map_to_footballersDTO, map_to_positionDTO
 
 router = APIRouter(
     prefix="/footballers",
@@ -25,12 +27,13 @@ try:
 except Exception as e:
     print("-------------------------------------------\n BŁĄD BAZY DANYCH \n -------------------------------------------------------\n", e)
 
+@router.get("/positions/{footballer_id}")
 async def get_footballer_positions_by_id(footballer_id: int) -> FootballerPositionsDTO:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballer_positions WHERE footballer_id = %s", (footballer_id,))
     row = cur.fetchone()
     if row:
-        return FootballerPositionsDTO(
+        positions = FootballerPositionsDomain(
             gk=row[0],
             lb=row[1],
             cb=row[2],
@@ -46,59 +49,35 @@ async def get_footballer_positions_by_id(footballer_id: int) -> FootballerPositi
             rw=row[12],
             st=row[13]
         )
+        return map_to_positionDTO(positions)
     #record not found, return default positions
     return FootballerPositionsDTO(gk=0, lb=0, cb=0, rb=0, lwb=0, cdm=0, rwb=0, lm=0, cm=0, rm=0, lw=0, cam=0, rw=0, st=0)
 
 @router.get("/getfootballers")
-async def getfootballers() -> list[Footballer]:
+async def getfootballers() -> list[FootballersDTO]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballers")
     rows = cur.fetchall()
-    return [Footballer(id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3], nationality=row[4], position=await get_footballer_positions_by_id(row[0]), goalkeeping=row[5], defence=row[6], midfield=row[7], attack=row[8]) for row in rows]
+    if rows:
+        footballers = [map_to_domain(row, await get_footballer_positions_by_id(row[0])) for row in rows]
 
+        for footballer in footballers:
+            footballer.shortPosition = FootballerPositionsDomain.calculate_short_position(footballer.positions)
+            map_to_footballersDTO(footballer)
 
-@router.get("/positions/{footballer_id}")
-async def get_footballer_positions(footballer_id: int) -> FootballerPositionsDTO:
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM footballer_positions WHERE footballer_id = %s", (footballer_id,))
-    row = cur.fetchone()
-    if row:
-        return FootballerPositionsDTO(
-            gk=row[0],
-            lb=row[1],
-            cb=row[2],
-            rb=row[3],
-            lwb=row[4],
-            cdm=row[5],
-            rwb=row[6],
-            lm=row[7],
-            cm=row[8],
-            rm=row[9],
-            lw=row[10],
-            cam=row[11],
-            rw=row[12],
-            st=row[13]
-        )
-    return None
+        print(footballers)
+        return footballers
+
 
 @router.get("/details/{footballer_id}")
-async def get_footballer_by_id(footballer_id: int) -> Footballer:
+async def get_footballer_by_id(footballer_id: int) -> FootballerDetailsDTO:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballers WHERE id = %s", (footballer_id,))
     row = cur.fetchone()
     if row:
-        return Footballer(
-            id=row[0],
-            first_name=row[1],
-            last_name=row[2],
-            birth_date=row[3],
-            nationality=row[4],
-            goalkeeping=row[5],
-            defence=row[6],
-            midfield=row[7],
-            attack=row[8],
-            position=await get_footballer_positions_by_id(footballer_id)
-        )
+        positions = get_footballer_positions_by_id(footballer_id)
+        footballer = map_to_domain(row, positions)
+        return map_to_footballers_detailsDTO(footballer)
     return None
 
 async def add_footballer_positions(footballer_id: int, positions: FootballerPositionsDTO):
@@ -110,13 +89,27 @@ async def add_footballer_positions(footballer_id: int, positions: FootballerPosi
 
 @router.post("/addfootballer")
 async def addfootballer(footballer: CreateFootballerDTO):
+    positions = FootballerPositionsDomain(**footballer.position.modeldump())
+    new_footballer = FootballerDomain(
+        id=None,
+        first_name=footballer.first_name,
+        last_name=footballer.last_name,
+        birth_date=footballer.birth_date,
+        nationality=footballer.nationality,
+        positions=positions,
+        goalkeeping=footballer.goalkeeping,
+        defence=footballer.defence,
+        midfield=footballer.midfield,
+        attack=footballer.attack
+    )
+
     cur = conn.cursor()
     cur.execute("INSERT INTO footballers (first_name, last_name, birth_date, nationality, goalkeeping, defence, midfield, attack) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id",
-                (footballer.first_name, footballer.last_name, footballer.birth_date, footballer.nationality, footballer.goalkeeping, footballer.defence, footballer.midfield, footballer.attack))
+                (new_footballer.first_name, new_footballer.last_name, new_footballer.birth_date, new_footballer.nationality, new_footballer.goalkeeping, new_footballer.defence, new_footballer.midfield, new_footballer.attack))
     
     new_footballer_id = cur.fetchone()[0]
-    conn.commit()
-    await add_footballer_positions(footballer_id=new_footballer_id, positions=footballer.position)
+    positions_dto = FootballerPositionsDTO(**vars(new_footballer.positions))
+    await add_footballer_positions(footballer_id=new_footballer_id, positions=positions_dto)
     return {"message": "Footballer added successfully"}
 
 async def update_footballer_positions(footballer_id: int, positions: FootballerPositionsDTO):

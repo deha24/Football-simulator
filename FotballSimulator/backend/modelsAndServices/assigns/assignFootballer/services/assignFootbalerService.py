@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import psycopg2
-from ....footballers.models.footballer import Footballer
+from ....footballers.models.footballer import FootballerDetailsDTO
 from ....footballers.models.footballerPositions import FootballerPositionsDTO
 from ..models.assignFootballer import ClubsIds
 
@@ -51,12 +51,12 @@ async def get_footballer_positions_by_id(footballer_id: int) -> FootballerPositi
     return FootballerPositionsDTO(gk=0, lb=0, cb=0, rb=0, lwb=0, cdm=0, rwb=0, lm=0, cm=0, rm=0, lw=0, cam=0, rw=0, st=0)
 
 @router.get("/getfootballers/{club_id}")
-async def get_footballer_by_club_id(club_id: int) -> list[Footballer]:
+async def get_footballer_by_club_id(club_id: int) -> list[FootballerDetailsDTO]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballers WHERE club_id = %s", (club_id,))
     rows = cur.fetchall()
     if rows:
-        return [Footballer(
+        return [FootballerDetailsDTO(
             id=row[0],
             first_name=row[1],
             last_name=row[2],

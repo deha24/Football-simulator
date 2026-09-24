@@ -1,7 +1,7 @@
 import { Component, Input} from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { Footballer } from '../../../../../../shared/models/footballer';
+import { FootballersDTO } from '../../../../../../shared/models/footballer';
 import { FootballersAssignFootballer } from './footballers-assign-footballer/footballers-assign-footballer';
 
 @Component({
@@ -12,7 +12,7 @@ import { FootballersAssignFootballer } from './footballers-assign-footballer/foo
 })
 export class FootballersInClubItem {
 
-  @Input() footballer!: Footballer;
+  @Input() footballer!: FootballersDTO;
 
   constructor() { }
 

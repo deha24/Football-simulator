@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FootballersAssignFootballer } from './footballers-assign-footballer';
 
 describe('FootballersAssignFootballer', () => {

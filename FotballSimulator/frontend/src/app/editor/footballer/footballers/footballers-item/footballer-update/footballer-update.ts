@@ -1,10 +1,10 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
 import { EventService } from '../../../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../../../shared/services/NotificationService';
 import { FootballersService } from '../../../footballersService';
-import { Footballer } from '../../../../../../shared/models/footballer';
+import { UpdateFootballerDTO } from '../../../../../../shared/models/footballer';
 import { FootballerPositionsDTO } from '../../../../../../shared/models/footballer';
 import { FootballerPositionsForm } from '../../../footballer-positions/footballer-positions-form/footballer-positions-form';
 
@@ -16,10 +16,10 @@ import { FootballerPositionsForm } from '../../../footballer-positions/footballe
 })
 export class FootballerUpdate {
 
-  @Input() footballer!: Footballer;
-  @Output() updateFootballerEvent = new EventEmitter<Footballer>();
+  @Input() footballer!: Partial<UpdateFootballerDTO>;
+  @Output() updateFootballerEvent = new EventEmitter<UpdateFootballerDTO>();
   
-  constructor(private footballersService: FootballersService, private eventService: EventService, private notificationService: NotificationService) {
+  constructor(private footballersService: FootballersService, private eventService: EventService, private notificationService: NotificationService, private cdr: ChangeDetectorRef) {
     this.eventService.getEvent('newFootballerPositionsReply', (updatedPositions: FootballerPositionsDTO) => {
       this.updateFootballer(updatedPositions);
     });
@@ -41,7 +41,11 @@ export class FootballerUpdate {
       newFootballerAttack: new FormControl(this.footballer.attack, { validators: [Validators.required, Validators.min(1), Validators.max(99)] }),
     });
 
-    this.footballerPositions = this.footballer.position;
+    this.footballersService.getFootballerPositionsById(this.footballer.id!).subscribe((positions: FootballerPositionsDTO) => {
+      console.log('Pobrane pozycje:', positions);
+      this.footballerPositions = positions;
+      this.cdr.detectChanges();
+    });
   }
 
   validUpdateFootballerForm() {
@@ -88,7 +92,7 @@ export class FootballerUpdate {
         }
       });
 
-      this.footballersService.updateFootballer(data, this.footballer.id).subscribe(() => {
+      this.footballersService.updateFootballer(data, this.footballer.id!).subscribe(() => {
         this.notificationService.showSuccess('Footballer Updated');
         this.eventService.emitEvent('updatedFootballer');
         this.updateFootballerForm.reset();

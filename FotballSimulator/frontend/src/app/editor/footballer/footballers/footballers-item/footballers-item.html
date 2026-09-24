@@ -11,7 +11,7 @@
   {{footballer.nationality}}
 </td>
 <td>
-  {{footballer.position}}
+  {{footballer.shortPosition}}
 </td>
 <td>
   {{footballer.goalkeeping}}
@@ -33,7 +33,7 @@
       </button>
       <p-dialog header="Edytuj piłkarza" [(visible)]="displayEditDialog" [modal]="true">
         @if (displayEditDialog) {
-          <footballer-update [footballer]="footballer"></footballer-update>
+          <footballer-update [footballer]="$any(footballer)"></footballer-update>
         }
       </p-dialog>
     </div>

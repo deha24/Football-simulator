@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FootballersService } from '../../../footballersService';
 import { FootballerPositionsView } from '../../../footballer-positions/footballer-positions-view/footballer-positions-view';
-import { Footballer, FootballerPositionsDTO } from '../../../../../../shared/models/footballer';
+import { FootballerDetailsDTO, FootballerPositionsDTO } from '../../../../../../shared/models/footballer';
 
 @Component({
   selector: 'app-footballer-details',
@@ -12,7 +12,7 @@ import { Footballer, FootballerPositionsDTO } from '../../../../../../shared/mod
 })
 export class FootballerDetails {
 
-  footballer!: Footballer;
+  footballer!: FootballerDetailsDTO;
   footballerPositions!: FootballerPositionsDTO;
 
   constructor(private footballersService: FootballersService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }

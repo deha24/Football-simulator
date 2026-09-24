@@ -1,3 +1,7 @@
+from datetime import date
+
+
+
 class FootballerPositionsDomain:
 
     def __init__(self, gk: int, lb: int, cb: int, rb: int, lwb: int, 
@@ -19,7 +23,33 @@ class FootballerPositionsDomain:
         self.st = st
 
     def calculate_short_position(self):
-        shortpostion = [6,10,2]
-        shortpostion = [position for position in self if position >= 8]
-        print(shortpostion)
-        return shortpostion
+        print("Obecna instancja (self):\n", vars(self))
+        return [positionAbility for positionAbility in vars(self).values() if positionAbility >= 8]
+
+
+class FootballerDomain:
+    def __init__(
+        self,
+        id: int | None,
+        first_name: str,
+        last_name: str,
+        birth_date: date,
+        nationality: str,
+        positions: FootballerPositionsDomain,
+        shortPosition: FootballerPositionsDomain.calculate_short_position,
+        goalkeeping: int,
+        defence: int,
+        midfield: int,
+        attack: int
+    ):
+        self.id = id
+        self.first_name = first_name
+        self.last_name = last_name
+        self.birth_date = birth_date
+        self.nationality = nationality
+        self.positions = positions
+        self.shortPosition = shortPosition
+        self.goalkeeping = goalkeeping
+        self.defence = defence
+        self.midfield = midfield
+        self.attack = attack
