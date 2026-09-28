@@ -2,15 +2,17 @@ from ..models.footballerDomain import FootballerDomain, FootballerPositionsDomai
 from ..models.footballer import FootballerDetailsDTO, FootballersDTO
 from ..models.footballerPositions import FootballerPositionsDTO
 
-def map_to_domain(row: tuple, positions: FootballerPositionsDomain) -> FootballerDomain:
-    positions = FootballerPositionsDomain(**positions.model_dump())
-    shortPosition = FootballerPositionsDomain.calculate_short_position
+def map_to_footballer_domain(row: tuple, positions: FootballerPositionsDomain) -> FootballerDomain:
     
     return FootballerDomain(
         id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3],
         nationality=row[4], goalkeeping=row[5], defence=row[6], 
         midfield=row[7], attack=row[8], positions=positions, shortPosition=positions.calculate_short_position()
     )
+
+def map_to_position_domain(positions: FootballerPositionsDTO) -> FootballerPositionsDomain:
+    return FootballerPositionsDomain(**positions.model_dump())
+
 
 def map_to_footballersDTO(domain_model: FootballerDomain) -> FootballersDTO:
     return FootballersDTO(
@@ -37,7 +39,7 @@ def map_to_footballers_detailsDTO(domain_model: FootballerDomain) -> FootballerD
         defence = domain_model.defence,
         midfield = domain_model.midfield,
         attack = domain_model.attack,
-        positions = FootballerPositionsDomain(**vars(domain_model.position))
+        positions = map_to_positionDTO(domain_model.positions)
     )
 
 def map_to_positionDTO(domain_model: FootballerPositionsDomain) -> FootballerPositionsDTO:

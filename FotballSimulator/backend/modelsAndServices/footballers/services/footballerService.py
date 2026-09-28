@@ -3,7 +3,7 @@ import psycopg2
 from ..models.footballer import FootballersDTO, CreateFootballerDTO, UpdateFootballerDTO, FootballerDetailsDTO
 from ..models.footballerPositions import FootballerPositionsDTO
 from ..models.footballerDomain import FootballerDomain, FootballerPositionsDomain
-from .footballersMappers import map_to_domain, map_to_footballers_detailsDTO, map_to_footballersDTO, map_to_positionDTO
+from .footballersMappers import map_to_footballer_domain, map_to_position_domain, map_to_footballers_detailsDTO, map_to_footballersDTO, map_to_positionDTO
 
 router = APIRouter(
     prefix="/footballers",
@@ -59,7 +59,7 @@ async def getfootballers() -> list[FootballersDTO]:
     cur.execute("SELECT * FROM footballers")
     rows = cur.fetchall()
     if rows:
-        footballers = [map_to_domain(row, await get_footballer_positions_by_id(row[0])) for row in rows]
+        footballers = [map_to_footballer_domain(row, await get_footballer_positions_by_id(row[0])) for row in rows]
 
         for footballer in footballers:
             map_to_footballersDTO(footballer)
@@ -72,8 +72,8 @@ async def get_footballer_by_id(footballer_id: int) -> FootballerDetailsDTO:
     cur.execute("SELECT * FROM footballers WHERE id = %s", (footballer_id,))
     row = cur.fetchone()
     if row:
-        positions = get_footballer_positions_by_id(footballer_id)
-        footballer = map_to_domain(row, positions)
+        positions = map_to_position_domain(await get_footballer_positions_by_id(footballer_id))
+        footballer = map_to_footballer_domain(row, positions)
         return map_to_footballers_detailsDTO(footballer)
     return None
 
