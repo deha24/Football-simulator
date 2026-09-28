@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
 import { EventService } from '../../../../../../shared/services/EventServices';
@@ -18,17 +18,17 @@ export class FootballerUpdate {
 
   @Input() footballer!: Partial<UpdateFootballerDTO>;
   @Output() updateFootballerEvent = new EventEmitter<UpdateFootballerDTO>();
+
+  @ViewChild(FootballerPositionsForm) positionsComponent!: FootballerPositionsForm;
   
-  constructor(private footballersService: FootballersService, private eventService: EventService, private notificationService: NotificationService, private cdr: ChangeDetectorRef) {
-    this.eventService.getEvent('newFootballerPositionsReply', (updatedPositions: FootballerPositionsDTO) => {
-      this.updateFootballer(updatedPositions);
-    });
-  }
+  constructor(private footballersService: FootballersService, private eventService: EventService, private notificationService: NotificationService, private cdr: ChangeDetectorRef) { }
 
   updateFootballerForm!: FormGroup;
   footballerPositions!: FootballerPositionsDTO;
 
   ngOnInit() {
+
+    console.log(this.footballer.id);
 
     this.updateFootballerForm = new FormGroup({
       newFootballerFirstName: new FormControl(this.footballer.first_name, {validators: [Validators.required]}),
@@ -42,15 +42,18 @@ export class FootballerUpdate {
     });
 
     this.footballersService.getFootballerPositionsById(this.footballer.id!).subscribe((positions: FootballerPositionsDTO) => {
-      console.log('Pobrane pozycje:', positions);
       this.footballerPositions = positions;
       this.cdr.detectChanges();
     });
   }
 
   validUpdateFootballerForm() {
+    console.log("updatding footbalelr: ", this.footballer.id);
     if (this.updateFootballerForm.valid) {
-      this.eventService.emitEvent('updateFootballerPositionsRequest');
+      const updatedPositions = this.positionsComponent.addNewFootballerPositions();
+      if (updatedPositions){
+        this.updateFootballer(updatedPositions);
+      }
     } else {
       // Handle form errors if needed
       this.notificationService.showError();
@@ -88,9 +91,9 @@ export class FootballerUpdate {
           if (key === 'newFootballerDefence') data.defence = defence;
           if (key === 'newFootballerMidfield') data.midfield = midfield;
           if (key === 'newFootballerAttack') data.attack = attack;
-          if (updatedPositions) data.position = updatedPositions;
         }
       });
+      if (updatedPositions) data.position = updatedPositions;
 
       this.footballersService.updateFootballer(data, this.footballer.id!).subscribe(() => {
         this.notificationService.showSuccess('Footballer Updated');

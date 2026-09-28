@@ -23,8 +23,7 @@ class FootballerPositionsDomain:
         self.st = st
 
     def calculate_short_position(self):
-        print("Obecna instancja (self):\n", vars(self))
-        return [positionAbility for positionAbility in vars(self).values() if positionAbility >= 8]
+        return [positionKey for positionKey, positionValue in vars(self).items() if positionValue >= 8]
 
 
 class FootballerDomain:

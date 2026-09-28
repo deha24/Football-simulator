@@ -62,10 +62,7 @@ async def getfootballers() -> list[FootballersDTO]:
         footballers = [map_to_domain(row, await get_footballer_positions_by_id(row[0])) for row in rows]
 
         for footballer in footballers:
-            footballer.shortPosition = FootballerPositionsDomain.calculate_short_position(footballer.positions)
             map_to_footballersDTO(footballer)
-
-        print(footballers)
         return footballers
 
 

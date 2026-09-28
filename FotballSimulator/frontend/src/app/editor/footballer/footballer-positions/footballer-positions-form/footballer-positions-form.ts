@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../shared/formsImports';
 import { EventService } from '../../../../../shared/services/EventServices';
 import { FootballerPositionsDTO } from '../../../../../shared/models/footballer';
@@ -9,7 +9,7 @@ import { FootballerPositionsDTO } from '../../../../../shared/models/footballer'
   templateUrl: './footballer-positions-form.html',
   styleUrl: './footballer-positions-form.css',
 })
-export class FootballerPositionsForm implements OnInit{
+export class FootballerPositionsForm implements OnInit, OnChanges{
 
   @Input() footballerPositions!: FootballerPositionsDTO;
   footballerId!: number;
@@ -22,16 +22,7 @@ export class FootballerPositionsForm implements OnInit{
     'newFootballerPositionCB'
   ];
 
-  constructor(private eventService: EventService) {
-
-    this.eventService.getEvent('newFootballerPositionsRequest', () => { 
-      this.addNewFootballerPositions(); 
-    });
-
-    this.eventService.getEvent('updateFootballerPositionsRequest', () => {
-      this.addNewFootballerPositions();
-    });
-  }
+  constructor() { }
 
   addfootballerPositionsForm = new FormGroup({
     newFootballerPositionGK: new FormControl(<null | number> null, { validators: [Validators.required, Validators.min(0), Validators.max(10)] }),
@@ -52,6 +43,15 @@ export class FootballerPositionsForm implements OnInit{
 
   ngOnInit() {
 
+    this.duplicatedControls.forEach(controlName => {
+      this.addfootballerPositionsForm.get(controlName)?.valueChanges.subscribe(value => {
+        this.addfootballerPositionsForm.get(controlName)?.patchValue(value, { emitEvent: false });
+      });
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
     if (this.footballerPositions) {
       this.addfootballerPositionsForm.patchValue({
         newFootballerPositionGK: this.footballerPositions.gk,
@@ -70,12 +70,7 @@ export class FootballerPositionsForm implements OnInit{
         newFootballerPositionST: this.footballerPositions.st,
       });
     }
-
-    this.duplicatedControls.forEach(controlName => {
-      this.addfootballerPositionsForm.get(controlName)?.valueChanges.subscribe(value => {
-        this.addfootballerPositionsForm.get(controlName)?.patchValue(value, { emitEvent: false });
-      });
-    });
+    console.log("otrzymane pozcyje: ", this.footballerPositions)
   }
 
 
@@ -98,8 +93,7 @@ export class FootballerPositionsForm implements OnInit{
 
     if (this.addfootballerPositionsForm.valid) {
       const newFootballerPositions = new FootballerPositionsDTO(gk!, lb!, cb!, rb!, lwb!, cdm!, rwb!, lm!, cm!, rm!, lw!, cam!, rw!, st!);
-      console.log('Dodawanie Pozycji nowego piłkarza:', newFootballerPositions);
-      this.eventService.emitEvent('newFootballerPositionsReply', newFootballerPositions);
+      return newFootballerPositions;
     } else {
       // Handle form errors if needed
       console.error('Form is invalid');
@@ -110,6 +104,7 @@ export class FootballerPositionsForm implements OnInit{
           console.log(`Pole o nazwie "${key}" ma błędy:`, control.errors);
         }
       });
+      return null;
     }
   }
 }
