@@ -5,7 +5,7 @@ import { SortEvent } from 'primeng/api';
 import { EventService } from '../../../../../shared/services/EventServices';
 import { AssignClubService } from '../services/assignClubService';
 import { ClubsInLeagueItem } from './clubs-in-league-item/clubs-in-league-item';
-import { Club } from '../../../../../shared/models/club';
+import { ClubDTO } from '../../../../../shared/models/club';
 
 @Component({
   selector: 'clubs-in-league',
@@ -15,12 +15,12 @@ import { Club } from '../../../../../shared/models/club';
 })
 export class ClubsInLeague implements OnChanges{
 
-  @Output() club!: Club;
+  @Output() club!: ClubDTO;
   @Input() leagueId!: number | undefined;
 
   @ViewChild('dt') dt!: Table;
-  clubs: Club[] = [];
-  initialValue: Club[] = [];
+  clubs: ClubDTO[] = [];
+  initialValue: ClubDTO[] = [];
   isSorted: boolean | null = null;
 
   constructor(private cdr: ChangeDetectorRef, private assignClubService: AssignClubService, private eventService: EventService) {
@@ -38,7 +38,7 @@ export class ClubsInLeague implements OnChanges{
   }
 
   loadClubsByLeagueId(id: number): void {
-    this.assignClubService.getClubsByLeagueId(this.leagueId!).subscribe((data: Club[]) => {
+    this.assignClubService.getClubsByLeagueId(this.leagueId!).subscribe((data: ClubDTO[]) => {
       this.clubs = data;
       this.initialValue = [...data];
       this.cdr.markForCheck();

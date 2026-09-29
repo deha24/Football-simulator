@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { Club } from '../../../../../../shared/models/club';
+import { ClubDTO } from '../../../../../../shared/models/club';
 import { ClubsAssignClub } from './clubs-assign-club/clubs-assign-club';
 
 @Component({
@@ -12,5 +12,5 @@ import { ClubsAssignClub } from './clubs-assign-club/clubs-assign-club';
 })
 export class ClubsInLeagueItem {
 
-  @Input() club!: Club;
+  @Input() club!: ClubDTO;
 }

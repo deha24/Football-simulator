@@ -3,7 +3,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast'
 import { EventService } from '../../../../shared/services/EventServices';
 import { ClubService } from '../clubService';
-import { Club } from '../../../../shared/models/club';
+import { ClubDTO } from '../../../../shared/models/club';
 import { ClubsItem } from './clubs-item/clubs-item';
 
 @Component({
@@ -15,8 +15,8 @@ import { ClubsItem } from './clubs-item/clubs-item';
 
 export class Clubs {
 
-  @Output() club!: Club;
-  clubs: Club[] = [];
+  @Output() club!: ClubDTO;
+  clubs: ClubDTO[] = [];
 
   constructor(private clubService: ClubService, private cdr: ChangeDetectorRef, private eventService: EventService) {
     this.eventService.getEvent('removedClub', () => {

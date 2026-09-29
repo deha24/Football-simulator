@@ -3,7 +3,7 @@ import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../shared/formsImports';
 import { NotificationService } from '../../../../shared/services/NotificationService';
 import { ClubService } from '../clubService';
-import { Club, CreateClubDTO } from '../../../../shared/models/club';
+import { ClubDTO, CreateClubDTO } from '../../../../shared/models/club';
 
 @Component({
   selector: 'app-club-add',
@@ -13,7 +13,7 @@ import { Club, CreateClubDTO } from '../../../../shared/models/club';
 })
 export class ClubAdd{
 
-  @Output() addClub = new EventEmitter<Club>();
+  @Output() addClub = new EventEmitter<ClubDTO>();
 
   constructor(private clubService: ClubService, private notificationService: NotificationService) {}
 

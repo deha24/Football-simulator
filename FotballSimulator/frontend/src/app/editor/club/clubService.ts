@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Club, CreateClubDTO } from '../../../shared/models/club';
+import { ClubDTO, CreateClubDTO } from '../../../shared/models/club';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ClubService {
 
   // Define methods for club service here
   getClubs() {
-    return this.http.get<Club[]>('http://127.0.0.1:8000/clubs/getclubs');
+    return this.http.get<ClubDTO[]>('http://127.0.0.1:8000/clubs/getclubs');
   }
 
   addClub(club: CreateClubDTO) {
@@ -21,7 +21,7 @@ export class ClubService {
     return this.http.post<CreateClubDTO>('http://127.0.0.1:8000/clubs/addclub', club);
   }
 
-  updateClub(clubId: number,club: Club) {
+  updateClub(clubId: number,club: ClubDTO) {
     console.log('Club updated successfully', club);
     return this.http.patch(`http://127.0.0.1:8000/clubs/update/${clubId}`, club);
   }
@@ -31,6 +31,6 @@ export class ClubService {
   }
 
   getClubById(clubId: number) {
-    return this.http.get<Club>(`http://127.0.0.1:8000/clubs/details/${clubId}`);
+    return this.http.get<ClubDTO>(`http://127.0.0.1:8000/clubs/details/${clubId}`);
   }
 }

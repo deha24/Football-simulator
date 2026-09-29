@@ -1,4 +1,4 @@
-export class Club {
+export class ClubDTO {
   constructor(
     public id: number,
     public name: string,

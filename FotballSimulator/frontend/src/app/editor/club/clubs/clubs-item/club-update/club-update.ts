@@ -4,7 +4,7 @@ import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../.
 import { EventService } from '../../../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../../../shared/services/NotificationService';
 import { ClubService } from '../../../clubService';
-import { Club } from '../../../../../../shared/models/club';
+import { ClubDTO } from '../../../../../../shared/models/club';
 
 @Component({
   selector: 'club-update',
@@ -14,8 +14,8 @@ import { Club } from '../../../../../../shared/models/club';
 })
 export class ClubUpdate implements OnInit{
 
-  @Input() club!: Club;
-  @Output() addClub = new EventEmitter<Club>();
+  @Input() club!: ClubDTO;
+  @Output() addClub = new EventEmitter<ClubDTO>();
   updateClubForm!: FormGroup;
 
   constructor(private clubService: ClubService, private eventService: EventService, private notificationService: NotificationService) { }

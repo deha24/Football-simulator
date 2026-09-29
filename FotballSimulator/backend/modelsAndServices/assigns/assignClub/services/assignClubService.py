@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import psycopg2
-from ....clubs.models.club import Club
+from ....clubs.models.club import ClubDTO
 from ..models.assignClub import LeaguesIds
 
 router = APIRouter(
@@ -26,12 +26,12 @@ except Exception as e:
     pass
 
 @router.get("/getclubs/{league_id}")
-async def get_club_by_league_id(league_id: int) -> list[Club]:
+async def get_club_by_league_id(league_id: int) -> list[ClubDTO]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM clubs WHERE league_id = %s", (league_id,))
     rows = cur.fetchall()
     if rows:
-        return [Club(
+        return [ClubDTO(
             id=row[0],
             name=row[1],
             location=row[2],

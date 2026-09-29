@@ -1,7 +1,7 @@
 from datetime import date
 from pydantic import BaseModel, Field
 
-class Club(BaseModel):
+class ClubDTO(BaseModel):
     id: int
     name: str = Field(..., max_length=100, description="The name of the club")
     location: str = Field(..., max_length=100, description="The location of the club")

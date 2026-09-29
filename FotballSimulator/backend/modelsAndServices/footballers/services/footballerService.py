@@ -79,7 +79,6 @@ async def get_footballer_by_id(footballer_id: int) -> FootballerDetailsDTO:
 
 async def add_footballer_positions(footballer_id: int, positions: FootballerPositionsDTO):
     cur = conn.cursor()
-    # Używamy 15 znaczników %s i przekazujemy footballer_id jako ostatni argument
     cur.execute("INSERT INTO footballer_positions (gk, lb, cb, rb, lwb, cdm, rwb, lm, cm, rm, lw, cam, rw, st, footballer_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                 (positions.gk, positions.lb, positions.cb, positions.rb, positions.lwb, positions.cdm, positions.rwb, positions.lm, positions.cm, positions.rm, positions.lw, positions.cam, positions.rw, positions.st, footballer_id))
     conn.commit()

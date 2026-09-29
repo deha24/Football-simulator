@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Club } from '../../../../../shared/models/club';
+import { ClubDTO } from '../../../../../shared/models/club';
 import { LeaguesIds } from '../../../../../shared/models/assigns/assignClub';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class AssignClubService {
   constructor(private http: HttpClient) {}
 
   getClubsByLeagueId(id: number){
-    return this.http.get<Club[]>(`http://127.0.0.1:8000/assign/club/getclubs/${id}`);
+    return this.http.get<ClubDTO[]>(`http://127.0.0.1:8000/assign/club/getclubs/${id}`);
   }
 
   assignClubToLeague(id: number, leaguesIds: LeaguesIds){

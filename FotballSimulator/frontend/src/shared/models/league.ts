@@ -1,4 +1,4 @@
-import { Club } from "./club";
+import { ClubDTO } from "./club";
 
 export class League {
   constructor(
@@ -6,7 +6,7 @@ export class League {
     public name: string,
     public country: string,
     public level: number,
-    public clubs: Club[]
+    public clubs: ClubDTO[]
   ) {}
 }
 

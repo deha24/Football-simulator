@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClubService } from '../../../clubService';
-import { Club } from '../../../../../../shared/models/club';
+import { ClubDTO } from '../../../../../../shared/models/club';
 
 @Component({
   selector: 'club-details',
@@ -12,7 +12,7 @@ import { Club } from '../../../../../../shared/models/club';
 
 export class ClubDetails implements OnInit {
 
-  club!: Club;
+  club!: ClubDTO;
 
   constructor(private clubsService: ClubService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 

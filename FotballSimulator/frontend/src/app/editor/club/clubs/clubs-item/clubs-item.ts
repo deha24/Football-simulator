@@ -2,7 +2,7 @@ import { Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { Club } from '../../../../../shared/models/club';
+import { ClubDTO } from '../../../../../shared/models/club';
 import { ClubRemove } from './club-remove/club-remove';
 import { ClubUpdate } from './club-update/club-update';
 
@@ -15,7 +15,7 @@ import { ClubUpdate } from './club-update/club-update';
 })
 export class ClubsItem {
 
-  @Input() club!: Club;
+  @Input() club!: ClubDTO;
   @Input() rowIndex!: number;
   displayEditDialog: boolean = false;
 
