@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-class League(BaseModel):
+class LeagueDTO(BaseModel):
     id: int = Field(..., description="The unique identifier for the league")
     name: str = Field(..., description="The name of the league")
     country: str = Field(..., description="The country where the league is based")

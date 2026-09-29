@@ -4,7 +4,7 @@ import { EventService } from '../../../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../../../shared/services/NotificationService';
 import { LeagueService } from '../../../leagueService';
 import { multipleFirstLeagueLevel } from '../../../league-form-validators';
-import { League } from '../../../../../../shared/models/league';
+import { LeagueDTO } from '../../../../../../shared/models/league';
 
 @Component({
   selector: 'league-update',
@@ -14,8 +14,8 @@ import { League } from '../../../../../../shared/models/league';
 })
 export class LeagueUpdate implements OnInit {
   
-  @Input() league!: League;
-  @Output() addLeague = new EventEmitter<League>();
+  @Input() league!: LeagueDTO;
+  @Output() addLeague = new EventEmitter<LeagueDTO>();
   multipleLowerLeaguesLevel: boolean = false;
 
   constructor(private leagueService: LeagueService, private eventService: EventService, private notificationService: NotificationService) {}

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeagueService } from '../../../leagueService';
-import { League } from '../../../../../../shared/models/league';
+import { LeagueDTO } from '../../../../../../shared/models/league';
 
 @Component({
   selector: 'league-details',
@@ -11,7 +11,7 @@ import { League } from '../../../../../../shared/models/league';
 })
 export class LeagueDetails {
 
-  league!: League;
+  league!: LeagueDTO;
 
   constructor(private route: ActivatedRoute, private leagueService: LeagueService, private cdr: ChangeDetectorRef) { }
 

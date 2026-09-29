@@ -3,7 +3,7 @@ import { FORMS_IMPORTS, FormControl, FormGroup } from '../../../../shared/formsI
 import { LeagueService } from '../../league/leagueService';
 import { AssignClubStateService } from './services/assignClubStateService';
 import { ClubsInLeague } from './clubs-in-league/clubs-in-league';
-import { League } from '../../../../shared/models/league';
+import { LeagueDTO } from '../../../../shared/models/league';
 import { LeaguesIds } from '../../../../shared/models/assigns/assignClub';
 
 @Component({
@@ -15,11 +15,11 @@ import { LeaguesIds } from '../../../../shared/models/assigns/assignClub';
 })
 export class AssignClub implements OnInit {
 
-  leagues: League[]= [];
-  league: League | undefined;
-  league1: League | undefined;
-  league2: League | undefined;
-  tmpleague: League | undefined;
+  leagues: LeagueDTO[]= [];
+  league: LeagueDTO | undefined;
+  league1: LeagueDTO | undefined;
+  league2: LeagueDTO | undefined;
+  tmpleague: LeagueDTO | undefined;
   currentleaguesIds: LeaguesIds = { league1Id: 0, league2Id: 0 };
 
   constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private stateService: AssignClubStateService){ }
@@ -49,7 +49,7 @@ export class AssignClub implements OnInit {
     this.pickLeague1form.get('league1Id')?.valueChanges.subscribe(leagueId => {
       if(leagueId !== null){
         this.stateService.setLeague1(leagueId);
-        this.leagueService.getLeagueById(leagueId).subscribe((data: League) => {
+        this.leagueService.getLeagueById(leagueId).subscribe((data: LeagueDTO) => {
           this.league1 = data;
           this.cdr.markForCheck();
         });
@@ -61,7 +61,7 @@ export class AssignClub implements OnInit {
     this.pickLeague2form.get('league2Id')?.valueChanges.subscribe(leagueId => {
       if(leagueId !== null){
         this.stateService.setLeague2(leagueId);
-        this.leagueService.getLeagueById(leagueId).subscribe((data: League) => {
+        this.leagueService.getLeagueById(leagueId).subscribe((data: LeagueDTO) => {
           this.league2 = data;
           this.cdr.markForCheck();
         });

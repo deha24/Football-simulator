@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.league import League, CreateLeagueDTO, UpdateLeagueDTO
+from ..models.league import LeagueDTO, CreateLeagueDTO, UpdateLeagueDTO
+from.leagueMappers import map_to_league_domain, map_to_league_dto
 
 router = APIRouter(
     prefix="/leagues",
@@ -25,11 +26,13 @@ except Exception as e:
     pass
 
 @router.get("/getleagues")
-async def getleagues() -> list[League]:
+async def getleagues() -> list[LeagueDTO]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM leagues")
     rows = cur.fetchall()
-    return [League(id=row[0], name=row[1], country=row[2], level=row[3]) for row in rows]
+    if rows:
+        leagues = [map_to_league_domain(row) for row in rows]
+    return [map_to_league_dto(league) for league in leagues]
 
 @router.post("/addleague")
 async def addleague(league: CreateLeagueDTO):
@@ -39,26 +42,24 @@ async def addleague(league: CreateLeagueDTO):
     return {"message": "League added successfully"}
 
 @router.get("/details/{league_id}")
-async def get_league_by_id(league_id: int) -> League:
+async def get_league_by_id(league_id: int) -> LeagueDTO:
     cur = conn.cursor()
     cur.execute("SELECT * FROM leagues WHERE id = %s", (league_id,))
     row = cur.fetchone()
     if row:
-        return League(
-            id=row[0],
-            name=row[1],
-            country=row[2],
-            level=row[3],
-        )
+        league = map_to_league_domain(row)
+        return map_to_league_dto(league)
     return None
 
 @router.get("/getleaguesbycountrybylevel")
-async def get_leagues_by_country_and_level(country: str, level: int) -> list[League]:
+async def get_leagues_by_country_and_level(country: str, level: int) -> list[LeagueDTO]:
     print("here")
     cur = conn.cursor()
     cur.execute("SELECT * FROM leagues WHERE Country = %s AND level = %s", (country, level))
     rows = cur.fetchall()
-    return [League(id=row[0], name=row[1], country=row[2], level=row[3]) for row in rows]
+    if rows:
+        leagues = [map_to_league_domain(row) for row in rows]
+    return [map_to_league_dto(league) for league in leagues]
 
 @router.patch("/update/{league_id}")
 async def update_league(league_id: int, league: UpdateLeagueDTO):

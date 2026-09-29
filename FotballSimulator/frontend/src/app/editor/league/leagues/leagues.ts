@@ -3,7 +3,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { EventService } from '../../../../shared/services/EventServices';
 import { LeagueService } from '../leagueService';
-import { League } from '../../../../shared/models/league';
+import { LeagueDTO } from '../../../../shared/models/league';
 import { LeaguesItem } from "./leagues-item/leagues-item";
 
 @Component({
@@ -14,7 +14,7 @@ import { LeaguesItem } from "./leagues-item/leagues-item";
 })
 export class Leagues implements OnInit {
 
-  leagues: League[] = [];
+  leagues: LeagueDTO[] = [];
 
   constructor(private leagueService: LeagueService, private cdr: ChangeDetectorRef, private eventservice: EventService) {
     this.eventservice.getEvent('removedLeague', () => {
@@ -30,7 +30,7 @@ export class Leagues implements OnInit {
   }
 
   loadLeagues(): void {
-    this.leagueService.getLeagues().subscribe((data: League[]) => {
+    this.leagueService.getLeagues().subscribe((data: LeagueDTO[]) => {
       this.leagues = data;
       this.cdr.detectChanges();
     });

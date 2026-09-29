@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { League } from '../../../../../shared/models/league';
+import { LeagueDTO } from '../../../../../shared/models/league';
 import { LeagueRemove } from "./league-remove/league-remove";
 import { LeagueUpdate } from "./league-update/league-update";
 
@@ -14,7 +14,7 @@ import { LeagueUpdate } from "./league-update/league-update";
 })
 export class LeaguesItem {
 
-  @Input() league!: League;
+  @Input() league!: LeagueDTO;
   @Input() rowIndex!: number;
 
   displayEditDialog: boolean = false;

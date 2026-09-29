@@ -1,6 +1,6 @@
 import { ClubDTO } from "./club";
 
-export class League {
+export class LeagueDTO {
   constructor(
     public id: number,
     public name: string,
