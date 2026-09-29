@@ -21,7 +21,7 @@ class FootballerDetailsDTO(BaseModel):
     last_name: str = Field(..., description="The last name of the footballer")
     birth_date: date = Field(..., description="The birthday of the footballer")
     nationality: str = Field(..., description="The nationality of the footballer")
-    position: FootballerPositionsDTO = Field(default=FootballerPositionsDTO(), description="The player skills on each position")
+    positions: FootballerPositionsDTO = Field(default=FootballerPositionsDTO(), description="The player skills on each position")
     goalkeeping: int = Field(..., description="The goalkeeping skill of the footballer")
     defence: int = Field(..., description="The defensive skill of the footballer")
     midfield: int = Field(..., description="The midfield skill of the footballer")

@@ -59,7 +59,7 @@ async def getfootballers() -> list[FootballersDTO]:
     cur.execute("SELECT * FROM footballers")
     rows = cur.fetchall()
     if rows:
-        footballers = [map_to_footballer_domain(row, await get_footballer_positions_by_id(row[0])) for row in rows]
+        footballers = [map_to_footballer_domain(row, map_to_position_domain(await get_footballer_positions_by_id(row[0]))) for row in rows]
 
         for footballer in footballers:
             map_to_footballersDTO(footballer)
