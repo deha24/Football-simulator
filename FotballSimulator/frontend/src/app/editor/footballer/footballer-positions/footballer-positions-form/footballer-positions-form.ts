@@ -70,7 +70,6 @@ export class FootballerPositionsForm implements OnInit, OnChanges{
         newFootballerPositionST: this.footballerPositions.st,
       });
     }
-    console.log("otrzymane pozcyje: ", this.footballerPositions)
   }
 
 
@@ -93,6 +92,7 @@ export class FootballerPositionsForm implements OnInit, OnChanges{
 
     if (this.addfootballerPositionsForm.valid) {
       const newFootballerPositions = new FootballerPositionsDTO(gk!, lb!, cb!, rb!, lwb!, cdm!, rwb!, lm!, cm!, rm!, lw!, cam!, rw!, st!);
+      this.addfootballerPositionsForm.reset();
       return newFootballerPositions;
     } else {
       // Handle form errors if needed

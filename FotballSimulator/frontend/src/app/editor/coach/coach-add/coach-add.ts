@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter} from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild} from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../shared/formsImports';
 import { EventService } from '../../../../shared/services/EventServices';
@@ -22,15 +22,12 @@ interface CoachingStyles {
 export class CoachAdd {
 
   @Output() addCoach = new EventEmitter<Coach>();
+  @ViewChild(CoachLineupForm) lineupComponent!: CoachLineupForm;
+
   midfieldStyles = MIDFIELD_STYLES;
   balanceStyles = BALANCE_STYLES;
 
-  constructor(private coachService: CoachService, private eventService: EventService, private notificationService: NotificationService) {
-
-    this.eventService.getEvent('newCoachLineupReply', (newCoachLineup: CoachLineupDTO) => {
-      this.addNewCoach(newCoachLineup);
-    });
-  }
+  constructor(private coachService: CoachService, private eventService: EventService, private notificationService: NotificationService) { }
 
   addCoachform = new FormGroup({
     newCoachFirstName: new FormControl('', { validators: [Validators.required] }),
@@ -46,7 +43,10 @@ export class CoachAdd {
 
   validCoachForm(){
     if (this.addCoachform.valid) {
-      this.eventService.emitEvent('newCoachLineupRequest', {});
+      const validLineup = this.lineupComponent.newCoachLineup()
+      if(validLineup){
+        this.addNewCoach(validLineup);
+      }
     } else{
       // Handle form errors if needed
       this.notificationService.showError();

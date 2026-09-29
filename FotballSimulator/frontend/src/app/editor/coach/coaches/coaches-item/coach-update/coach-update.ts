@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../../../shared/formsImports';
 import { EventService } from '../../../../../../shared/services/EventServices';
@@ -17,14 +17,12 @@ export class CoachUpdate {
 
   @Input() coach!: Coach;
   @Output() updateCoachEvent = new EventEmitter<Coach>();
+  @ViewChild(CoachLineupForm) lineupComponent!: CoachLineupForm;
+  
   midfieldStyles = MIDFIELD_STYLES;
   balanceStyles = BALANCE_STYLES;
   
-  constructor(private coachService: CoachService, private eventService: EventService, private notificationService: NotificationService) {
-    this.eventService.getEvent('newCoachLineupReply', (updatedLinueup: CoachLineupDTO) => {
-      this.updateCoach(updatedLinueup);
-    });
-  }
+  constructor(private coachService: CoachService, private eventService: EventService, private notificationService: NotificationService) { }
 
   updateCoachForm!: FormGroup;
   coachLineup!: CoachLineupDTO;
@@ -48,7 +46,10 @@ export class CoachUpdate {
 
   validUpdateCoachForm() {
     if (this.updateCoachForm.valid) {
-      this.eventService.emitEvent('updateCoachLineupRequest');
+      const updatedLineup = this.lineupComponent.newCoachLineup();
+      if (updatedLineup){
+        this.updateCoach(updatedLineup);
+      }
     } else {
       // Handle form errors if needed
       this.notificationService.showError();
@@ -70,7 +71,6 @@ export class CoachUpdate {
     const lastName = this.updateCoachForm.value.coachLastname;
     const birthDate = formatDate(this.updateCoachForm.value.coachBirthDate!, 'yyyy-MM-dd', 'en-US');
     const nationality = this.updateCoachForm.value.coachNationality;
-    const goalkeeping = this.updateCoachForm.value.coachGoalkeeping;
     const defence = this.updateCoachForm.value.coachDefence;
     const midfield = this.updateCoachForm.value.coachMidfield;
     const attack = this.updateCoachForm.value.coachAttack;

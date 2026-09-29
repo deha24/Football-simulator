@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FORMS_IMPORTS, FormControl, FormGroup } from '../../../../../shared/formsImports';
-import { EventService } from '../../../../../shared/services/EventServices';
 import { exactElevenPositionsValidator } from '../coach-lineup-form-validators';
 import { CoachLineupDTO } from '../../../../../shared/models/coach';
 
@@ -15,7 +14,7 @@ export class CoachLineupForm implements OnInit{
   @Input() coachLineup!: CoachLineupDTO;
   coachId!: number;
 
-  constructor(private eventService: EventService) {}
+  constructor() {}
 
   addCoachLineupForm = new FormGroup({
     newCoachLineupGK: new FormControl(<null | boolean> true, { }),
@@ -47,14 +46,6 @@ export class CoachLineupForm implements OnInit{
   );
 
   ngOnInit() {
-
-    this.eventService.getEvent('newCoachLineupRequest', () => { 
-      this.newCoachLineup(); 
-    });
-
-    this.eventService.getEvent('updateCoachLineupRequest', () => {
-      this.newCoachLineup();
-    });
 
     if (this.coachLineup) {
       this.addCoachLineupForm.patchValue({
@@ -119,9 +110,9 @@ export class CoachLineupForm implements OnInit{
 
     if (this.addCoachLineupForm.valid) {
       const newCoachLineup = new CoachLineupDTO(true, lb!, cb1!, cb2!, cb3!, rb!, lwb!, cdm1!, cdm2!, cdm3!, rwb!, lm!, cm1!, cm2!, cm3!, rm!, lw!, cam1!, cam2!, cam3!, rw!, st1!, st2!, st3!);
-      this.eventService.emitEvent('newCoachLineupReply', newCoachLineup);
       this.addCoachLineupForm.reset();
       this.setGkTrue();
+      return newCoachLineup;
     } else {
       // Handle form errors if needed
       console.error('Form is invalid');
@@ -132,6 +123,7 @@ export class CoachLineupForm implements OnInit{
           console.log(`Pole o nazwie "${key}" ma błędy:`, control.errors);
         }
       });
+      return null;
     }
   }
 }

@@ -1,7 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FORMS_IMPORTS, FormGroup, FormControl, Validators} from '../../../../shared/formsImports';
-import { EventService } from '../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../shared/services/NotificationService';
 import { CreateFootballerDTO, FootballerPositionsDTO } from '../../../../shared/models/footballer';
 import { FootballersService } from '../footballersService';
@@ -16,14 +15,11 @@ import { FootballerPositionsForm } from '../footballer-positions/footballer-posi
 export class FootballerAdd {
 
   @Output() addFootballer = new EventEmitter<CreateFootballerDTO>();
+  @ViewChild(FootballerPositionsForm) positionsComponent!: FootballerPositionsForm;
 
-  constructor(private footballersService: FootballersService, private eventService: EventService, private notificationService: NotificationService) {}
+  constructor(private footballersService: FootballersService, private notificationService: NotificationService) {}
 
-  ngOnInit() {
-    this.eventService.getEvent('newFootballerPositionsReply', (newFootballerPositions: FootballerPositionsDTO) => {
-      this.addNewFootballer(newFootballerPositions);
-    });
-  }
+  ngOnInit() { }
 
   addfootballerform = new FormGroup({
     newFootballerFirstName: new FormControl('', { validators: [Validators.required] }),
@@ -38,7 +34,10 @@ export class FootballerAdd {
 
   validFootballerForm(){
     if (this.addfootballerform.valid) {
-      this.eventService.emitEvent('newFootballerPositionsRequest', {});
+      const validPositions = this.positionsComponent.addNewFootballerPositions();
+      if (validPositions){
+        this.addNewFootballer(validPositions);
+      }
     } else{
       // Handle form errors if needed
       console.error('Form is invalid');
@@ -64,7 +63,7 @@ export class FootballerAdd {
     const attack = this.addfootballerform.value.newFootballerAttack;
 
     const newFootballer = new CreateFootballerDTO(firstName!, lastName!, birthDate!, nationality!, newFootballerPositions!, goalkeeping!, defence!, midfield!, attack!);
-      this.notificationService.showSuccess('Footballer Added');
+    this.notificationService.showSuccess('Footballer Added');
       this.footballersService.addFootballer(newFootballer).subscribe(() => {
       this.addfootballerform.reset();
       });   

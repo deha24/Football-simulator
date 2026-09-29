@@ -7,7 +7,7 @@ def map_to_footballer_domain(row: tuple, positions: FootballerPositionsDomain) -
     return FootballerDomain(
         id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3],
         nationality=row[4], goalkeeping=row[5], defence=row[6], 
-        midfield=row[7], attack=row[8], positions=positions, shortPosition=positions.calculate_short_position()
+        midfield=row[7], attack=row[8], positions=positions
     )
 
 def map_to_position_domain(positions: FootballerPositionsDTO) -> FootballerPositionsDomain:

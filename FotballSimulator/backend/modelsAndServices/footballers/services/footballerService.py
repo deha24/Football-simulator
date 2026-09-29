@@ -86,7 +86,7 @@ async def add_footballer_positions(footballer_id: int, positions: FootballerPosi
 
 @router.post("/addfootballer")
 async def addfootballer(footballer: CreateFootballerDTO):
-    positions = FootballerPositionsDomain(**footballer.position.modeldump())
+    positions = FootballerPositionsDomain(**footballer.positions.model_dump())
     new_footballer = FootballerDomain(
         id=None,
         first_name=footballer.first_name,
@@ -120,8 +120,8 @@ async def update_footballer(footballer_id: int, footballer: UpdateFootballerDTO)
 
     updatedData = footballer.model_dump(exclude_unset=True)
     
-    position_data = updatedData.pop("position", None)
-    
+    positions_data = updatedData.pop("positions", None)
+
     cur = conn.cursor()
 
     if updatedData:
@@ -137,8 +137,8 @@ async def update_footballer(footballer_id: int, footballer: UpdateFootballerDTO)
         query = f"UPDATE footballers SET {set_query} WHERE id = %s"
         cur.execute(query, tuple(values))
 
-    if position_data:
-        positions_obj = FootballerPositionsDTO(**position_data)
+    if positions_data:
+        positions_obj = FootballerPositionsDTO(**positions_data)
         await update_footballer_positions(footballer_id, positions_obj)
 
     conn.commit()

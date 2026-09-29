@@ -48,7 +48,6 @@ export class FootballerUpdate {
   }
 
   validUpdateFootballerForm() {
-    console.log("updatding footbalelr: ", this.footballer.id);
     if (this.updateFootballerForm.valid) {
       const updatedPositions = this.positionsComponent.addNewFootballerPositions();
       if (updatedPositions){
@@ -93,7 +92,7 @@ export class FootballerUpdate {
           if (key === 'newFootballerAttack') data.attack = attack;
         }
       });
-      if (updatedPositions) data.position = updatedPositions;
+      if (updatedPositions) data.positions = updatedPositions;
 
       this.footballersService.updateFootballer(data, this.footballer.id!).subscribe(() => {
         this.notificationService.showSuccess('Footballer Updated');
