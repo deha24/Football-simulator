@@ -28,8 +28,6 @@ export class FootballerUpdate {
 
   ngOnInit() {
 
-    console.log(this.footballer.id);
-
     this.updateFootballerForm = new FormGroup({
       newFootballerFirstName: new FormControl(this.footballer.first_name, {validators: [Validators.required]}),
       newFootballerLastname: new FormControl(this.footballer.last_name, {validators: [Validators.required]}),

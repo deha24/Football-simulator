@@ -53,7 +53,6 @@ async def get_league_by_id(league_id: int) -> LeagueDTO:
 
 @router.get("/getleaguesbycountrybylevel")
 async def get_leagues_by_country_and_level(country: str, level: int) -> list[LeagueDTO]:
-    print("here")
     cur = conn.cursor()
     cur.execute("SELECT * FROM leagues WHERE Country = %s AND level = %s", (country, level))
     rows = cur.fetchall()
@@ -72,8 +71,6 @@ async def update_league(league_id: int, league: UpdateLeagueDTO):
         set_clauses.append(f"{key} = %s")
         values.append(value)
 
-    print("Updated Data:", updatedData, "League: ",league)  # Debugging line to print the updated data
-    
     set_query = ", ".join(set_clauses)
     values.append(league_id) 
     

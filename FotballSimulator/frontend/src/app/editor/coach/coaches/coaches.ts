@@ -5,7 +5,7 @@ import { ToastModule } from 'primeng/toast';
 import { CoachService } from '../coachService';
 import { EventService } from '../../../../shared/services/EventServices';
 import { SortEvent } from 'primeng/api';
-import { Coach } from '../../../../shared/models/coach';
+import { CoachesDTO } from '../../../../shared/models/coach';
 import { CoachesItem, } from './coaches-item/coaches-item';
 
 @Component({
@@ -17,14 +17,14 @@ import { CoachesItem, } from './coaches-item/coaches-item';
 export class Coaches {
 
   @ViewChild('dt') dt!: Table;
-  coaches: Coach[] = [];
-  initialValue: Coach[] = [];
+  coaches: CoachesDTO[] = [];
+  initialValue: CoachesDTO[] = [];
   isSorted: boolean | null = null;
 
-  @Output() coach!: Coach;
+  @Output() coach!: CoachesDTO;
 
   loadCoaches(): void {
-    this.coachService.getCoaches().subscribe((data: Coach[]) => {
+    this.coachService.getCoaches().subscribe((data: CoachesDTO[]) => {
       this.coaches = data;
       this.cdr.detectChanges();
       this.initialValue = [...data];

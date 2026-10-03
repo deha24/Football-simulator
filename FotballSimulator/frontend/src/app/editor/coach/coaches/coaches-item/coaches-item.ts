@@ -4,7 +4,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from "primeng/dialog";
 import { EventService } from '../../../../../shared/services/EventServices';
-import { Coach } from '../../../../../shared/models/coach';
+import { CoachesDTO } from '../../../../../shared/models/coach';
 import { CoachRemove } from './coach-remove/coach-remove';
 import { CoachUpdate } from './coach-update/coach-update';
 
@@ -17,7 +17,7 @@ import { CoachUpdate } from './coach-update/coach-update';
 })
 export class CoachesItem {
 
-  @Input() coach!: Coach;
+  @Input() coach!: CoachesDTO;
   @Input() rowIndex!: number;
 
   displayEditDialog: boolean = false;

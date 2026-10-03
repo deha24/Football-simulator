@@ -26,7 +26,6 @@ export class LeagueService {
   }
 
   updateLeague(leagueId: number,league: LeagueDTO) {
-      console.log('League updated successfully', league);
       return this.http.patch(`http://127.0.0.1:8000/leagues/update/${leagueId}`, league);
   }
 

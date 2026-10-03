@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Coach, CreateCoachDTO, CoachLineupDTO } from '../../../shared/models/coach';
+import { CoachDetailsDTO, CoachesDTO, CoachLineupDTO, CreateCoachDTO } from '../../../shared/models/coach';
 
 
 @Injectable({
@@ -12,11 +12,11 @@ export class CoachService {
   constructor(private http: HttpClient) {}
 
   getCoaches() {
-    return this.http.get<Coach[]>('http://127.0.0.1:8000/coaches/getcoaches');
+    return this.http.get<CoachesDTO[]>('http://127.0.0.1:8000/coaches/getcoaches');
   }
 
   getCoachById(id: number) {
-    return this.http.get(`http://127.0.0.1:8000/coaches/details/${id}`);
+    return this.http.get<CoachDetailsDTO>(`http://127.0.0.1:8000/coaches/details/${id}`);
   }
 
   getCoachLineupById(id: number) {
@@ -27,7 +27,7 @@ export class CoachService {
     return this.http.post('http://127.0.0.1:8000/coaches/addcoach', coach);
   }
 
-  updateCoach(coach: Coach, id: number) {
+  updateCoach(coach: Partial<CoachDetailsDTO>, id: number) {
     return this.http.patch(`http://127.0.0.1:8000/coaches/update/${id}`, coach);
   }
 

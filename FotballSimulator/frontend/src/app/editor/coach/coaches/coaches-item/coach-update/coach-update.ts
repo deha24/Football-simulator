@@ -5,7 +5,7 @@ import { EventService } from '../../../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../../../shared/services/NotificationService';
 import { CoachService } from '../../../coachService';
 import { CoachLineupForm } from '../../../coach-lineup/coach-lineup-form/coach-lineup-form';
-import { Coach, CoachLineupDTO, MIDFIELD_STYLES, BALANCE_STYLES } from '../../../../../../shared/models/coach';
+import { CoachDetailsDTO, CoachesDTO, CoachLineupDTO, MIDFIELD_STYLES, BALANCE_STYLES } from '../../../../../../shared/models/coach';
 
 @Component({
   selector: 'coach-update',
@@ -15,8 +15,8 @@ import { Coach, CoachLineupDTO, MIDFIELD_STYLES, BALANCE_STYLES } from '../../..
 })
 export class CoachUpdate {
 
-  @Input() coach!: Coach;
-  @Output() updateCoachEvent = new EventEmitter<Coach>();
+  @Input() coach!: CoachesDTO;
+  @Output() updateCoachEvent = new EventEmitter<CoachesDTO>();
   @ViewChild(CoachLineupForm) lineupComponent!: CoachLineupForm;
   
   midfieldStyles = MIDFIELD_STYLES;
@@ -41,7 +41,9 @@ export class CoachUpdate {
       coachBalanceStyle: new FormControl(this.coach.balance_style, {validators: [Validators.required]}),
     });
 
-    this.coachLineup = this.coach.lineup;
+    this.coachService.getCoachById(this.coach.id).subscribe((details: CoachDetailsDTO) => {
+      this.coachLineup = details.lineup;
+    });
   }
 
   validUpdateCoachForm() {
@@ -66,7 +68,7 @@ export class CoachUpdate {
 
   updateCoach(updatedLinueup: CoachLineupDTO) {
 
-    const data: any = {};
+    const data: Partial<CoachDetailsDTO> = {};
     const firstName = this.updateCoachForm.value.coachFirstName;
     const lastName = this.updateCoachForm.value.coachLastname;
     const birthDate = formatDate(this.updateCoachForm.value.coachBirthDate!, 'yyyy-MM-dd', 'en-US');

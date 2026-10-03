@@ -19,7 +19,6 @@ export class LeagueDetails {
     const leagueId = this.route.snapshot.paramMap.get('id');
     if (leagueId) {
       this.leagueService.getLeagueById(parseInt(leagueId)).subscribe((data: any) => {
-        console.log(data);
         this.league = data;
         this.cdr.detectChanges();
       });

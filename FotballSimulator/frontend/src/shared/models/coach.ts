@@ -1,4 +1,4 @@
-export class Coach{
+export class CoachDetailsDTO{
     constructor(
         public id: number,
         public first_name: string,
@@ -6,6 +6,22 @@ export class Coach{
         public birth_date: string,
         public nationality: string,
         public lineup: CoachLineupDTO,
+        public defence: number,
+        public midfield: number,
+        public attack: number,
+        public midfield_style: string,
+        public balance_style: string,
+    ) {}
+}
+
+export class CoachesDTO{
+    constructor(
+        public id: number,
+        public first_name: string,
+        public last_name: string,
+        public birth_date: string,
+        public nationality: string,
+        public short_lineup: string,
         public defence: number,
         public midfield: number,
         public attack: number,

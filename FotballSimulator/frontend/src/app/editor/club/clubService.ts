@@ -17,12 +17,10 @@ export class ClubService {
   }
 
   addClub(club: CreateClubDTO) {
-    console.log(club);
     return this.http.post<CreateClubDTO>('http://127.0.0.1:8000/clubs/addclub', club);
   }
 
   updateClub(clubId: number,club: ClubDTO) {
-    console.log('Club updated successfully', club);
     return this.http.patch(`http://127.0.0.1:8000/clubs/update/${clubId}`, club);
   }
 

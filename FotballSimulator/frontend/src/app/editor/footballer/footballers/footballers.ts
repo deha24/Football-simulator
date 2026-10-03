@@ -44,7 +44,6 @@ export class Footballers implements OnInit{
       this.cdr.detectChanges();
       this.initialValue = [...data];
     });
-    console.log
   }
 
   customSort(event: SortEvent) {

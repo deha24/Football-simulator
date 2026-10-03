@@ -4,7 +4,7 @@ import { TableModule } from 'primeng/table';
 import { SortEvent } from 'primeng/api';
 import { EventService } from '../../../../../shared/services/EventServices';
 import { AssignCoachService } from '../services/assignCoachService';
-import { Coach } from '../../../../../shared/models/coach';
+import { CoachDetailsDTO } from '../../../../../shared/models/coach';
 import { CoachInClubItem } from './coach-in-club-item/coach-in-club-item';
 
 @Component({
@@ -15,12 +15,12 @@ import { CoachInClubItem } from './coach-in-club-item/coach-in-club-item';
 })
 export class CoachInClub {
 
-  @Output() coach!: Coach;
+  @Output() coach!: CoachDetailsDTO;
   @Input() clubId!: number | undefined;
 
   @ViewChild('dt') dt!: Table;
-  coaches: Coach[] = [];
-  initialValue: Coach[] = [];
+  coaches: CoachDetailsDTO[] = [];
+  initialValue: CoachDetailsDTO[] = [];
   isSorted: boolean | null = null;
 
   constructor(private cdr: ChangeDetectorRef, private assignCoachService: AssignCoachService, private eventService: EventService) {
@@ -38,7 +38,7 @@ export class CoachInClub {
   }
 
   loadCoachesByClubId(id: number): void {
-    this.assignCoachService.getCoachesByClubId(this.clubId!).subscribe((data: Coach[]) => {
+    this.assignCoachService.getCoachesByClubId(this.clubId!).subscribe((data: CoachDetailsDTO[]) => {
       this.coaches = data;
       this.initialValue = [...data];
       this.cdr.markForCheck();

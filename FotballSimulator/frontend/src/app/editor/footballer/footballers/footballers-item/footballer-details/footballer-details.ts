@@ -20,7 +20,6 @@ export class FootballerDetails {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
     this.footballersService.getFootballerById(parseInt(id)).subscribe((data: FootballerDetailsDTO) => {
-      console.log('Footballer data:', data);
       this.footballer = data;
       this.footballerPositions = data.positions;
       this.cdr.detectChanges();

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Coach } from '../../../../../../shared/models/coach';
+import { CoachDetailsDTO } from '../../../../../../shared/models/coach';
 import { CoachAssignCoach } from './coach-assign-coach/coach-assign-coach';
 
 @Component({
@@ -10,7 +10,7 @@ import { CoachAssignCoach } from './coach-assign-coach/coach-assign-coach';
 })
 export class CoachInClubItem {
 
-  @Input() coach!: Coach;
+  @Input() coach!: CoachDetailsDTO;
 
   constructor() {}
 

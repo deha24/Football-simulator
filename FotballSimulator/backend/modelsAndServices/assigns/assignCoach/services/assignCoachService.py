@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, status
 import psycopg2
-from ....coaches.models.coach import Coach
-from ....coaches.models.coachLineup import CoachLineupDTO
+from ....coaches.models.coach import CoachesDTO
 from ....coaches.services.coachService import get_coach_lineup_by_id
+from ....coaches.services.coachMappers import map_to_coach_domain, map_to_coachesDTO
 from ..models.assignCoach import ClubsIds
 
 router = APIRouter(
@@ -28,24 +28,13 @@ except Exception as e:
     pass
 
 @router.get("/getcoaches/{club_id}")
-async def get_coach_by_club_id(club_id: int) -> list[Coach]:
+async def get_coach_by_club_id(club_id: int) -> list[CoachesDTO]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM coaches WHERE club_id = %s", (club_id,))
     rows = cur.fetchall()
     if rows:
-        return [Coach(
-            id=row[0], 
-            first_name=row[1], 
-            last_name=row[2], 
-            birth_date=row[3], 
-            nationality=row[4], 
-            defence=row[5], 
-            midfield=row[6], 
-            attack=row[7], 
-            midfield_style=row[8], 
-            balance_style=row[9], 
-            lineup= await get_coach_lineup_by_id(row[0]))
-            for row in rows]
+        coaches = [map_to_coach_domain(row, await get_coach_lineup_by_id(row[0])) for row in rows]
+        return [map_to_coachesDTO(coach) for coach in coaches]
     return []
 
 @router.post("/{coach_id}")

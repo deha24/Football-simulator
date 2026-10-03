@@ -15,7 +15,6 @@ export class AssignFootballerService {
   }
 
   assignFootballerToClub(id: number, clubsIds: ClubsIds){
-    console.log("here");
     return this.http.post(`http://127.0.0.1:8000/assign/footballer/${id}`, clubsIds);
   }
 }

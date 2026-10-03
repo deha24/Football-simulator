@@ -43,7 +43,6 @@ async def get_club_by_league_id(league_id: int) -> list[ClubDTO]:
 
 @router.post("/{club_id}")
 async def assignClubToLeague(club_id: int, leaguesIds: LeaguesIds):
-    print("here")
     club_league_id = await checkClubLeagueId(club_id)
     cur = conn.cursor()
     if club_league_id == leaguesIds.league1Id:

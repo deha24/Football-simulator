@@ -3,7 +3,6 @@ import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from
 import { CoachService } from "./../coachService";
 import { map } from "rxjs/operators";
 import { Observable, of } from "rxjs";
-import { Coach } from '../../../../shared/models/coach';
 
 export function exactElevenPositionsValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

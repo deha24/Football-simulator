@@ -4,7 +4,7 @@ import { FORMS_IMPORTS, FormControl, FormGroup, Validators } from '../../../../s
 import { EventService } from '../../../../shared/services/EventServices';
 import { NotificationService } from '../../../../shared/services/NotificationService';
 import { CoachService } from '../coachService';
-import { CreateCoachDTO, Coach, CoachLineupDTO, MIDFIELD_STYLES, BALANCE_STYLES } from '../../../../shared/models/coach';
+import { CreateCoachDTO, CoachLineupDTO, MIDFIELD_STYLES, BALANCE_STYLES } from '../../../../shared/models/coach';
 import { CoachLineupForm } from '../coach-lineup/coach-lineup-form/coach-lineup-form';
 
 
@@ -21,7 +21,7 @@ interface CoachingStyles {
 })
 export class CoachAdd {
 
-  @Output() addCoach = new EventEmitter<Coach>();
+  @Output() addCoach = new EventEmitter<CreateCoachDTO>();
   @ViewChild(CoachLineupForm) lineupComponent!: CoachLineupForm;
 
   midfieldStyles = MIDFIELD_STYLES;

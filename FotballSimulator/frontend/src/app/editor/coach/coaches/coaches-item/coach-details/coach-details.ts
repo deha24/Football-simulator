@@ -1,7 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoachService } from '../../../coachService';
-import { Coach, CoachLineupDTO } from '../../../../../../shared/models/coach';
+import { CoachDetailsDTO, CoachLineupDTO } from '../../../../../../shared/models/coach';
 import { CoachLineupView } from '../../../coach-lineup/coach-lineup-view/coach-lineup-view';
 
 @Component({
@@ -12,18 +12,16 @@ import { CoachLineupView } from '../../../coach-lineup/coach-lineup-view/coach-l
 })
 export class CoachDetails {
 
-  coach!: Coach;
+  coach!: CoachDetailsDTO;
   coachLineup!: CoachLineupDTO;
 
   constructor(private coachesService: CoachService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.coachesService.getCoachById(parseInt(id)).subscribe((data: any) => {
-      console.log('Coach data:', data);
+    this.coachesService.getCoachById(parseInt(id)).subscribe((data: CoachDetailsDTO) => {
       this.coach = data;
       this.coachLineup = data.lineup;
-      console.log("Coach Lineup", this.coachLineup);
       this.cdr.detectChanges();
     });
   }
