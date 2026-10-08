@@ -1,9 +1,0 @@
-<li class="d-flex justify-content-between list-group-item">
-  <div class="d-flex align-items-center">
-    <span class="me-2">{{ footballer.first_name }}</span>
-    <span class="me-2">{{ footballer.last_name }}</span>
-  </div>
-  <button class="btn btn-secondary" aria-label="search" (click)="$event.preventDefault(); detailsFootballer(footballer.id)">Edit</button>
-  <footballer-remove [footballer]="footballer"></footballer-remove>
-
-</li>

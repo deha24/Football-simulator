@@ -1,0 +1,110 @@
+<form [formGroup]="updateFootballerForm" (ngSubmit)="$event.preventDefault(); validUpdateFootballerForm()">
+
+  <p-card>
+
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+
+      <div class="col-sm-9">
+        <h5 #title> Update Footballer </h5>
+      </div>
+
+      <div class="col-sm-3 d-flex justify-content-end">
+        <p-button label="Update Footballer" type="submit" variant="outlined" [raised]="true" severity="success" />
+      </div>
+
+    </div>
+
+    <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Personal Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+          <input pInputText placeholder="{{ footballer.first_name }}" formControlName="newFootballerFirstName" />
+          <input pInputText placeholder="{{ footballer.last_name }}" formControlName="newFootballerLastname" />
+          </p-inputgroup>
+          @if (updateFootballerForm.get('newFootballerFirstName')?.invalid && updateFootballerForm.get('newFootballerFirstName')?.touched) {
+            <small class="text-danger">First name is required.</small>
+            <br />
+          }
+          @if (updateFootballerForm.get('newFootballerLastname')?.invalid && updateFootballerForm.get('newFootballerLastname')?.touched) {
+            <small class="text-danger">Last name is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+          <p-inputgroup-addon>
+              <i class="pi pi-calendar"></i>
+          </p-inputgroup-addon>
+            <p-datepicker placeholder="{{ footballer.birth_date }}" dateFormat="dd.mm.yy" formControlName="newFootballerBirthDate" fluid/>
+          </p-inputgroup>
+          @if(updateFootballerForm.get('newFootballerBirthDate')?.invalid && updateFootballerForm.get('newFootballerBirthDate')?.touched) {
+            <small class="text-danger">Birth date is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+              <p-inputgroup-addon>
+                  <i class="pi pi-flag"></i>
+              </p-inputgroup-addon>
+            <input pInputText placeholder="{{ footballer.nationality }}" formControlName="newFootballerNationality" />
+          </p-inputgroup>
+          @if(updateFootballerForm.get('newFootballerNationality')?.invalid && updateFootballerForm.get('newFootballerNationality')?.touched) {
+            <small class="text-danger">Nationality is required.</small>
+          }
+        </p-card>
+      </div>
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Footballer Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-star"></i>
+            </p-inputgroup-addon>
+            <input pInputText type="number" placeholder="{{ footballer.goalkeeping }}" inputId="integeronly" formControlName="newFootballerGoalkeeping" />
+            <input pInputText type="number" placeholder="{{ footballer.defence }}" inputId="integeronly" formControlName="newFootballerDefence" />
+            <input pInputText type="number" placeholder="{{ footballer.midfield }}" inputId="integeronly" formControlName="newFootballerMidfield" />
+            <input pInputText type="number" placeholder="{{ footballer.attack }}" inputId="integeronly" formControlName="newFootballerAttack" />
+          </p-inputgroup>
+          @if(updateFootballerForm.get('newFootballerGoalkeeping')?.invalid && updateFootballerForm.get('newFootballerGoalkeeping')?.touched) {
+            @if(updateFootballerForm.get('newFootballerGoalkeeping')?.errors?.['required']) {
+              <small class="text-danger">Goalkeeping rating is required.</small>
+            }
+            @if(updateFootballerForm.get('newFootballerGoalkeeping')?.errors?.['min'] || updateFootballerForm.get('newFootballerGoalkeeping')?.errors?.['max']) {
+              <small class="text-danger">Goalkeeping rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(updateFootballerForm.get('newFootballerDefence')?.invalid && updateFootballerForm.get('newFootballerDefence')?.touched) {
+            @if(updateFootballerForm.get('newFootballerDefence')?.errors?.['required']) {
+              <small class="text-danger">Defence rating is required.</small>
+              
+            }
+            @if(updateFootballerForm.get('newFootballerDefence')?.errors?.['min'] || updateFootballerForm.get('newFootballerDefence')?.errors?.['max']) {
+              <small class="text-danger">Defence rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(updateFootballerForm.get('newFootballerMidfield')?.invalid && updateFootballerForm.get('newFootballerMidfield')?.touched) {
+            @if(updateFootballerForm.get('newFootballerMidfield')?.errors?.['required']) {
+              <small class="text-danger">Midfield rating is required.</small>
+            }
+            @if(updateFootballerForm.get('newFootballerMidfield')?.errors?.['min'] || updateFootballerForm.get('newFootballerMidfield')?.errors?.['max']) {
+              <small class="text-danger">Midfield rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(updateFootballerForm.get('newFootballerAttack')?.invalid && updateFootballerForm.get('newFootballerAttack')?.touched) {
+            @if(updateFootballerForm.get('newFootballerAttack')?.errors?.['required']) {
+              <small class="text-danger">Attack rating is required.</small>
+            }
+            @if(updateFootballerForm.get('newFootballerAttack')?.errors?.['min'] || updateFootballerForm.get('newFootballerAttack')?.errors?.['max']) {
+              <small class="text-danger">Attack rating must be between 1 and 99.</small>
+            }
+          }
+          <footballer-positions-form [footballerPositions]="footballerPositions"></footballer-positions-form>
+        </p-card>
+      </div>
+    </div>
+  </p-card>
+</form>

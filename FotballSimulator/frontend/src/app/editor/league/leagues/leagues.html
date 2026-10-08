@@ -1,0 +1,39 @@
+<p-toast position="bottom-right"/>
+
+<p-table #dt [value]="leagues" showGridlines [resizableColumns]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [scrollable]="true" sortMode="multiple" removableSort dataKey="id" dataKey="id" editMode="row">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="name" />
+                    <p-column-filter type="text" field="name" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="location" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Location
+                    <p-sortIcon field="location" />
+                    <p-column-filter type="text" field="location" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="foundDate" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Level
+                    <p-sortIcon field="foundDate" />
+                    <p-column-filter type="date" field="foundDate" display="menu" />
+                </div>
+            </th>
+            <th>
+                <div class="flex items-center gap-2">
+                    Actions
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-league let-ri="rowIndex">
+        <tr leagues-item [league]="league" [rowIndex]="ri"></tr>
+    </ng-template>
+</p-table>

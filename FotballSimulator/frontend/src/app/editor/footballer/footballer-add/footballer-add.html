@@ -1,31 +1,107 @@
-<form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center" [formGroup]="addfootballerform" (ngSubmit)="$event.preventDefault(); addNewFootballer()">
-  <div class="col-sm-3">
-    <input type="text" name="new-footballer-text" class="form-control" formControlName="newFootballerFirstName" placeholder="Enter footballer first name" />
-    @if (addfootballerform.get('newFootballerFirstName')?.invalid && addfootballerform.get('newFootballerFirstName')?.touched) {
-      <small class="text-danger">First name is required.</small>
-    }
-  </div>
-  <div class="col-sm-3">
-    <input type="text" name="new-footballer-lastname" class="form-control" formControlName="newFootballerLastname" placeholder="Enter footballer last name" />
-    @if (addfootballerform.get('newFootballerLastname')?.invalid && addfootballerform.get('newFootballerLastname')?.touched) {
-      <small class="text-danger">Last name is required.</small>
-    }
-  </div>
-  <div class="col-sm-3">
-    <select class="form-select" aria-label="Default select example" formControlName="newFootballerLeague">
-      <option value="" disabled selected>Select league</option>
-      @for (league of leagues; track league) {
-        <option [value]="league.id">{{ league.name }}</option>
-      }
-      @if (addfootballerform.get('newFootballerLeague')?.invalid && addfootballerform.get('newFootballerLeague')?.dirty) {
-        <small class="text-danger">League selection is required.</small>
-      }
-    </select>
-  </div>
-  <div class="col-auto">
-    <button
-      type="submit"
-      class="btn btn-primary"
-    >Add Footballer</button>
-  </div>
+<p-toast position="bottom-right"/>
+<form [formGroup]="addfootballerform" (ngSubmit)="validFootballerForm()">
+
+  <p-card>
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+
+      <div class="col-sm-9">
+        <h5 #title> Add New Footballer </h5>
+      </div>
+      <div class="col-sm-3 d-flex justify-content-end">
+        <p-button label="Add Footballer" type="submit" variant="outlined" [raised]="true" severity="success" />
+      </div>
+    </div>
+
+    <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Personal Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+          <input pInputText placeholder="First Name" formControlName="newFootballerFirstName" />
+          <input pInputText placeholder="Last Name" formControlName="newFootballerLastname" />
+          </p-inputgroup>
+          @if (addfootballerform.get('newFootballerFirstName')?.invalid && addfootballerform.get('newFootballerFirstName')?.touched) {
+            <small class="text-danger">First name is required.</small>
+            <br />
+          }
+          @if (addfootballerform.get('newFootballerLastname')?.invalid && addfootballerform.get('newFootballerLastname')?.touched) {
+            <small class="text-danger">Last name is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+          <p-inputgroup-addon>
+              <i class="pi pi-calendar"></i>
+          </p-inputgroup-addon>
+            <p-datepicker placeholder="Birth Date" dateFormat="dd.mm.yy" formControlName="newFootballerBirthDate" fluid/>
+          </p-inputgroup>
+          @if(addfootballerform.get('newFootballerBirthDate')?.invalid && addfootballerform.get('newFootballerBirthDate')?.touched) {
+            <small class="text-danger">Birth date is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+              <p-inputgroup-addon>
+                  <i class="pi pi-flag"></i>
+              </p-inputgroup-addon>
+            <input pInputText placeholder="Nationality" formControlName="newFootballerNationality" />
+          </p-inputgroup>
+          @if(addfootballerform.get('newFootballerNationality')?.invalid && addfootballerform.get('newFootballerNationality')?.touched) {
+            <small class="text-danger">Nationality is required.</small>
+          }
+        </p-card>
+      </div>
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Footballer Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-star"></i>
+            </p-inputgroup-addon>
+            <input pInputText type="number" placeholder="goalkeeping" inputId="integeronly" formControlName="newFootballerGoalkeeping" />
+            <input pInputText type="number" placeholder="defence" inputId="integeronly" formControlName="newFootballerDefence" />
+            <input pInputText type="number" placeholder="midfield" inputId="integeronly" formControlName="newFootballerMidfield" />
+            <input pInputText type="number" placeholder="attack" inputId="integeronly" formControlName="newFootballerAttack" />
+          </p-inputgroup>
+          @if(addfootballerform.get('newFootballerGoalkeeping')?.invalid && addfootballerform.get('newFootballerGoalkeeping')?.touched) {
+            @if(addfootballerform.get('newFootballerGoalkeeping')?.errors?.['required']) {
+              <small class="text-danger">Goalkeeping rating is required.</small>
+            }
+            @if(addfootballerform.get('newFootballerGoalkeeping')?.errors?.['min'] || addfootballerform.get('newFootballerGoalkeeping')?.errors?.['max']) {
+              <small class="text-danger">Goalkeeping rating must be between 1 and 99.</small>
+            }
+          }
+          @if(addfootballerform.get('newFootballerDefence')?.invalid && addfootballerform.get('newFootballerDefence')?.touched) {
+            @if(addfootballerform.get('newFootballerDefence')?.errors?.['required']) {
+              <small class="text-danger">Defence rating is required.</small>
+              
+            }
+            @if(addfootballerform.get('newFootballerDefence')?.errors?.['min'] || addfootballerform.get('newFootballerDefence')?.errors?.['max']) {
+              <small class="text-danger">Defence rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(addfootballerform.get('newFootballerMidfield')?.invalid && addfootballerform.get('newFootballerMidfield')?.touched) {
+            @if(addfootballerform.get('newFootballerMidfield')?.errors?.['required']) {
+              <small class="text-danger">Midfield rating is required.</small>
+            }
+            @if(addfootballerform.get('newFootballerMidfield')?.errors?.['min'] || addfootballerform.get('newFootballerMidfield')?.errors?.['max']) {
+              <small class="text-danger">Midfield rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(addfootballerform.get('newFootballerAttack')?.invalid && addfootballerform.get('newFootballerAttack')?.touched) {
+            @if(addfootballerform.get('newFootballerAttack')?.errors?.['required']) {
+              <small class="text-danger">Attack rating is required.</small>
+            }
+            @if(addfootballerform.get('newFootballerAttack')?.errors?.['min'] || addfootballerform.get('newFootballerAttack')?.errors?.['max']) {
+              <small class="text-danger">Attack rating must be between 1 and 99.</small>
+            }
+          }
+          <footballer-positions-form></footballer-positions-form>
+        </p-card>
+      </div>
+    </div>
+  </p-card>
 </form>

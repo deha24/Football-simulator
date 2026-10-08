@@ -1,0 +1,29 @@
+<td>
+  {{league.name}}
+</td>
+<td>
+  {{league.country}}
+</td>
+<td>
+  {{league.level}}
+</td>
+<td>
+  <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-left">
+    <div class="col-sm-4">
+      <button pButton type="button" (click)="openEditDialog()" severity="secondary">
+        <i class="pi pi-pencil"></i>
+      </button>
+      <p-dialog header="Edit League" [(visible)]="displayEditDialog" [modal]="true">
+        <league-update [league]="league"></league-update>
+      </p-dialog>
+    </div>
+    <div class="col-sm-4">
+      <button pButton type="button" (click)="leagueDetails(league.id)" severity="secondary">
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+    <div class="col-sm-4">
+      <league-remove [leagueId]="league.id"></league-remove>
+    </div>
+  </div>
+</td>

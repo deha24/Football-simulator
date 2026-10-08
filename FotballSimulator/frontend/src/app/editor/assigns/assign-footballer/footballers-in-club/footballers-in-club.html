@@ -1,0 +1,79 @@
+<p-table #dt [value]="footballers" showGridlines [resizableColumns]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [scrollable]="true" sortMode="multiple" removableSort dataKey="id" dataKey="id" editMode="row">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="first_name" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    first name
+                    <p-sortIcon field="first_name" />
+                    <p-column-filter type="text" field="first_name" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="last_name" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Last name
+                    <p-sortIcon field="last_name" />
+                    <p-column-filter type="text" field="last_name" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="birth_date" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Birth Date
+                    <p-sortIcon field="birth_date" />
+                    <p-column-filter type="date" field="birth_date" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="nationality" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Nationality
+                    <p-sortIcon field="nationality" />
+                    <p-column-filter type="text" field="nationality" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="position" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Position
+                    <p-sortIcon field="position" />
+                    <p-column-filter type="text" field="position" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="goalkeeping" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Goalkeeping
+                    <p-sortIcon field="goalkeeping" />
+                    <p-column-filter type="numeric" field="goalkeeping" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="defence" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Defence
+                    <p-sortIcon field="defence" />
+                    <p-column-filter type="numeric" field="defence" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="midfield" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Midfield
+                    <p-sortIcon field="midfield" />
+                    <p-column-filter type="numeric" field="midfield" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="attack" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Attack
+                    <p-sortIcon field="attack" />
+                    <p-column-filter type="numeric" field="attack" display="menu" />
+                </div>
+            </th>
+            <th pResizableColumn style="min-width: 160px">
+                <div class="flex items-center gap-2">
+                    Change Club
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-footballer let-ri="rowIndex">
+        <tr footballers-in-club-item [footballer]="footballer"></tr>
+    </ng-template>
+</p-table>

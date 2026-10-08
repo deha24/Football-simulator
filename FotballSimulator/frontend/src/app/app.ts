@@ -1,4 +1,3 @@
-import { Footballer } from '../shared/models/footballer';
 import { Component, OnInit, Output, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -14,5 +13,5 @@ export class App implements OnInit {
 
   ngOnInit() { }
 
-  protected readonly title = signal('FotballSimulator');
+  protected readonly title = signal('FootballSimulator');
 }

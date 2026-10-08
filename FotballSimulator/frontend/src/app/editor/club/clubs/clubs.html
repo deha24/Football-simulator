@@ -1,0 +1,53 @@
+<p-toast position="bottom-right"/>
+
+<p-table #dt [value]="clubs" showGridlines [resizableColumns]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [scrollable]="true" sortMode="multiple" removableSort dataKey="id" dataKey="id" editMode="row">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="name" />
+                    <p-column-filter type="text" field="name" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="location" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Location
+                    <p-sortIcon field="location" />
+                    <p-column-filter type="text" field="location" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="foundDate" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Found Date
+                    <p-sortIcon field="foundDate" />
+                    <p-column-filter type="date" field="foundDate" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="stadium" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Stadium Name
+                    <p-sortIcon field="stadium" />
+                    <p-column-filter type="text" field="stadium" display="menu" />
+                </div>
+            </th>
+            <th pSortableColumn="stadiumCapacity" pResizableColumn>
+                <div class="flex items-center gap-2">
+                    Stadium Capacity
+                    <p-sortIcon field="stadiumCapacity" />
+                    <p-column-filter type="text" field="stadiumCapacity" display="menu" />
+                </div>
+            </th>
+            <th>
+                <div class="flex items-center gap-2">
+                    Actions
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-club let-ri="rowIndex">
+        <tr clubs-item [club]="club" [rowIndex]="ri"></tr>
+    </ng-template>
+</p-table>

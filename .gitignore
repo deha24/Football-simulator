@@ -1,0 +1,14 @@
+/FotballSimulator/backend/__pycache__
+/FotballSimulator/backend/modelsAndServices/__pycache__
+/FotballSimulator/backend/modelsAndServices/clubs/models/__pycache__
+/FotballSimulator/backend/modelsAndServices/footballers/__pycache__
+/FotballSimulator/backend/modelsAndServices/clubs/services/__pycache__
+/FotballSimulator/backend/modelsAndServices/clubs/__pycache__
+/FotballSimulator/backend/modelsAndServices/footballers/models/__pycache__
+/FotballSimulator/backend/modelsAndServices/footballers/services/__pycache__
+/FotballSimulator/backend/modelsAndServices/leagues/__pycache__
+/FotballSimulator/backend/modelsAndServices/leagues/models/__pycache__
+/FotballSimulator/backend/modelsAndServices/leagues/models/__pycache__
+/FotballSimulator/backend/modelsAndServices/leagues/services/__pycache__
+/FotballSimulator/backend/modelsAndServices/leagues/services/__pycache__
+/FotballSimulator/backend/venv

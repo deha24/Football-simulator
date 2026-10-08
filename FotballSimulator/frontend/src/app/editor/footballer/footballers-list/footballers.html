@@ -1,9 +1,0 @@
-<ul class="list-group mt-3">
-  @if (footballers.length > 0) {
-      @for (footballer of footballers; track footballer) {
-        <footballers-item [footballer]="footballer"></footballers-item>
-      }
-    } @else {
-      <li class="d-flex justify-content-between">No players found.</li>
-      }
-  </ul>

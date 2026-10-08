@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 import psycopg2
-from ..models.club import Club, CreateClubDTO
+from ..models.club import ClubDTO, CreateClubDTO, UpdateClubDTO
+from .clubMappers import map_to_club_domain, map_to_club_dto
 
 router = APIRouter(
     prefix="/clubs",
@@ -24,31 +25,52 @@ try:
 except Exception as e:
     pass
 
+
 @router.get("/getclubs")
-def get_clubs() -> list[Club]:
-    with conn.cursor() as cur:
-        cur.execute("SELECT * FROM clubs")
-        rows = cur.fetchall()
-    return [Club(id=row[0], name=row[1], players_id=row[2] if row[2] is not None else []) for row in rows]
+def get_clubs() -> list[ClubDTO]:
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM clubs")
+    rows = cur.fetchall()
+    if rows:
+        clubs = [map_to_club_domain(row) for row in rows]
+       
+    return [map_to_club_dto(club) for club in clubs]
 
 @router.post("/addclub")
 async def addclub(club: CreateClubDTO):
     cur = conn.cursor()
-    cur.execute("INSERT INTO clubs (name, players_id) VALUES (%s, %s)", (club.name, club.players_id))
+    cur.execute("INSERT INTO clubs (name, location, found_date, stadium_name, stadium_capacity) VALUES (%s, %s, %s, %s, %s)", (club.name, club.location, club.found_date, club.stadium_name, club.stadium_capacity))
     conn.commit()
 
 @router.get("/details/{club_id}")
-async def get_club_by_id(club_id: int) -> Club:
+async def get_club_by_id(club_id: int) -> ClubDTO:
     cur = conn.cursor()
     cur.execute("SELECT * FROM clubs WHERE id = %s", (club_id,))
     row = cur.fetchone()
     if row:
-        return Club(
-            id=row[0],
-            name=row[1],
-            players_id=row[2] if row[2] is not None else []
-        )
+        club = map_to_club_domain(row)
+        return map_to_club_dto(club)
     return None
+
+@router.patch("/update/{club_id}")
+async def update_club(club_id: int, club: UpdateClubDTO):
+
+    updatedData = club.model_dump(exclude_unset=True)
+    set_clauses = []
+    values = []
+
+    for key, value in updatedData.items():
+        set_clauses.append(f"{key} = %s")
+        values.append(value)
+    
+    set_query = ", ".join(set_clauses)
+    values.append(club_id) 
+    
+    cur = conn.cursor()
+    query = f"UPDATE clubs SET {set_query} WHERE id = %s"
+    cur.execute(query, tuple(values))
+    conn.commit()
+    return {"message": "Club updated successfully"}
 
 @router.delete("/remove/{club_id}")
 async def remove_club(club_id: int):

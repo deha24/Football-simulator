@@ -1,0 +1,19 @@
+.active-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(144, 238, 144, 0.35) !important;
+    color: #14532d !important;
+    font-weight: 700;
+    border: 2px solid #b8b8b8 !important;
+}
+
+.unactive-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+     font-weight: 700;
+     border: 2px solid #b8b8b8 !important;
+}

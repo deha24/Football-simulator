@@ -1,0 +1,13 @@
+services:
+  my-app: # To jest nazwa naszego wirtualnego komputerka
+    image: node:24-alpine # Z jakiego obrazu korzystamy
+    working_dir: /app # Odpowiednik naszej flagi -w /app
+    ports:
+      - "4200:4200" # Odpowiednik naszej flagi -p 4200:4200 (nasz tunel!)
+    volumes:
+      - ./FotballSimulator/frontend:/app # Odpowiednik flagi -v (nasz magiczny portal łączący obecny folder z /app)
+    environment:
+      # To wyłącza natrętne pytanie Angulara o zgody na śledzenie (omija zawieszenie)
+      - NG_CLI_ANALYTICS=false
+    # A to jest magia! Mówimy Dockerowi, co ma zrobić zaraz po starcie:
+    command: sh -c "npm install --legacy-peer-deps && npx ng serve --host 0.0.0.0 --poll 2000"

@@ -1,0 +1,120 @@
+<p-toast position="bottom-right"/>
+
+<form [formGroup]="addCoachform" (ngSubmit)="validCoachForm()">
+
+  <p-card>
+    <div class="row mt-1 mb-1 gx-3 gy-2 align-items-center justify-content-center ">
+
+      <div class="col-sm-9">
+        <h5 #title> Add New Coach </h5>
+      </div>
+      <div class="col-sm-3 d-flex justify-content-end">
+        <p-button label="Add Coach" type="submit" variant="outlined" [raised]="true" severity="success" />
+      </div>
+    </div>
+
+    <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-center ">
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Personal Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+          <input pInputText placeholder="First Name" formControlName="newCoachFirstName" />
+          <input pInputText placeholder="Last Name" formControlName="newCoachLastname" />
+          </p-inputgroup>
+          @if (addCoachform.get('newCoachFirstName')?.invalid && addCoachform.get('newCoachFirstName')?.touched) {
+            <small class="text-danger">First name is required.</small>
+            <br />
+          }
+          @if (addCoachform.get('newCoachLastname')?.invalid && addCoachform.get('newCoachLastname')?.touched) {
+            <small class="text-danger">Last name is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+          <p-inputgroup-addon>
+              <i class="pi pi-calendar"></i>
+          </p-inputgroup-addon>
+            <p-datepicker placeholder="Birth Date" dateFormat="dd.mm.yy" formControlName="newCoachBirthDate" fluid/>
+          </p-inputgroup>
+          @if(addCoachform.get('newCoachBirthDate')?.invalid && addCoachform.get('newCoachBirthDate')?.touched) {
+            <small class="text-danger">Birth date is required.</small>
+          }
+          <p-inputgroup class="mt-1">
+              <p-inputgroup-addon>
+                  <i class="pi pi-flag"></i>
+              </p-inputgroup-addon>
+            <input pInputText placeholder="Nationality" formControlName="newCoachNationality" />
+          </p-inputgroup>
+          @if(addCoachform.get('newCoachNationality')?.invalid && addCoachform.get('newCoachNationality')?.touched) {
+            <small class="text-danger">Nationality is required.</small>
+          }
+        </p-card>
+      </div>
+
+      <div class="col-sm-6">
+        <p-card>
+          <h5> Coach Information </h5>
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+              <i class="pi pi-star"></i>
+            </p-inputgroup-addon>
+            <input pInputText type="number" placeholder="defence" inputId="integeronly" formControlName="newCoachDefence" />
+            <input pInputText type="number" placeholder="midfield" inputId="integeronly" formControlName="newCoachMidfield" />
+            <input pInputText type="number" placeholder="attack" inputId="integeronly" formControlName="newCoachAttack" />
+          </p-inputgroup>
+          @if(addCoachform.get('newCoachDefence')?.invalid && addCoachform.get('newCoachDefence')?.touched) {
+            @if(addCoachform.get('newCoachDefence')?.errors?.['required']) {
+              <small class="text-danger">Defence rating is required.</small>
+            }
+            @if(addCoachform.get('newCoachDefence')?.errors?.['min'] || addCoachform.get('newCoachDefence')?.errors?.['max']) {
+              <small class="text-danger">Defence rating must be between 1 and 99.</small>
+            }
+          }
+          @if(addCoachform.get('newCoachMidfield')?.invalid && addCoachform.get('newCoachMidfield')?.touched) {
+            @if(addCoachform.get('newCoachMidfield')?.errors?.['required']) {
+              <small class="text-danger">Midfield rating is required.</small>
+            }
+            @if(addCoachform.get('newCoachMidfield')?.errors?.['min'] || addCoachform.get('newCoachMidfield')?.errors?.['max']) {
+              <small class="text-danger">Midfield rating must be between 1 and 99.</small>
+              <br />
+              
+            }
+            @if(addCoachform.get('newCoachDefence')?.errors?.['min'] || addCoachform.get('newCoachDefence')?.errors?.['max']) {
+              <small class="text-danger">Defence rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(addCoachform.get('newCoachAttack')?.invalid && addCoachform.get('newCoachAttack')?.touched) {
+            @if(addCoachform.get('newCoachAttack')?.errors?.['required']) {
+              <small class="text-danger">Attack rating is required.</small>
+            }
+            @if(addCoachform.get('newCoachAttack')?.errors?.['min'] || addCoachform.get('newCoachAttack')?.errors?.['max']) {
+              <small class="text-danger">Attack rating must be between 1 and 99.</small>
+              <br />
+            }
+          }
+          @if(addCoachform.get('newCoachAttack')?.invalid && addCoachform.get('newCoachAttack')?.touched) {
+            @if(addCoachform.get('newCoachAttack')?.errors?.['required']) {
+              <small class="text-danger">Attack rating is required.</small>
+            }
+            @if(addCoachform.get('newCoachAttack')?.errors?.['min'] || addCoachform.get('newCoachAttack')?.errors?.['max']) {
+              <small class="text-danger">Attack rating must be between 1 and 99.</small>
+            }
+          }
+
+          <p-inputgroup class="mt-1">
+            <p-inputgroup-addon>
+                <i class="pi pi-circle"></i>
+            </p-inputgroup-addon>
+            <p-select [options]="midfieldStyles" formControlName="newCoachMidfieldStyle" optionLabel="label" optionValue="value" placeholder="Midfield Style" />
+            <p-select [options]="balanceStyles" formControlName="newCoachBalanceStyle" optionLabel="label" optionValue="value" placeholder="Balance Style" />
+          </p-inputgroup>
+
+          <coach-lineup-form></coach-lineup-form>
+        </p-card>
+      </div>
+    </div>
+  </p-card>
+</form>

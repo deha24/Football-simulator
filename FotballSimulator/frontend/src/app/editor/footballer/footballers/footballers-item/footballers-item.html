@@ -1,0 +1,49 @@
+<td>
+  {{footballer.first_name}}
+</td>
+<td>
+  {{footballer.last_name}}
+</td>
+<td>
+  {{footballer.birth_date}}
+</td>
+<td>
+  {{footballer.nationality}}
+</td>
+<td>
+  {{footballer.shortPosition}}
+</td>
+<td>
+  {{footballer.goalkeeping}}
+</td>
+<td>
+  {{footballer.defence}}
+</td>
+<td>  
+  {{footballer.midfield}}
+</td>
+<td>
+  {{footballer.attack}}
+</td>
+<td>
+  <div class="row mt-1 gx-3 gy-2 align-items-top justify-content-left">
+    <div class="col-sm-4">
+      <button pButton type="button" (click)="openEditDialog(footballer.id)" severity="secondary">
+        <i class="pi pi-pencil"></i>
+      </button>
+      <p-dialog header="Edytuj piłkarza" [(visible)]="displayEditDialog" [modal]="true">
+        @if (displayEditDialog) {
+          <footballer-update [footballer]="$any(footballer)"></footballer-update>
+        }
+      </p-dialog>
+    </div>
+    <div class="col-sm-4">
+      <button pButton type="button" (click)="detailsFootballer(footballer.id)" severity="secondary">
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+    <div class="col-sm-4">
+      <footballer-remove [footballerId]="footballer.id"></footballer-remove>
+    </div>
+  </div>
+</td>

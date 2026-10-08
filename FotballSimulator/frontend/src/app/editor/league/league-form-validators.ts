@@ -3,7 +3,6 @@ import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from
 import { LeagueService } from "./leagueService";
 import { map } from "rxjs/operators";
 import { Observable, of } from "rxjs";
-import { League } from '../../../shared/models/league';
 
 export function multipleFirstLeagueLevel(leagueService: LeagueService, EventService: EventService): AsyncValidatorFn  {
 

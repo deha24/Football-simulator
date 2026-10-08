@@ -1,8 +1,0 @@
-@for (league of leagues; track league) {
-  <li class="d-flex justify-content-between list-group-item">
-    <h3>{{ league.name }}</h3>
-    <h6>{{ league.id }}</h6>
-    <button class="btn btn-secondary" (click)="$event.preventDefault(); leagueDetails(league.id)">Edit</button>
-    <league-remove [leagueId]="league.id"></league-remove>
-  </li>
-}
