@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 import psycopg2
 from ....coaches.models.coach import CoachesDTO
+from ....coaches.models.coachDomain import CoachDomain
 from ....coaches.services.coachService import get_coach_lineup_by_id
 from ....coaches.services.coachMappers import map_to_coach_domain, map_to_coachesDTO
 from ..models.assignCoach import ClubsIds
@@ -27,9 +28,18 @@ try:
 except Exception as e:
     pass
 
-#TODO: split funkction into returning DTO and domain, and move to mappers
+
 @router.get("/getcoaches/{club_id}")
-async def get_coach_by_club_id(club_id: int) -> list[CoachesDTO]:
+async def get_coachesDTO_by_club_id(club_id: int) -> list[CoachesDTO]:
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM coaches WHERE club_id = %s", (club_id,))
+    rows = cur.fetchall()
+    if rows:
+        coaches = [map_to_coach_domain(row, await get_coach_lineup_by_id(row[0])) for row in rows]
+        return [map_to_coachesDTO(coach) for coach in coaches]
+    return []
+
+async def get_coachesDomain_by_club_id(club_id: int) -> list[CoachDomain]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM coaches WHERE club_id = %s", (club_id,))
     rows = cur.fetchall()

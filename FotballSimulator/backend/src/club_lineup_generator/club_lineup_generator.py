@@ -11,9 +11,9 @@ def generate_lineup(footballers: list[PlayerLienupGeneratorInfo], coach: CoachLi
     assigned_positions = set()
     assigned_footballers = set()
     benched_footballers = set()
+    total_usage = 0
 
     for footballer in sorted_usage_list:
-        print(f"Footballer ID: {footballer.id}, Position: {footballer.player_position}, Usage: {footballer.position_usage}")  # Debugging line
         position = footballer.player_position
 
         if footballer.id in assigned_footballers:
@@ -27,15 +27,15 @@ def generate_lineup(footballers: list[PlayerLienupGeneratorInfo], coach: CoachLi
         setattr(club_lienup, position, footballer.id)
         assigned_positions.add(position)
         assigned_footballers.add(footballer.id)
+        toal_usage += footballer.position_usage
 
         if footballer.id in benched_footballers:
             benched_footballers.remove(footballer.id)
 
-    
+    average_usage = toal_usage / len(assigned_footballers) if assigned_footballers else 0
+    lineup_upgrade(footballers, club_lienup, benched_footballers, average_usage)
 
     print("Generated Club Lineup:", club_lienup, "bench: ", benched_footballers)  # Debugging line
-    
-        
 
 def fill_up_usage_list(footballers: list[PlayerLienupGeneratorInfo], coach: CoachLineupGeneratorInfo) -> list[PlayerPositionUsageInfo]:
 
@@ -66,7 +66,6 @@ def get_coach_lineup_slots(coach: CoachLineupGeneratorInfo) -> dict[str, list[st
                 coach_lineup_slots[generic_pos] = []
             coach_lineup_slots[generic_pos].append(coach_pos)
 
-    print("Coach Lineup Slots:", coach_lineup_slots)  # Debugging line
     return coach_lineup_slots
 
 def calculate_position_usage(footballer: PlayerCalculateUsageInfo, coach: CoachLineupGeneratorInfo) -> PlayerPositionUsageInfo:
@@ -102,6 +101,15 @@ def calculate_goalkeeper_usage(footballer: PlayerCalculateUsageInfo, coach: Coac
         player_position=footballer.position,
         position_usage=usage
     )
+
+def lineup_upgrade(footballers: list[PlayerLienupGeneratorInfo], lineup: ClubLineupDomain, bench_players: set, average_usage: float) -> ClubLineupDomain:
+
+    for footballer in lineup:
+        if footballer in footballers:
+            continue
+
+def check_bad_usage_in_position(list[PlayerPositionUsageInfo]):
+    pass
 
 def get_position_ability(positions: FootballerPositionsDomain, position: str) -> int:
     return getattr(positions, position, 0)

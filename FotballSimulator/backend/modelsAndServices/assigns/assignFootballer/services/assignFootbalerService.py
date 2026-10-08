@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 import psycopg2
-from ....footballers.models.footballer import FootballerDetailsDTO
-from ....footballers.models.footballerDomain import FootballerDomain, FootballerPositionsDomain
-from ....footballers.services.footballersMappers import map_to_footballer_domain, map_to_footballers_detailsDTO, map_to_position_domain
+from ....footballers.models.footballer import FootballersDTO
+from ....footballers.models.footballerDomain import FootballerDomain
+from ....footballers.services.footballersMappers import map_to_footballer_domain, map_to_footballersDTO, map_to_position_domain
 from ....footballers.models.footballerPositions import FootballerPositionsDTO
 from ..models.assignFootballer import ClubsIds
 
@@ -55,7 +55,16 @@ async def get_footballer_positions_by_id(footballer_id: int) -> FootballerPositi
 
 #mock
 @router.get("/getfootballers/{club_id}")
-async def get_footballer_by_club_id(club_id: int) -> list[FootballerDomain]:
+async def get_footballersDTO_by_club_id(club_id: int) -> list[FootballersDTO]:
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM footballers WHERE club_id = %s", (club_id,))
+    rows = cur.fetchall()
+    if rows:
+        footballers = [map_to_footballer_domain(row, map_to_position_domain(await get_footballer_positions_by_id(row[0]))) for row in rows]
+        return [map_to_footballersDTO(footballer) for footballer in footballers]
+    return []
+
+async def get_footballersDomain_by_club_id(club_id: int) -> list[FootballerDomain]:
     cur = conn.cursor()
     cur.execute("SELECT * FROM footballers WHERE club_id = %s", (club_id,))
     rows = cur.fetchall()

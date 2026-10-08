@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ClubDTO, CreateClubDTO } from '../../../shared/models/club';
+import { ClubDTO, ClubNameDTO ,CreateClubDTO } from '../../../shared/models/club';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,9 @@ export class ClubService {
 
   getClubById(clubId: number) {
     return this.http.get<ClubDTO>(`http://127.0.0.1:8000/clubs/details/${clubId}`);
+  }
+
+  getClubNameById(clubId: number) {
+    return this.http.get<ClubNameDTO>(`http://127.0.0.1:8000/clubs/getclubname/${clubId}`);
   }
 }

@@ -9,6 +9,10 @@ class ClubDTO(BaseModel):
     stadium_name: str = Field(..., max_length=100, description="The name of the club's stadium")
     stadium_capacity: int = Field(..., description="The capacity of the club's stadium")
 
+class ClubNameDTO(BaseModel):
+    id: int
+    name: str = Field(..., max_length=100, description="The name of the club")
+
 class CreateClubDTO(BaseModel):
     name: str = Field(..., max_length=100, description="The name of the club")
     location: str = Field(..., max_length=100, description="The location of the club")

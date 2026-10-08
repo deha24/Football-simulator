@@ -9,6 +9,13 @@ export class ClubDTO {
   ) {}
 }
 
+export class ClubNameDTO {
+  constructor(
+    public id: number,
+    public name: string,
+  ) {}
+}
+
 export class CreateClubDTO {
   constructor(
     public name: string,

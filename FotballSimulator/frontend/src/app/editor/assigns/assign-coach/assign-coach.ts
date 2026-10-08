@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { FORMS_IMPORTS, FormControl, FormGroup } from '../../../../shared/formsImports';
 import { ClubService } from '../../club/clubService';
 import { AssignCoachStateService } from './services/assignCoachStateService';
-import { ClubDTO } from '../../../../shared/models/club';
+import { ClubDTO, ClubNameDTO } from '../../../../shared/models/club';
 import { ClubsIds } from '../../../../shared/models/assigns/assignPerson';
 import { CoachInClub } from './coach-in-club/coach-in-club';
 import { MessageService } from 'primeng/api';
@@ -18,8 +18,8 @@ export class AssignCoach implements OnInit {
 
   clubs: ClubDTO[]= [];
   club: ClubDTO | undefined;
-  club1: ClubDTO | undefined;
-  club2: ClubDTO | undefined;
+  club1: ClubNameDTO | undefined;
+  club2: ClubNameDTO | undefined;
   tmpClub: ClubDTO | undefined;
   currentClubsIds: ClubsIds = { club1Id: 0, club2Id: 0 };
   private messageService = inject(MessageService);
@@ -52,7 +52,7 @@ export class AssignCoach implements OnInit {
     this.pickClub1form.get('club1Id')?.valueChanges.subscribe(clubId => {
       if(clubId !== null){
         this.stateService.setClub1(clubId);
-        this.clubService.getClubById(clubId).subscribe((data: ClubDTO) => {
+        this.clubService.getClubNameById(clubId).subscribe((data: ClubNameDTO) => {
           this.club1 = data;
           this.cdr.markForCheck();
         });
@@ -64,7 +64,7 @@ export class AssignCoach implements OnInit {
     this.pickClub2form.get('club2Id')?.valueChanges.subscribe(clubId => {
       if(clubId !== null){
         this.stateService.setClub2(clubId);
-        this.clubService.getClubById(clubId).subscribe((data: ClubDTO) => {
+        this.clubService.getClubNameById(clubId).subscribe((data: ClubNameDTO) => {
           this.club2 = data;
           this.cdr.markForCheck();
         });
