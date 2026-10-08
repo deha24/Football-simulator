@@ -2,6 +2,9 @@ from fastapi import APIRouter
 import psycopg2
 from ..models.club import ClubDTO, CreateClubDTO, UpdateClubDTO
 from .clubMappers import map_to_club_domain, map_to_club_dto
+from ...assigns.assignFootballer.services.assignFootbalerService import get_footballer_by_club_id
+from ...assigns.assignCoach.services.assignCoachService import get_coach_by_club_id
+from src.club_lineup_generator.club_lineup_generator import generate_lineup, map_to_playerLineupGeneratorInfo, map_to_coachLineupGeneratorInfo
 
 router = APIRouter(
     prefix="/clubs",
@@ -44,6 +47,9 @@ async def addclub(club: CreateClubDTO):
 
 @router.get("/details/{club_id}")
 async def get_club_by_id(club_id: int) -> ClubDTO:
+    footballers = await get_footballer_by_club_id(club_id)
+    coach = await get_coach_by_club_id(club_id)
+    generate_lineup([map_to_playerLineupGeneratorInfo(footballer) for footballer in footballers], map_to_coachLineupGeneratorInfo(coach[0]))
     cur = conn.cursor()
     cur.execute("SELECT * FROM clubs WHERE id = %s", (club_id,))
     row = cur.fetchone()

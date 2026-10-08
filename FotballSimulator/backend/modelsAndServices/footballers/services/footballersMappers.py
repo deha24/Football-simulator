@@ -3,7 +3,6 @@ from ..models.footballer import FootballerDetailsDTO, FootballersDTO
 from ..models.footballerPositions import FootballerPositionsDTO
 
 def map_to_footballer_domain(row: tuple, positions: FootballerPositionsDomain) -> FootballerDomain:
-    
     return FootballerDomain(
         id=row[0], first_name=row[1], last_name=row[2], birth_date=row[3],
         nationality=row[4], goalkeeping=row[5], defence=row[6], 

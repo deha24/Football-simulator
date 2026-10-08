@@ -27,6 +27,7 @@ try:
 except Exception as e:
     pass
 
+#TODO: split funkction into returning DTO and domain, and move to mappers
 @router.get("/getcoaches/{club_id}")
 async def get_coach_by_club_id(club_id: int) -> list[CoachesDTO]:
     cur = conn.cursor()
@@ -34,7 +35,7 @@ async def get_coach_by_club_id(club_id: int) -> list[CoachesDTO]:
     rows = cur.fetchall()
     if rows:
         coaches = [map_to_coach_domain(row, await get_coach_lineup_by_id(row[0])) for row in rows]
-        return [map_to_coachesDTO(coach) for coach in coaches]
+        return coaches
     return []
 
 @router.post("/{coach_id}")
